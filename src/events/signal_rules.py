@@ -10,7 +10,11 @@ from ..scene import polygon, side_of_line
 from ..signals import RED
 from .base import Context, Event
 
-RED_GRACE = 0.5        # s after red onset / before green in which we do not call a violation
+RED_GRACE = 0.5        # s after red onset in which we do not call a violation
+# s before green in which a crossing is an early start on red+yellow, not red-light running: the
+# queue front moves off with the red+yellow (3 of 14 green phases on the samples, 0.26-0.40 s early)
+# and the dev annotators rejected a rider who went 0.75 s early.
+RED_GRACE_END = 1.0
 MIN_CROSS_SPEED = 25.0  # px/s at the crossing: a creeping vehicle is a stop_line case, not red_light
 STOP_SPEED = 12.0       # px/s below which a vehicle counts as stopped
 PAST_LINE = 8.0         # px beyond the stop line before "past the line" counts
@@ -99,7 +103,7 @@ def red_light(ctx: Context) -> list[Event]:
         if not (-0.05 <= u <= 1.05 and came_from_approach):
             continue
         bounds = _red_bounds(ctx, tc)
-        if bounds is None or tc - bounds[0] < RED_GRACE or bounds[1] - tc < RED_GRACE:
+        if bounds is None or tc - bounds[0] < RED_GRACE or bounds[1] - tc < RED_GRACE_END:
             continue
         speed = tr.speed()
         if speed[i:i + 2].mean() < MIN_CROSS_SPEED:

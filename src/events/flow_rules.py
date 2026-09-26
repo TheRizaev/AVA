@@ -7,6 +7,7 @@ from functools import lru_cache
 import cv2
 import numpy as np
 
+from ..config import BUS
 from ..scene import polygon, union_mask
 from ..signals import GREEN
 from .base import Context, Event, fill_short_gaps, runs_of_true
@@ -22,6 +23,9 @@ PASSING_SHARE = 0.3      # traffic must pass it in at least this share of its st
 KERBSIDE_PX = 100.0      # a stopped vehicle stands next to the kerb (reference px from the roadside kerb)
 SEAM_CLOSE_PX = 9        # closes the few-px seams between adjacent layout polygons (a seam is not a kerb)
 ISLANDS_AND_MEDIAN = ("median", "island_round", "island_tri1", "island_tri2", "island_3")
+# A bus standing at the roadside kerb with traffic passing it is serving a stop (the OQ stop on the
+# outbound road): a scheduled dwell, not a stopped-vehicle incident (dev annotators rejected every one).
+EXCLUDE_BUSES = True
 
 
 @dataclass
@@ -35,7 +39,7 @@ class _Stay:
 def _stationary_pieces(ctx: Context) -> list[_Stay]:
     pieces = []
     for tr in ctx.kind("vehicle"):
-        if tr.duration < 2.0:
+        if tr.duration < 2.0 or (EXCLUDE_BUSES and tr.cls == BUS):
             continue
         speed = tr.speed(1.0)
         still = fill_short_gaps(tr.t, speed < STOP_SPEED, 1.0)
@@ -192,25 +196,43 @@ def congestion(ctx: Context) -> list[Event]:
 JUNCTION_JAM_MIN_VEHICLES = 5
 JUNCTION_JAM_STILL_FRAC = 0.6
 JUNCTION_JAM_GAP = 12.0
+# The class is a standstill of A direction. Cross-street cars queued in front of cw2 while the
+# pedestrians have their phase (= main-road red) are a yield queue of their own approach; alone they
+# are not a jam, however many there are. Most of the minimum jam must be main-road traffic.
+JUNCTION_JAM_MIN_MAIN = 3
+
+
+def _with_main_road(tr) -> bool:
+    """The track moves with the main road (left -> right across the frame).
+
+    Approach traffic enters top-left and leaves bottom-right / into the side street; the cross street
+    and the outbound carriageway run right -> left. The net displacement of the whole track decides.
+    """
+    return bool(tr.xy[-1, 0] - tr.xy[0, 0] > 0)
 
 
 def _junction_jam(ctx: Context, grid: np.ndarray) -> np.ndarray:
-    """Per grid step: the junction interior is packed with crawling vehicles (spillback)."""
+    """Per grid step: the junction interior is packed with crawling vehicles (spillback of the main road)."""
     interior = polygon("junction").mask() & ~ctx.crosswalk_mask & ~polygon("stop_zone").mask()
     n = np.zeros(len(grid))
     still = np.zeros(len(grid))
+    still_main = np.zeros(len(grid))
     for tr in ctx.kind("vehicle"):
         inside = ctx.sample(interior, tr.xy) & ~tr.at_border
         if not inside.any():
             continue
         body = np.maximum(tr.box[:, 3] - tr.box[:, 1], 10.0)
         crawl = tr.speed(1.0) / body < CONGESTION_BODY_SPEED
+        main = _with_main_road(tr)
         gi = np.clip(np.searchsorted(grid, tr.t), 0, len(grid) - 1)
         for k in np.unique(gi[inside]):
             m = inside & (gi == k)
             n[k] += 1
-            still[k] += crawl[m].mean() >= 0.5
-    return (still >= JUNCTION_JAM_MIN_VEHICLES) & (still >= JUNCTION_JAM_STILL_FRAC * np.maximum(n, 1))
+            c = crawl[m].mean() >= 0.5
+            still[k] += c
+            still_main[k] += c and main
+    return (still >= JUNCTION_JAM_MIN_VEHICLES) & (still >= JUNCTION_JAM_STILL_FRAC * np.maximum(n, 1)) & \
+        (still_main >= JUNCTION_JAM_MIN_MAIN)
 
 
 def load_lanes() -> np.ndarray:
