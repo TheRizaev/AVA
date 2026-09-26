@@ -1,0 +1,2942 @@
+{
+ "test_acc_videox_test_T1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Box truck already lying on its side at 0 s; no new contact."
+ },
+ "test_acc_videox_test_T12.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Jackknifed tractor-trailer already across the lanes at 0 s; camera zooms at ~12 s."
+ },
+ "test_acc_videox_test_T15.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Small truck already overturned at 0 s; camera zooms."
+ },
+ "test_acc_videox_test_T3.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Three cars already stopped nose-to-tail (rear-end chain) at 0 s."
+ },
+ "test_acc_videox_test_T6.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "SUV with crushed front already against the central barrier at 0 s."
+ },
+ "test_acc_videox_test_T9.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Cars already stopped at the left side at 0 s; camera pans at ~17 s."
+ },
+ "train_acc_video76.mp4": {
+  "case": "collision",
+  "start": 3.9,
+  "end": 8.0,
+  "precursor": 1.0,
+  "confidence": "medium",
+  "description": "Edited news clip (608x1080, cuts, replays). Truck cab strikes a Jeep crossing the gore at ~3.9 s."
+ },
+ "train_acc_videox24_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "medium",
+  "description": "Night; person already lying in the lane at 0 s."
+ },
+ "train_acc_video135.mp4": {
+  "case": "collision",
+  "start": 10.9,
+  "end": 12.6,
+  "precursor": 9.9,
+  "confidence": "high",
+  "description": "E-scooter rider moves into the path of an oncoming sedan, head-on at ~10.9 s. Frame frozen with caption ~5-9.7 s."
+ },
+ "train_acc_video164.mp4": {
+  "case": "collision",
+  "start": 5.4,
+  "end": 6.5,
+  "precursor": 3.6,
+  "confidence": "medium",
+  "description": "White car skids from ~3.6 s and slides into an already overturned truck ~5.4 s (contact hidden); replay from a second camera ~13.9-14.3 s.",
+  "extra": [
+   [
+    14.0,
+    15.0
+   ]
+  ]
+ },
+ "train_acc_video183.mp4": {
+  "case": "collision",
+  "start": 3.6,
+  "end": 7.5,
+  "precursor": 2.6,
+  "confidence": "high",
+  "description": "640x360, two cameras. Rider crossing in front of a fast sedan is hit at ~3.6 s; cut at ~4 s."
+ },
+ "train_acc_video139.mp4": {
+  "case": "collision",
+  "start": 3.55,
+  "end": 9.0,
+  "precursor": 2.8,
+  "confidence": "medium",
+  "description": "Filmed off a monitor, zooms. Tanker tips onto a white car ~3.55 s, overturns, slides into a parked SUV."
+ },
+ "train_acc_video64.mp4": {
+  "case": "collision",
+  "start": 3.8,
+  "end": 8.5,
+  "precursor": 2.8,
+  "confidence": "high",
+  "description": "Rainy intersection, overlay and zooms. Dump truck turns across an oncoming sedan, impact ~3.8 s; second camera from ~6 s."
+ },
+ "train_acc_videox9_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night; box truck already on its side at 0 s."
+ },
+ "train_acc_video186.mp4": {
+  "case": "collision",
+  "start": 8.1,
+  "end": 9.8,
+  "precursor": 5.4,
+  "confidence": "medium",
+  "description": "Edited clip. White car changes two lanes and cuts in front of a heavy truck, struck ~8.1 s; replay ~10.9 s."
+ },
+ "train_acc_video26.mp4": {
+  "case": "collision",
+  "start": 10.6,
+  "end": 17.8,
+  "precursor": 10.0,
+  "confidence": "high",
+  "description": "Highway. Dark sedan drifts left into a truck, sideswipe ~10.6 s, spins and stops against the median ~17.8 s."
+ },
+ "train_acc_video196.mp4": {
+  "case": "collision",
+  "start": 1.3,
+  "end": 5.0,
+  "precursor": 1.0,
+  "confidence": "medium",
+  "description": "Vertical compilation 528x646, cover still at 0 s. Two cars collide mid-intersection ~1.3 s, one rolls and hits a pedestrian ~4.3 s."
+ },
+ "train_acc_video67.mp4": {
+  "case": "collision",
+  "start": 5.0,
+  "end": 7.2,
+  "precursor": 4.6,
+  "confidence": "high",
+  "description": "Roadside shop camera. MPV and sedan side by side, sedan drifts left, collision ~5.0 s at the top of the frame; MPV crashes into the shop front ~6.4 s."
+ },
+ "train_acc_video153.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "medium",
+  "description": "Night, heavy rain; car already against the guardrail at 0 s."
+ },
+ "train_acc_video206.mp4": {
+  "case": "collision",
+  "start": 4.6,
+  "end": 5.8,
+  "precursor": 3.9,
+  "confidence": "medium",
+  "description": "Intersection approach with zooms, cover still at 0 s. White sedan veers left into a black sedan ~4.6 s."
+ },
+ "test_acc_videox_test_T10.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Black car already stopped with a warning triangle at 0 s."
+ },
+ "test_acc_videox_test_T13.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Crumpled white car and tow truck; PTZ zooms."
+ },
+ "test_acc_videox_test_T16.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Ambulance on scene, debris."
+ },
+ "test_acc_videox_test_T4.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Paramedics, crashed car with airbag deployed."
+ },
+ "test_acc_videox_test_T7.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Damaged box truck, police."
+ },
+ "train_acc_video10.mp4": {
+  "case": "collision",
+  "start": 5.1,
+  "end": 7.3,
+  "precursor": 3.0,
+  "confidence": "medium",
+  "description": "Truck skids from ~3.0 s, hits the median barrier ~5.1 s."
+ },
+ "train_acc_video169.mp4": {
+  "case": "collision",
+  "start": 2.8,
+  "end": 5.0,
+  "precursor": 2.1,
+  "confidence": "low",
+  "description": "News edit, digital zoom from ~2.4 s. Dump truck swerves around an e-bike (~2.8 s, contact unclear), tips onto an SUV ~3.7-4.2 s; other angles from ~7 s."
+ },
+ "train_acc_videox3_13.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night; police and tow truck on the shoulder; no collision."
+ },
+ "train_acc_video84.mp4": {
+  "case": "collision",
+  "start": 0.7,
+  "end": 1.8,
+  "precursor": 0.0,
+  "confidence": "medium",
+  "description": "Van hits a turning red sedan ~0.7 s; close-up replay from 2.25 s, another angle at 3.6 s."
+ },
+ "train_acc_video185.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Rainy night; damaged SUV already stopped at 0 s."
+ },
+ "train_acc_video146.mp4": {
+  "case": "collision",
+  "start": 5.0,
+  "end": 6.6,
+  "precursor": 4.5,
+  "confidence": "high",
+  "description": "Sedan turns across a motorcycle hidden behind a truck; contact ~5.0 s; replays from ~14 s and ~21 s."
+ },
+ "train_acc_video59.mp4": {
+  "case": "collision",
+  "start": 6.4,
+  "end": 7.9,
+  "precursor": 2.5,
+  "confidence": "high",
+  "description": "SUV runs the red light, hits a crossing sedan ~6.4 s; freeze with arrow 3.8-5.8 s; replay contact ~8.65 s, zoom from ~10 s.",
+  "extra": [
+   [
+    8.65,
+    9.9
+   ]
+  ]
+ },
+ "train_acc_video141.mp4": {
+  "case": "collision",
+  "start": 2.0,
+  "end": 5.0,
+  "precursor": 1.3,
+  "confidence": "medium",
+  "description": "Night bridge. Car veers into the median guardrail ~2.0 s, spins into a white car ~2.5 s, rolls; replay from ~8.4 s."
+ },
+ "train_acc_video178.mp4": {
+  "case": "collision",
+  "start": 3.4,
+  "end": 4.8,
+  "precursor": 2.9,
+  "confidence": "high",
+  "description": "Night street. Red car enters fast and hits a turning scooter ~3.43 s."
+ },
+ "train_acc_video136.mp4": {
+  "case": "collision",
+  "start": 4.5,
+  "end": 7.0,
+  "precursor": 4.2,
+  "confidence": "medium",
+  "description": "Far intersection. Dark car crosses fast and crashes at the median planter end ~4.5 s; debris."
+ },
+ "train_acc_video85.mp4": {
+  "case": "collision",
+  "start": 4.9,
+  "end": 11.5,
+  "precursor": 3.8,
+  "confidence": "high",
+  "description": "Heavy truck hits a moped from behind ~4.9 s, then overturns ~7.6-10.1 s."
+ },
+ "train_acc_video160.mp4": {
+  "case": "collision",
+  "start": 3.2,
+  "end": 5.0,
+  "precursor": 2.8,
+  "confidence": "high",
+  "description": "News clip. E-bike pulls out between parked cars ~2.8 s, hit by a red car ~3.2 s; close-up replay from 8.2 s."
+ },
+ "train_acc_video30.mp4": {
+  "case": "collision",
+  "start": 7.4,
+  "end": 8.6,
+  "precursor": 7.2,
+  "confidence": "high",
+  "description": "Minivan hits an e-bike entering from the bottom ~7.37 s; replay 9.6-11.6 s with contact ~10.8 s.",
+  "extra": [
+   [
+    10.8,
+    11.6
+   ]
+  ]
+ },
+ "train_acc_video159.mp4": {
+  "case": "collision",
+  "start": 4.8,
+  "end": 7.5,
+  "precursor": 4.5,
+  "confidence": "high",
+  "description": "Camera pans until ~4 s. Black car drifts into a truck's side ~4.8 s; both into the median."
+ },
+ "train_acc_video73.mp4": {
+  "case": "collision",
+  "start": 0.4,
+  "end": 2.4,
+  "precursor": 0.0,
+  "confidence": "medium",
+  "description": "Dump truck already tipping at 0 s, reaches roadside pedestrians ~0.4 s; zoomed replay from 2.9 s."
+ },
+ "test_acc_videox_test_T11.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Black sedan already stopped with torn bumper at 0 s; zoom from ~8 s."
+ },
+ "test_acc_videox_test_T14.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Truck already on its side at 0 s."
+ },
+ "test_acc_videox_test_T2.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Two cars already stopped together at 0 s."
+ },
+ "test_acc_videox_test_T5.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "medium",
+  "description": "Night gore area, crash barrels already broken at 0 s; PTZ zooms and pans."
+ },
+ "test_acc_videox_test_T8.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Foggy; camera pans to an accident site at ~11 s."
+ },
+ "train_acc_video148.mp4": {
+  "case": "collision",
+  "start": 6.7,
+  "end": 7.5,
+  "precursor": 6.0,
+  "confidence": "high",
+  "description": "Hazy intersection. Red sedan hits an e-bike rider at 6.7 s; cut to a repeat at ~7.55 s, contact again ~7.95 s.",
+  "extra": [
+   [
+    7.95,
+    9.6
+   ]
+  ]
+ },
+ "train_acc_video144.mp4": {
+  "case": "collision",
+  "start": 4.7,
+  "end": 6.6,
+  "precursor": 4.0,
+  "confidence": "high",
+  "description": "Street, camera zooming. Hatchback hits a cyclist from behind ~4.7 s; rider thrown into a silver sedan ~5.2 s."
+ },
+ "train_acc_videox3_11.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night; truck already overturned."
+ },
+ "train_acc_video152.mp4": {
+  "case": "collision",
+  "start": 2.9,
+  "end": 8.2,
+  "precursor": 2.3,
+  "confidence": "medium",
+  "description": "Highway, small far car drifts into the median barrier ~2.9 s, crosses lanes, overturns ~4.5 s."
+ },
+ "train_acc_videox16_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Truck and crashed car already stopped together at 0 s; zoom."
+ },
+ "train_acc_video162.mp4": {
+  "case": "collision",
+  "start": 3.35,
+  "end": 6.5,
+  "precursor": 2.8,
+  "confidence": "high",
+  "description": "Rainy intersection. E-scooter crosses diagonally in front of an oncoming hatchback, hit ~3.35 s."
+ },
+ "train_acc_video68.mp4": {
+  "case": "collision",
+  "start": 3.75,
+  "end": 5.3,
+  "precursor": 3.2,
+  "confidence": "high",
+  "description": "Wide junction. Sedan pulls away from the kerb across the road; motorcycle from the left hits it ~3.75 s."
+ },
+ "train_acc_video2.mp4": {
+  "case": "collision",
+  "start": 5.7,
+  "end": 9.8,
+  "precursor": 4.5,
+  "confidence": "high",
+  "description": "Rural T-junction. Tricycle turns onto the main road, van from the left hits it from behind ~5.7 s."
+ },
+ "train_acc_video195.mp4": {
+  "case": "collision",
+  "start": 1.9,
+  "end": 3.8,
+  "precursor": 0.8,
+  "confidence": "high",
+  "description": "Compilation. SUV hits an e-bike rider ~1.9 s; replays from 2 other cameras (contact ~7.05 s and ~23.2 s); red-light near-misses without contact 10.4-21.4 s.",
+  "extra": [
+   [
+    7.05,
+    8.5
+   ],
+   [
+    23.2,
+    24.5
+   ]
+  ]
+ },
+ "train_acc_video19.mp4": {
+  "case": "collision",
+  "start": 3.15,
+  "end": 8.4,
+  "precursor": 2.3,
+  "confidence": "high",
+  "description": "Highway exit gore. Sedan swerves in front of a semi-trailer, cab hits it ~3.15 s, pushed along the barrier; zoomed repeat from ~8.9 s."
+ },
+ "train_acc_videox3_3.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night IR; truck already overturned."
+ },
+ "train_acc_video207.mp4": {
+  "case": "collision",
+  "start": 11.05,
+  "end": 14.0,
+  "precursor": 8.5,
+  "confidence": "medium",
+  "description": "Dusk highway. Box truck cuts across the lanes from ~8.5 s, contact with an SUV ~11.05 s, SUV rolls over."
+ },
+ "train_acc_video204.mp4": {
+  "case": "collision",
+  "start": 4.3,
+  "end": 6.0,
+  "precursor": 3.0,
+  "confidence": "high",
+  "description": "Urban crossing. Sedan overtaking a tricycle hits an e-scooter crossing diagonally ~4.3 s; repeat from ~6.1 s, contact again ~6.7 s.",
+  "extra": [
+   [
+    6.7,
+    8.0
+   ]
+  ]
+ },
+ "train_acc_video110.mp4": {
+  "case": "collision",
+  "start": 5.3,
+  "end": 7.0,
+  "precursor": 4.5,
+  "confidence": "high",
+  "description": "Vertical video, preview still at 0 s. E-scooter crossing away from the zebra hit by an SUV ~5.3 s; repeat from ~7.5 s, contact again ~9 s.",
+  "extra": [
+   [
+    9.0,
+    10.5
+   ]
+  ]
+ },
+ "train_acc_video127.mp4": {
+  "case": "collision",
+  "start": 3.5,
+  "end": 8.5,
+  "precursor": 2.8,
+  "confidence": "medium",
+  "description": "Highway near a toll plaza, low quality, zooming out. Two far cars side by side drift together, contact ~3.5 s, slide across lanes, one overturns ~6.5 s."
+ },
+ "train_acc_video55.mp4": {
+  "case": "collision",
+  "start": 5.4,
+  "end": 8.5,
+  "precursor": 2.5,
+  "confidence": "medium",
+  "description": "Overloaded van has a tyre blowout (smoke from ~2.5 s), fishtails and spins across the lanes, then overturns and rolls near the left roadside barrier starting ~5.4 s; ends with a photo of the van on its side.",
+  "extra": []
+ },
+ "train_acc_video92.mp4": {
+  "case": "collision",
+  "start": 4.3,
+  "end": 7.0,
+  "precursor": 3.0,
+  "confidence": "medium",
+  "description": "Night street with parked cars: speeding cars drift through; a dark sedan sliding sideways collides with a white car coming from the left (~4.3 s, bright flash), a car flips over onto its roof by the parked row and ends upside down; the rest is people gathering.",
+  "extra": []
+ },
+ "train_acc_videox3_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Foggy night highway, camera pans/zooms onto an already overturned truck lying against the right guardrail with police and rescue vehicles on scene; no crash moment shown.",
+  "extra": []
+ },
+ "train_acc_video200.mp4": {
+  "case": "compilation",
+  "start": 2.5,
+  "end": 7.4,
+  "precursor": 0.9,
+  "confidence": "medium",
+  "description": "Multi-lane highway viewed from behind: a red box truck strikes a small car (circled by editor) that gets pushed out from its left front ~2.5 s and spins into a dark car in the next lane with dust (~3.2 s); vehicles settle by ~7.4 s. A separate secondary rear-end crash of a dark car into a circled white SUV near the median occurs ~9.0 s at the end.",
+  "extra": []
+ },
+ "train_acc_video118.mp4": {
+  "case": "collision",
+  "start": 4.6,
+  "end": 5.6,
+  "precursor": 3.6,
+  "confidence": "high",
+  "description": "Intersection (portrait edit): a small white car runs the red light and hits an e-scooter rider crossing its path at ~4.6 s, knocking them down; the same crash is shown again from a second camera angle with contact at ~14.6 s.",
+  "extra": [
+   [
+    14.6,
+    16.0
+   ]
+  ]
+ },
+ "train_acc_video39.mp4": {
+  "case": "collision",
+  "start": 10.2,
+  "end": 13.5,
+  "precursor": 8.8,
+  "confidence": "medium",
+  "description": "Highway near an exit (portrait edit): a dark SUV hesitates and repeatedly crosses the solid line; the red sprinkler truck alongside/behind it cannot avoid it and strikes it at ~10.2 s, spinning it into a white MPV (three-vehicle crash) with debris.",
+  "extra": []
+ },
+ "train_acc_video45_2.mp4": {
+  "case": "collision",
+  "start": 0.7,
+  "end": 4.0,
+  "precursor": 0.4,
+  "confidence": "medium",
+  "description": "Night intersection: a speeding black sedan enters from the right and T-bones a white box truck at ~0.7 s, the truck tips over spilling cargo; the crash is replayed from a wider intersection camera (contact ~8.2 s), then aftermath views.",
+  "extra": [
+   [
+    8.2,
+    10.5
+   ]
+  ]
+ },
+ "train_acc_video163.mp4": {
+  "case": "collision",
+  "start": 8.7,
+  "end": 9.8,
+  "precursor": 1.2,
+  "confidence": "low",
+  "description": "Night street, blurry: a car (circled) reverses at high speed away from the camera up the road, swerves near the far intersection and crashes into a roadside pole/object at ~8.7 s, throwing up a cloud of debris and smoke.",
+  "extra": []
+ },
+ "train_acc_video103.mp4": {
+  "case": "compilation",
+  "start": 2.5,
+  "end": 4.4,
+  "precursor": 1.6,
+  "confidence": "high",
+  "description": "Edited compilation (red circle overlay): an e-scooter rider crosses between queued cars and is struck by a dark SUV in the free lane at ~2.5 s and thrown to the road; 7.8-15.6 s shows a rider on a phone riding through intersections; a second, different crash (rider hit by a dark Acura SUV next to a blue truck) occurs at ~16.8 s (end ~18.5 s).",
+  "extra": []
+ },
+ "train_acc_video142.mp4": {
+  "case": "collision",
+  "start": 1.95,
+  "end": 5.8,
+  "precursor": 1.4,
+  "confidence": "high",
+  "description": "A white SUV drifts off the road to the right, mounts the curb/green strip at ~1.95 s, knocks a pole and rolls over before coming to rest upright; the crash is replayed from the SUV dashcam (impact ~7.1 s) and again from the CCTV (~9.5 s).",
+  "extra": [
+   [
+    7.1,
+    9.3
+   ],
+   [
+    9.5,
+    13.5
+   ]
+  ]
+ },
+ "train_acc_video156.mp4": {
+  "case": "collision",
+  "start": 2.6,
+  "end": 4.3,
+  "precursor": 1.5,
+  "confidence": "medium",
+  "description": "Hazy intersection beside queued trucks: the circled white sedan collides with another white car crossing its path at ~2.6 s, spins and overturns onto its roof; a zoomed replay follows (~4.95-8 s), then zoomed aftermath with people approaching.",
+  "extra": [
+   [
+    4.95,
+    8.0
+   ]
+  ]
+ },
+ "train_acc_video158.mp4": {
+  "case": "collision",
+  "start": 6.35,
+  "end": 7.1,
+  "precursor": 4.9,
+  "confidence": "high",
+  "description": "A white Mercedes reversing out of a car-wash with a wheel stuck in the drain lurches out, drifts 180 degrees across the road and hits an oncoming motorcyclist at ~6.35 s; the crash is replayed zoomed (~9.9 s), wide (~22.35 s) and zoomed slow-motion (~26.0 s), followed by close-ups of the fallen rider.",
+  "extra": [
+   [
+    9.9,
+    11.5
+   ],
+   [
+    22.35,
+    23.4
+   ],
+   [
+    26.0,
+    27.6
+   ]
+  ]
+ },
+ "train_acc_videox6_3.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night elevated expressway curve: fire engines, police cars and cones already surround a wrecked/overturned vehicle from the first frame while traffic passes slowly; no crash moment shown.",
+  "extra": []
+ },
+ "train_acc_video180.mp4": {
+  "case": "collision",
+  "start": 4.1,
+  "end": 8.6,
+  "precursor": 3.4,
+  "confidence": "high",
+  "description": "Wet highway: a fast white SUV closes on a silver BMW, clips it from the right side at ~4.1 s, then strikes the median guardrail, flips and tumbles across the lanes, coming to rest on its roof with debris.",
+  "extra": []
+ },
+ "train_acc_video88.mp4": {
+  "case": "collision",
+  "start": 1.3,
+  "end": 2.6,
+  "precursor": 0.0,
+  "confidence": "medium",
+  "description": "Wide intersection view: an elderly pedestrian crossing mid-road away from the crosswalk is struck by a grey minivan that does not slow down (~1.3 s, partly occluded by the van) and thrown to the road; a zoomed replay with captions and freeze-frames shows the impact again at ~9.3 s.",
+  "extra": [
+   [
+    9.3,
+    10.9
+   ]
+  ]
+ },
+ "train_acc_video154.mp4": {
+  "case": "collision",
+  "start": 1.9,
+  "end": 42.0,
+  "precursor": 1.7,
+  "confidence": "medium",
+  "description": "Tunnel single-vehicle crash across several tunnel cameras: an out-of-control white car scrapes and repeatedly slams into the tunnel walls (six labelled impacts, e.g. ~15 s, ~19 s, ~23 s, ~27 s, ~30 s, ~34 s), first wall contact visible ~1.9 s in the intro montage, and slowly stops near the end.",
+  "extra": []
+ },
+ "train_acc_videox6_1.mp4": {
+  "case": "unclear",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "low",
+  "description": "Night elevated expressway with heavy congested traffic (camera zooms/adjusts); vehicles creep along with a white minibus squeezing next to a green tarp truck, but no visible contact or crash occurs in the clip.",
+  "extra": []
+ },
+ "train_acc_video53.mp4": {
+  "case": "collision",
+  "start": 4.5,
+  "end": 7.0,
+  "precursor": 3.0,
+  "confidence": "high",
+  "description": "Rural intersection: a speeding black sedan comes through the junction and collides with a motorcyclist emerging from the lower-left at ~4.5 s, throwing the rider and bike onto the road; after a map insert the crash is replayed slowly with a speeding caption (contact ~17.6 s), then on-scene footage.",
+  "extra": [
+   [
+    17.6,
+    20.0
+   ]
+  ]
+ },
+ "train_acc_video17.mp4": {
+  "case": "compilation",
+  "start": 1.1,
+  "end": 2.8,
+  "precursor": 0.5,
+  "confidence": "medium",
+  "description": "Portrait compilation (Zhejiang Dongyang): at the far crosswalk a dark car and a motorcyclist collide head-on at ~1.1 s, the rider is thrown onto the hood; a second, different red-light crash follows from another intersection camera (scooter rider hit by a black sedan at ~4.45 s, end ~6.0 s).",
+  "extra": []
+ },
+ "train_acc_video150.mp4": {
+  "case": "collision",
+  "start": 7.1,
+  "end": 11.4,
+  "precursor": 5.0,
+  "confidence": "low",
+  "description": "Urban arterial, distant action: the circled dark SUV drifts left, strikes the left curb/median at ~7.1 s with dust, then careens back across all lanes and runs off the right side of the road near the far intersection (~11 s); small and partly occluded by wires.",
+  "extra": []
+ },
+ "train_acc_video123.mp4": {
+  "case": "collision",
+  "start": 1.4,
+  "end": 2.9,
+  "precursor": 1.0,
+  "confidence": "medium",
+  "description": "Intersection (Zhejiang Cixi, portrait edit): a red car going straight hits an e-scooter rider crossing in front of it at ~1.4 s, the rider flies over the hood; the same crash is shown from a second camera (contact ~4.5 s) and a third camera (~7.6 s).",
+  "extra": [
+   [
+    4.5,
+    6.4
+   ],
+   [
+    7.6,
+    9.0
+   ]
+  ]
+ },
+ "train_acc_video20.mp4": {
+  "case": "collision",
+  "start": 11.5,
+  "end": 13.2,
+  "precursor": 4.2,
+  "confidence": "medium",
+  "description": "Expressway exit to a service area: a silver sedan hesitates left and right at the gore and cuts across toward the exit, while a white SUV also swings over; they collide next to the crash cushion at ~11.5 s in a cloud of dust; the approach and crash are replayed (contact ~20.35 s) and zoomed again at ~22.2 s.",
+  "extra": [
+   [
+    20.35,
+    21.9
+   ],
+   [
+    22.2,
+    23.0
+   ]
+  ]
+ },
+ "train_acc_video34.mp4": {
+  "case": "collision",
+  "start": 0.6,
+  "end": 3.5,
+  "precursor": 0.35,
+  "confidence": "high",
+  "description": "Low-res tunnel camera: a speeding dark car enters from the bottom at high speed, slams into the left tunnel wall at ~0.6 s, disintegrates/spins with debris flying and slides down the tunnel, leaving parts on the road.",
+  "extra": []
+ },
+ "train_acc_video104.mp4": {
+  "case": "collision",
+  "start": 4.75,
+  "end": 7.0,
+  "precursor": 4.2,
+  "confidence": "high",
+  "description": "Curved flyover ramp: a loaded lorry takes the bend too fast, hits the concrete barrier at ~4.75 s, the cab breaks off and the lorry overturns across the ramp in a cloud of dust; the crash is then replayed in slow motion (contact ~12.0 s) until the end.",
+  "extra": [
+   [
+    12.0,
+    25.3
+   ]
+  ]
+ },
+ "train_acc_video4.mp4": {
+  "case": "collision",
+  "start": 5.9,
+  "end": 11.5,
+  "precursor": 0.0,
+  "confidence": "medium",
+  "description": "Foggy expressway: a red heavy truck is already pushing a dark car sideways ahead of its bumper when the clip begins (initial contact likely before the clip, circled far away); as they approach the car twists across the truck front, overturns against the median at ~5.9 s and is dragged/rolled along until it drops free and stops ~11.5 s.",
+  "extra": []
+ },
+ "train_acc_video48.mp4": {
+  "case": "collision",
+  "start": 1.5,
+  "end": 5.5,
+  "precursor": 0.8,
+  "confidence": "high",
+  "description": "Wide urban intersection: a dark SUV T-bones a white sedan at ~1.5 s; the sedan is pushed across, overturns onto its roof and both slide toward a pedestrian woman who runs clear; the crash is replayed zoomed in slow motion (~9.9 s), wide again (~29.5 s) and zoomed once more (~34.4 s, starting at contact).",
+  "extra": [
+   [
+    9.9,
+    25.0
+   ],
+   [
+    29.5,
+    34.0
+   ],
+   [
+    34.4,
+    44.5
+   ]
+  ]
+ },
+ "train_acc_videox32_2.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Rainy expressway: a white hatchback is already stopped against the median barrier with its rear hatch/damaged rear open and a small debris piece on the lane from the first frame; traffic passes and a person walks out near the end; no crash moment shown.",
+  "extra": []
+ },
+ "train_acc_video131.mp4": {
+  "case": "collision",
+  "start": 6.85,
+  "end": 7.7,
+  "precursor": 6.3,
+  "confidence": "high",
+  "description": "Intersection: an orange Lamborghini swerves left across the stop line into the path of a grey sedan in the adjacent lane and they collide at ~6.85 s, the supercar front shatters with debris flying; the clip then cuts at ~7.7 s to handheld aftermath footage of the damaged car and onlookers.",
+  "extra": []
+ },
+ "train_acc_video95.mp4": {
+  "case": "collision",
+  "start": 1.2,
+  "end": 3.5,
+  "precursor": 0.0,
+  "confidence": "medium",
+  "description": "Night road: a speeding white hatchback swerves left and sideswipes a sedan at ~1.2 s, then both drift away down the road; a second, closer camera (from 5.9 s) shows the same crash with the hatchback leaving the road into the roadside ditch.",
+  "extra": [
+   [
+    5.9,
+    9.8
+   ]
+  ]
+ },
+ "train_acc_video133.mp4": {
+  "case": "collision",
+  "start": 2.4,
+  "end": 3.8,
+  "precursor": 1.6,
+  "confidence": "high",
+  "description": "Intersection: a pink-clad e-scooter rider crosses in front of an SF delivery truck and is struck by a dark SUV emerging beside it, falling onto the road; the same crash is replayed from two other camera angles.",
+  "extra": [
+   [
+    7.1,
+    8.8
+   ],
+   [
+    16.45,
+    18.4
+   ]
+  ]
+ },
+ "train_acc_video27.mp4": {
+  "case": "collision",
+  "start": 2.1,
+  "end": 3.5,
+  "precursor": 1.4,
+  "confidence": "high",
+  "description": "Intersection: a white SUV drives straight into a red-clad motor-scooter rider crossing from the right; rider and scooter fall in front of the car. A zoomed slow replay of the impact follows.",
+  "extra": [
+   [
+    4.2,
+    7.6
+   ]
+  ]
+ },
+ "train_acc_video193.mp4": {
+  "case": "collision",
+  "start": 8.62,
+  "end": 11.6,
+  "precursor": 8.0,
+  "confidence": "high",
+  "description": "Rural crossroads seen through weeds: a white sedan from the left and a red car from the right collide head-on at speed; the red car spins, flips and ends wrecked by the roadside in a cloud of dust.",
+  "extra": []
+ },
+ "train_acc_video167.mp4": {
+  "case": "compilation",
+  "start": 2.3,
+  "end": 5.4,
+  "precursor": 1.9,
+  "confidence": "medium",
+  "description": "Vertical compilation of different highway crashes. First (timed): a blue coach squeezes a small box truck against a white SUV in the left lane (~2.3 s), and the box truck is crushed/tips against the median. Later segments show other crashes (a truck skidding into the barrier and overturning ~9-12 s, a red truck crash ~16-18 s) and aftermath photos.",
+  "extra": []
+ },
+ "train_acc_video184.mp4": {
+  "case": "collision",
+  "start": 7.2,
+  "end": 10.5,
+  "precursor": 6.6,
+  "confidence": "medium",
+  "description": "Rainy night intersection (filmed off a monitor, view drifts): a red sedan coming fast from the right hits a small white enclosed tricycle crossing the junction; the tricycle overturns and the sedan skids across the road before stopping.",
+  "extra": []
+ },
+ "train_acc_video202.mp4": {
+  "case": "collision",
+  "start": 5.2,
+  "end": 9.5,
+  "precursor": 4.0,
+  "confidence": "medium",
+  "description": "Wide urban intersection (filmed off a monitor): a turning cement mixer truck meets a red hatchback at its front corner (~5.2 s), then tips over onto the car and ends lying on its side across the lanes.",
+  "extra": []
+ },
+ "train_acc_video79.mp4": {
+  "case": "collision",
+  "start": 2.3,
+  "end": 3.5,
+  "precursor": 1.2,
+  "confidence": "medium",
+  "description": "Rainy expressway (edited with zooms and arrows): a black BMW stops suddenly in the fast lane and a white Mazda braking late rear-ends it; both slew against the median.",
+  "extra": []
+ },
+ "train_acc_video13.mp4": {
+  "case": "collision",
+  "start": 7.2,
+  "end": 9.6,
+  "precursor": 6.2,
+  "confidence": "medium",
+  "description": "Expressway near an exit ramp, far from camera: a red-white coach and a dark car side by side collide as the car cuts across in front of the coach; the coach slews sideways into the gore/barrier and the car spins to a stop in the lane.",
+  "extra": []
+ },
+ "train_acc_video37.mp4": {
+  "case": "collision",
+  "start": 1.4,
+  "end": 2.7,
+  "precursor": 1.1,
+  "confidence": "high",
+  "description": "Low-res overhead camera: a motorcycle carrying two riders rear-ends a slowing black sedan; the riders are thrown over the car and fall onto the road.",
+  "extra": []
+ },
+ "train_acc_video41.mp4": {
+  "case": "collision",
+  "start": 0.52,
+  "end": 2.35,
+  "precursor": 0.3,
+  "confidence": "high",
+  "description": "Urban road: a small white mini-car veers from the far lanes into the median fence, rips through it, flips and rolls across the near carriageway into the roadside greenery.",
+  "extra": []
+ },
+ "train_acc_videox23_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Rainy expressway: a damaged white SUV is already stopped in the lanes with debris around it and occupants standing by the median while traffic passes; no collision occurs during the clip.",
+  "extra": []
+ },
+ "train_acc_video63.mp4": {
+  "case": "collision",
+  "start": 3.1,
+  "end": 10.0,
+  "precursor": 2.0,
+  "confidence": "medium",
+  "description": "Multi-lane urban road (edited news clip with zoom-in): a white sedan forcing an overtake between a Mercedes and a silver mini pickup skids and hits the pickup; the pickup scrapes the median, then veers across the lanes into the right-side barrier while the sedan spins (three-car collision).",
+  "extra": []
+ },
+ "train_acc_video97.mp4": {
+  "case": "collision",
+  "start": 10.25,
+  "end": 11.4,
+  "precursor": 9.5,
+  "confidence": "high",
+  "description": "Busy urban street: an adult and child cross mid-block between queued cars; the child darts out from in front of a black BMW into the left lane and is struck by a white sedan, thrown onto the road.",
+  "extra": []
+ },
+ "train_acc_video23.mp4": {
+  "case": "collision",
+  "start": 6.5,
+  "end": 13.5,
+  "precursor": 6.0,
+  "confidence": "medium",
+  "description": "Rural road junction far behind an oncoming truck: a white car loses control, strikes the roadside and rolls over several times, ejecting a rear passenger; the clip inserts a magnified freeze-frame (~7.8-11.0 s) and then resumes the roll until the car comes to rest.",
+  "extra": []
+ },
+ "train_acc_video91.mp4": {
+  "case": "collision",
+  "start": 1.58,
+  "end": 3.3,
+  "precursor": 0.3,
+  "confidence": "high",
+  "description": "Urban street: a child runs across the road from the right and collides with an oncoming motorcycle; the motorcycle falls and the child is thrown and lies in the road while bystanders gather for the rest of the clip.",
+  "extra": []
+ },
+ "train_acc_videox32_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Wet expressway: a damaged white car already sits against the median barrier (steam/smoke) from the first frame while traffic passes and workers in hi-vis set out cones; no collision occurs in the clip.",
+  "extra": []
+ },
+ "train_acc_video99.mp4": {
+  "case": "collision",
+  "start": 0.5,
+  "end": 1.5,
+  "precursor": 0.2,
+  "confidence": "low",
+  "description": "Edited news clip, bridge expressway at night in fog: a white SUV swerving to avoid a quilt dropped by a pickup scrapes into the median guardrail. A zoomed teaser at the start shows it grinding along the rail (~0.5 s); the full wide view of the same impact is at ~11.75 s, followed by interview/aftermath shots.",
+  "extra": [
+   [
+    11.75,
+    14.5
+   ]
+  ]
+ },
+ "train_acc_video46.mp4": {
+  "case": "collision",
+  "start": 3.1,
+  "end": 5.0,
+  "precursor": 1.5,
+  "confidence": "high",
+  "description": "Urban road by a bus stop: a silver sedan veers right along the kerb railing and strikes a cyclist from behind, throwing the rider; the car scrapes the railing and drives off. Clip ends with close-up photos of the wrecked car.",
+  "extra": []
+ },
+ "train_acc_video52.mp4": {
+  "case": "collision",
+  "start": 2.9,
+  "end": 7.0,
+  "precursor": 2.4,
+  "confidence": "medium",
+  "description": "Foggy night intersection: a heavy truck crossing from the left runs into the side/rear of a light truck entering the junction and drags it across the intersection in a cloud of dust before both stop.",
+  "extra": []
+ },
+ "train_acc_video66.mp4": {
+  "case": "collision",
+  "start": 2.45,
+  "end": 4.6,
+  "precursor": 1.0,
+  "confidence": "high",
+  "description": "Wide road (Taiwan): a white Mercedes turning across the lanes is T-boned by a speeding motorcycle; the bike and rider slam into and over the car, ending lodged in its roof. Followed by handheld aftermath footage from ~7.5 s.",
+  "extra": []
+ },
+ "train_acc_video166.mp4": {
+  "case": "collision",
+  "start": 1.55,
+  "end": 3.7,
+  "precursor": 0.5,
+  "confidence": "medium",
+  "description": "Wide intersection: a box truck making a fast left turn sideswipes a white car waiting at the stop line, then tips over onto its side across the crossing. A slow-motion replay (already in contact at the cut) follows from ~5.0 s.",
+  "extra": [
+   [
+    5.0,
+    8.4
+   ]
+  ]
+ },
+ "train_acc_video16.mp4": {
+  "case": "collision",
+  "start": 5.4,
+  "end": 7.0,
+  "precursor": 3.6,
+  "confidence": "medium",
+  "description": "Mountain expressway: a white car changes lanes abruptly in front of a loaded dump truck, which rams its rear/side and pushes it along in a spray of debris (edited clip zooms in as vehicles near the camera). A second replay of the crash starts at ~7.0 s with contact at ~7.8 s.",
+  "extra": [
+   [
+    7.8,
+    10.0
+   ]
+  ]
+ },
+ "train_acc_videox3_5.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "medium",
+  "description": "Foggy night expressway: police cars and a tow truck with flashing lights are already at an earlier crash scene against the right barrier (a damaged vehicle further ahead); passing trucks and cars go by without any new collision.",
+  "extra": []
+ },
+ "train_acc_videox14_3.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "medium",
+  "description": "Night tunnel with lane closure: a recovery/rescue truck and other vehicles with flashing lights are stopped at the scene with workers standing by; nothing moves and no collision is visible in the clip.",
+  "extra": []
+ },
+ "train_acc_video122.mp4": {
+  "case": "collision",
+  "start": 16.1,
+  "end": 20.0,
+  "precursor": 9.0,
+  "confidence": "medium",
+  "description": "Edited news clip, elevated expressway: a sedan that nearly missed its exit slows and cuts across three lanes; a small box truck rear-ends it, rolls over and ends hanging on the bridge parapet. A teaser at 0-3.1 s (already mid-crash) and a zoomed replay (~22-28.6 s) show the same crash, followed by damage photos.",
+  "extra": [
+   [
+    0.0,
+    3.1
+   ],
+   [
+    23.1,
+    28.6
+   ]
+  ]
+ },
+ "train_acc_video5.mp4": {
+  "case": "collision",
+  "start": 3.5,
+  "end": 5.5,
+  "precursor": 2.1,
+  "confidence": "high",
+  "description": "Wide intersection: an e-bike rider crossing diagonally is hit head-on by a white SUV coming through the junction; the rider and bike are knocked down and slide in front of the car.",
+  "extra": []
+ },
+ "train_acc_video134.mp4": {
+  "case": "collision",
+  "start": 1.5,
+  "end": 3.0,
+  "precursor": 0.6,
+  "confidence": "high",
+  "description": "Compilation: an e-scooter crosses the wide intersection and a dark sedan coming from the right lanes hits it at ~1.5 s, rider thrown onto the bonnet and car stops at left edge. After a cut (4.8 s) a different intersection shows a second car-vs-scooter crash (wrong-way scooter) at ~10.35 s, listed in extra although it is a different crash.",
+  "extra": [
+   [
+    10.35,
+    11.8
+   ]
+  ]
+ },
+ "train_acc_video14.mp4": {
+  "case": "collision",
+  "start": 3.7,
+  "end": 5.3,
+  "precursor": 2.5,
+  "confidence": "high",
+  "description": "Night intersection: a drunk driver's car runs straight into the safety island on the far side of the junction (~3.7 s), lifts and drags a stone bollard; zoomed replay at 6.5-8.2 s. The rest (10-46 s) shows the car U-turning, driving off and stopping, with no new contact.",
+  "extra": [
+   [
+    6.5,
+    8.2
+   ]
+  ]
+ },
+ "train_acc_video86.mp4": {
+  "case": "collision",
+  "start": 1.55,
+  "end": 2.9,
+  "precursor": 0.8,
+  "confidence": "high",
+  "description": "A white SUV makes an incomplete lane change and a dark car hits it at ~1.55 s; the crash is replayed at 6.55-8.5 s.",
+  "extra": [
+   [
+    6.55,
+    8.5
+   ]
+  ]
+ },
+ "train_acc_video49.mp4": {
+  "case": "collision",
+  "start": 16.8,
+  "end": 22.0,
+  "precursor": 13.0,
+  "confidence": "medium",
+  "description": "Edited clip: 0-6.5 s previews the aftermath, then the crash happens largely occluded behind a red truck (smoke visible) starting ~16.8 s; a dashcam view of the same crash is shown at 18.9-20.3 s.",
+  "extra": [
+   [
+    18.9,
+    20.3
+   ]
+  ]
+ },
+ "train_acc_video120.mp4": {
+  "case": "collision",
+  "start": 1.5,
+  "end": 2.6,
+  "precursor": 1.2,
+  "confidence": "medium",
+  "description": "A truck enters from the bottom of the frame, overturns at ~1.5 s and spills its cargo across the road.",
+  "extra": []
+ },
+ "train_acc_video107.mp4": {
+  "case": "collision",
+  "start": 9.1,
+  "end": 12.0,
+  "precursor": 8.1,
+  "confidence": "high",
+  "description": "A black car U-turns through a median opening and a white car travelling straight hits it at ~9.1 s.",
+  "extra": []
+ },
+ "train_acc_videox14_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Tunnel scene showing only the aftermath of a crash with rescue trucks on site; no contact is visible.",
+  "extra": []
+ },
+ "train_acc_video32.mp4": {
+  "case": "collision",
+  "start": 9.1,
+  "end": 12.0,
+  "precursor": 8.0,
+  "confidence": "medium",
+  "description": "A white truck turns left across traffic and a black sedan hits it at ~9.1 s near the frame edge; the clip has editing zooms.",
+  "extra": []
+ },
+ "train_acc_video65.mp4": {
+  "case": "collision",
+  "start": 0.6,
+  "end": 2.2,
+  "precursor": 0.0,
+  "confidence": "high",
+  "description": "A turning red dump truck hits a silver sedan at ~0.6 s; a second camera angle at 3.0-6.6 s shows the car sliding in without a clearly visible contact.",
+  "extra": []
+ },
+ "train_acc_videox13_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Only the aftermath of a crash is shown; the contact happened before the clip starts.",
+  "extra": []
+ },
+ "train_acc_video191.mp4": {
+  "case": "collision",
+  "start": 3.2,
+  "end": 4.3,
+  "precursor": 2.4,
+  "confidence": "high",
+  "description": "An SUV veers off its lane into the end of a guardrail at ~3.2 s; still photos of the result follow from 4.6 s.",
+  "extra": []
+ },
+ "train_acc_video1.mp4": {
+  "case": "collision",
+  "start": 7.55,
+  "end": 10.8,
+  "precursor": 6.9,
+  "confidence": "medium",
+  "description": "A red SUV hits a scooter crossing the road at ~7.55 s and then runs over it; a replay of the post-contact run-over is shown at 11.5-14.8 s.",
+  "extra": [
+   [
+    11.5,
+    14.8
+   ]
+  ]
+ },
+ "train_acc_video157.mp4": {
+  "case": "collision",
+  "start": 1.9,
+  "end": 5.0,
+  "precursor": 1.25,
+  "confidence": "medium",
+  "description": "A turning dump truck hits a scooter rider and a red car and then overturns (~1.9 s onward); a zoomed replay starting mid-crash is shown at 7.7-11.3 s.",
+  "extra": [
+   [
+    7.7,
+    11.3
+   ]
+  ]
+ },
+ "train_acc_video128.mp4": {
+  "case": "collision",
+  "start": 7.1,
+  "end": 9.0,
+  "precursor": 6.2,
+  "confidence": "high",
+  "description": "A white MPV fails to yield and hits an e-scooter on the crosswalk at ~7.1 s while other vehicles had stopped; close-up replay at 9.3-13.4 s.",
+  "extra": [
+   [
+    9.3,
+    13.4
+   ]
+  ]
+ },
+ "train_acc_video100.mp4": {
+  "case": "collision",
+  "start": 7.6,
+  "end": 11.0,
+  "precursor": 6.8,
+  "confidence": "high",
+  "description": "Expressway exit: a red BMW brakes and swerves right across the solid line, a black SUV behind in the next lane hits it side-by-side at ~7.6 s and overturns, coming to rest upside down on the gore area ~11 s. The rest is aftermath (occupants arguing, tow trucks, close-ups), no replay.",
+  "extra": []
+ },
+ "train_acc_video6.mp4": {
+  "case": "collision",
+  "start": 1.0,
+  "end": 2.0,
+  "precursor": 0.4,
+  "confidence": "high",
+  "description": "Tunnel entrance: a speeding white hatchback drifts right, mounts the kerb at ~1.0 s and slams into the crash cushions at the tunnel portal, tilting up amid smoke. A zoomed replay of the impact follows at 2.45-3.8 s, then a wide shot of the stopped car.",
+  "extra": [
+   [
+    2.45,
+    3.8
+   ]
+  ]
+ },
+ "train_acc_video71.mp4": {
+  "case": "collision",
+  "start": 2.4,
+  "end": 3.8,
+  "precursor": 1.8,
+  "confidence": "high",
+  "description": "Street in front of parked ambulances: a white sedan sweeps in from the left and rams an e-scooter crossing the road at ~2.4 s, the rider is thrown and lands near the ambulances. A zoomed slow-motion replay follows (contact ~5.95 s), then a wide aftermath shot with medics.",
+  "extra": [
+   [
+    5.95,
+    9.0
+   ]
+  ]
+ },
+ "train_acc_video190.mp4": {
+  "case": "collision",
+  "start": 18.4,
+  "end": 20.5,
+  "precursor": 16.0,
+  "confidence": "low",
+  "description": "Night street-racing/drifting clip: 0-15 s a white hatchback manoeuvres erratically at an intersection (arrows, warning sign, no visible contact). From 15.4 s a second, heavily glared camera shows a dark car and a white SUV racing side by side; around 18.4 s the dark car spins against the white SUV and both end up stopped in the road. Contact is not clearly resolved because of the glare.",
+  "extra": []
+ },
+ "train_acc_video130.mp4": {
+  "case": "collision",
+  "start": 4.45,
+  "end": 6.9,
+  "precursor": 3.2,
+  "confidence": "high",
+  "description": "A blue-white box truck crosses the intersection and a red tractor-trailer entering from the left rams its side at ~4.45 s, pushing it sideways across the junction in a cloud of dust (cut at ~6.9 s). The crash is replayed twice (slow-motion contact ~7.6 s and ~12.4 s); the second replay continues until the vehicles hit the far-side kerb/pole.",
+  "extra": [
+   [
+    7.6,
+    11.9
+   ],
+   [
+    12.4,
+    17.5
+   ]
+  ]
+ },
+ "train_acc_video98.mp4": {
+  "case": "collision",
+  "start": 4.0,
+  "end": 5.9,
+  "precursor": 3.0,
+  "confidence": "high",
+  "description": "Portrait-format clip: an e-scooter rider cuts diagonally across the intersection between two white cars, touches the front of the right car at ~4.0 s and is then struck by the left car at ~4.6 s, falling with the scooter. From 8.5 s a second, wide camera shows the same crash from far away (contact ~13.9 s).",
+  "extra": [
+   [
+    13.9,
+    15.3
+   ]
+  ]
+ },
+ "train_acc_videox9_2.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night expressway: a white truck already lies on its side on the right shoulder/gore area from the first frame; traffic keeps passing in the other lanes and no new contact occurs.",
+  "extra": []
+ },
+ "train_acc_video75.mp4": {
+  "case": "collision",
+  "start": 6.6,
+  "end": 9.5,
+  "precursor": 6.3,
+  "confidence": "high",
+  "description": "Phone recording of a monitor showing a curved tunnel exit: a police car with flashing lights comes out of the tunnel and a white sedan entering from the bottom of the frame hits it head-on at ~6.6 s; the police car is thrown back, debris and smoke fill the lane and a person falls in the foreground.",
+  "extra": []
+ },
+ "train_acc_videox30_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Daytime urban expressway: a damaged red SUV and a silver car are already stopped in the lanes with warning triangles, debris and people standing around (a traffic officer directs traffic); buses and trucks pass by, no contact occurs during the clip.",
+  "extra": []
+ },
+ "train_acc_video60.mp4": {
+  "case": "collision",
+  "start": 6.15,
+  "end": 7.8,
+  "precursor": 5.9,
+  "confidence": "high",
+  "description": "Village street: a silver sedan enters from the bottom right and collides front-to-front with a dark car coming down the road at ~6.15 s, the silver car is pushed into the parked dump truck and both cars stop by ~7.8 s; the rest is aftermath with the drivers inspecting.",
+  "extra": []
+ },
+ "train_acc_video179.mp4": {
+  "case": "collision",
+  "start": 6.8,
+  "end": 8.6,
+  "precursor": 6.6,
+  "confidence": "high",
+  "description": "Village junction: a two-up scooter rides down the road and a white light truck swinging in from the bottom-left corner hits it at ~6.8 s, throwing both riders onto the road. A zoomed replay (from ~12 s, contact ~13.7 s) shows the same impact.",
+  "extra": [
+   [
+    13.7,
+    15.5
+   ]
+  ]
+ },
+ "train_acc_videox25_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night expressway: from the first frame a loaded truck lies wrecked across the central median with cargo spilled on the road and other trucks stopped around it; oncoming cars pass under glare, no new contact occurs.",
+  "extra": []
+ },
+ "train_acc_videox7_3.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Elevated expressway in daylight: an ambulance, a tow truck and rescue crew are already working around a vehicle lying on its side in the left lane, with traffic queuing and slowly passing; no contact occurs during the clip.",
+  "extra": []
+ },
+ "train_acc_video132.mp4": {
+  "case": "collision",
+  "start": 4.5,
+  "end": 6.2,
+  "precursor": 3.8,
+  "confidence": "high",
+  "description": "A dark van speeding on a wet road loses control, hits the curb and bollard at the median and flips over into the green area. A slowed, zoomed replay of the crash follows.",
+  "extra": [
+   [
+    7.0,
+    9.0
+   ]
+  ]
+ },
+ "train_acc_video113.mp4": {
+  "case": "collision",
+  "start": 3.9,
+  "end": 7.6,
+  "precursor": 2.0,
+  "confidence": "medium",
+  "description": "Compilation of several incidents: (1) 0-7.7 s a red tanker truck on a rainy night highway jackknifes and its trailer swings into the left wall (splash at ~3.9 s); (2) 8-14.5 s a red box truck veers left into a car and the barrier and overturns onto it (contact ~11.1 s); (3) 14.5-43 s a car carrier stopped at a toll booth, no visible contact; (4) 43.5-55 s a box truck overturns at a city intersection (~45.1 s), replayed zoomed at ~50.7 s; (5) 55-89 s a white Audi already wedged under the rear of a moving truck and aftermath footage. extra holds the other crash moments, not only replays.",
+  "extra": [
+   [
+    11.1,
+    14.4
+   ],
+   [
+    45.1,
+    48.2
+   ],
+   [
+    50.7,
+    53.2
+   ]
+  ]
+ },
+ "train_acc_video137.mp4": {
+  "case": "collision",
+  "start": 12.2,
+  "end": 20.6,
+  "precursor": 11.0,
+  "confidence": "high",
+  "description": "On a foggy expressway a white minivan swerves sharply to the right, tips onto its side at ~12.2 s, rolls partly out of frame and slides back into view, coming to rest on its side around 20.6 s.",
+  "extra": []
+ },
+ "train_acc_videox1_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Very short rainy elevated-road clip: a car already lies upside down against the median barrier beside a stopped red bus, with a person standing next to it and debris on the road; no crash motion is shown.",
+  "extra": []
+ },
+ "train_acc_video83.mp4": {
+  "case": "collision",
+  "start": 7.4,
+  "end": 12.4,
+  "precursor": 6.8,
+  "confidence": "high",
+  "description": "In a paved lot beside a street, a dark car speeds in from the left, strikes a small silver vehicle, knocks down a sign pole and slams into a parked black SUV, raising dust; everything settles by about 12.4 s and people come over.",
+  "extra": []
+ },
+ "train_acc_video203.mp4": {
+  "case": "collision",
+  "start": 0.6,
+  "end": 1.4,
+  "precursor": 0.0,
+  "confidence": "high",
+  "description": "News clip: a dark sedan stopped/reversing in the gore area at an expressway exit is struck from behind by a tanker truck at ~0.6 s (car suddenly turned back, per caption). The crash is replayed at 2.6 s and zoomed at 4.6 s, followed by a wide view of the truck pushing the car along (to ~8.9 s) and a close-up of the wrecked car.",
+  "extra": [
+   [
+    2.6,
+    3.4
+   ],
+   [
+    4.6,
+    8.9
+   ]
+  ]
+ },
+ "train_acc_video33.mp4": {
+  "case": "collision",
+  "start": 2.7,
+  "end": 5.3,
+  "precursor": 2.0,
+  "confidence": "high",
+  "description": "On a sunny expressway a white box truck overtaking in the left lanes cuts right into a red car, and both slide diagonally across the lanes with the truck skidding and raising dust; they are still moving when the clip ends.",
+  "extra": []
+ },
+ "train_acc_video125_2.mp4": {
+  "case": "collision",
+  "start": 2.2,
+  "end": 3.8,
+  "precursor": 1.2,
+  "confidence": "medium",
+  "description": "Distant view of a wet mountain expressway (news clip with captions about braking and loss of control): a dark truck on the far carriageway loses control and crashes into the median hedge/barrier at ~2.2 s, throwing debris, and stops against it.",
+  "extra": []
+ },
+ "train_acc_video121.mp4": {
+  "case": "collision",
+  "start": 6.1,
+  "end": 9.0,
+  "precursor": 5.0,
+  "confidence": "high",
+  "description": "On an expressway a red hatchback crosses the solid line to force a lane change to the left right in front of a red flatbed truck carrying an excavator; the truck hits it at ~6.1 s, spins it around and pushes it along until both stop near the gore area.",
+  "extra": []
+ },
+ "train_acc_video21.mp4": {
+  "case": "collision",
+  "start": 11.8,
+  "end": 13.8,
+  "precursor": 11.5,
+  "confidence": "medium",
+  "description": "Night intersection shown from two cameras (cut at ~7.9 s). In the second view an orange dump truck crossing the junction is struck at ~11.8 s by a white SUV entering fast from the right; they move together until the clip ends. The first view (0-7.9 s) shows only traffic with a highlight box.",
+  "extra": []
+ },
+ "train_acc_videox3_2.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night/dawn expressway view of a box truck already lying on its side against the right guardrail, with police vehicles, a cone and a worker on scene while traffic passes; no crash is shown.",
+  "extra": []
+ },
+ "train_acc_video173.mp4": {
+  "case": "collision",
+  "start": 3.2,
+  "end": 7.0,
+  "precursor": 2.4,
+  "confidence": "high",
+  "description": "Expressway gore area: a small car that missed the exit and stopped/reversed at the gore is struck at ~3.2 s by a heavy semi-trailer truck and thrown into the crash cushion in a cloud of dust (distant wide view). The crash is replayed twice zoomed with captions (contacts ~9.8 s and ~13.6 s), then the wrecked car is shown close up.",
+  "extra": [
+   [
+    9.8,
+    12.9
+   ],
+   [
+    13.6,
+    20.5
+   ]
+  ]
+ },
+ "train_acc_video35.mp4": {
+  "case": "collision",
+  "start": 1.4,
+  "end": 3.2,
+  "precursor": 0.9,
+  "confidence": "medium",
+  "description": "Low-resolution clip of a multi-lane road: a speeding dark sedan enters from the right and slams into slower cars ahead at ~1.4 s; the vehicles spin across the lanes amid smoke/dust.",
+  "extra": []
+ },
+ "train_acc_video155.mp4": {
+  "case": "collision",
+  "start": 2.2,
+  "end": 5.6,
+  "precursor": 1.8,
+  "confidence": "medium",
+  "description": "Night intersection: a dark sedan entering from the right hits an e-bike rider (highlighted, crossing on red per caption) at the right edge at ~2.2 s and drags debris/sparks across the junction. The same crash is shown again from a second camera, with contact at ~11.0 s.",
+  "extra": [
+   [
+    11.0,
+    12.3
+   ]
+  ]
+ },
+ "train_acc_video126.mp4": {
+  "case": "collision",
+  "start": 3.2,
+  "end": 6.2,
+  "precursor": 2.0,
+  "confidence": "high",
+  "description": "Urban arterial road (camera zooming in): a red car crosses the median from the opposite carriageway and hits an oncoming white SUV head-on at ~3.2 s; the SUV flips onto its side and both vehicles come to rest in the lanes.",
+  "extra": []
+ },
+ "train_acc_video188.mp4": {
+  "case": "collision",
+  "start": 5.1,
+  "end": 7.0,
+  "precursor": 3.5,
+  "confidence": "medium",
+  "description": "Phone recording of an intersection monitor: a white sports car speeding from the right hits a blue electric tricycle crossing the junction at ~5.1 s, knocking it over and scattering its load; red arrows are overlaid.",
+  "extra": []
+ },
+ "train_acc_video208.mp4": {
+  "case": "collision",
+  "start": 8.15,
+  "end": 9.2,
+  "precursor": 7.6,
+  "confidence": "low",
+  "description": "Low-resolution, zooming expressway camera: two dark cars are stopped by the median (apparently after an earlier minor incident) with a person standing behind them; at ~8.15 s a red car coming up the lane runs into the rear of the stopped cars where the person stands. The first frame is a thumbnail of that moment.",
+  "extra": []
+ },
+ "train_acc_video209.mp4": {
+  "case": "collision",
+  "start": 0.65,
+  "end": 2.0,
+  "precursor": 0.0,
+  "confidence": "high",
+  "description": "Rainy intersection news clip: an e-scooter rider in a raincoat running a red light is hit by a white van at the crosswalk and thrown to the ground. Opening teaser contact at ~0.65 s; the full wide-view sequence shows contact at ~12.35 s, followed by a slow zoomed replay (contact ~20.3 s) and aftermath.",
+  "extra": [
+   [
+    12.35,
+    13.3
+   ],
+   [
+    20.3,
+    27.0
+   ]
+  ]
+ },
+ "train_acc_video25.mp4": {
+  "case": "collision",
+  "start": 1.0,
+  "end": 2.8,
+  "precursor": 0.5,
+  "confidence": "high",
+  "description": "On a curved rural road a dark sedan runs into an e-scooter rider from behind at ~1.0 s, launching the rider onto the hood and scattering debris. The clip then replays the approach slowly with captions, and the second contact at ~7.55 s runs to the end.",
+  "extra": [
+   [
+    7.55,
+    8.47
+   ]
+  ]
+ },
+ "train_acc_video51.mp4": {
+  "case": "collision",
+  "start": 7.8,
+  "end": 11.5,
+  "precursor": 6.0,
+  "confidence": "medium",
+  "description": "Rural junction: a small flatbed truck turns across the road and an oncoming cement-mixer truck (also shown briefly from a second camera at 5-6 s) clips its rear at ~7.8 s, swerves and overturns onto the roadside in a cloud of dust.",
+  "extra": []
+ },
+ "train_acc_videox2_2.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "low",
+  "description": "Expressway approach to a toll plaza: an orange rescue/tow truck, a dark vehicle and a white pickup are stopped by the barrier while workers place cones and wave traffic past; no collision is visible, which looks like the aftermath of an earlier incident (possibly a breakdown).",
+  "extra": []
+ },
+ "train_acc_videox7_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Distant view of an elevated expressway: a vehicle lies on its side by the barrier, with an ambulance, a tow truck and people on scene while traffic queues and passes; no crash is shown.",
+  "extra": []
+ },
+ "train_acc_videox4_2.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night expressway: a white car with a smashed front is stopped by the right barrier with a warning triangle behind it; a red truck drives past and a fire/rescue truck arrives at the end. No crash is shown.",
+  "extra": []
+ },
+ "train_acc_video124.mp4": {
+  "case": "collision",
+  "start": 3.3,
+  "end": 4.8,
+  "precursor": 2.5,
+  "confidence": "high",
+  "description": "Intersection (vertical phone-format clip): an e-scooter rider crosses the junction and is struck by a green city bus entering from the left at ~3.3 s; the rider and scooter fall in front of the bus, which stops. A zoomed-out view follows from ~4 s.",
+  "extra": []
+ },
+ "train_acc_videox8_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Urban expressway under an elevated road: a light truck already lies on its side by the median on the far carriageway with spilled cargo and a police light nearby, while heavy traffic passes; no crash is shown.",
+  "extra": []
+ },
+ "train_acc_videox3_7.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Same scene as videox3_2, about two minutes earlier: a box truck lies on its side against the right guardrail on a misty night expressway, with police vehicles and cones in place and a worker moving around; no crash is shown.",
+  "extra": []
+ },
+ "train_acc_video172.mp4": {
+  "case": "collision",
+  "start": 8.8,
+  "end": 10.3,
+  "precursor": 7.7,
+  "confidence": "medium",
+  "description": "Rainy intersection: a white car turning across the junction collides with an e-scooter carrying a rider in a green raincoat at ~8.8 s; the scooter falls beside the car. A second camera angle of the same collision follows after a cut at ~11.05 s (contact ~11.5 s).",
+  "extra": [
+   [
+    11.48,
+    12.28
+   ]
+  ]
+ },
+ "train_acc_video82.mp4": {
+  "case": "compilation",
+  "start": 8.7,
+  "end": 10.0,
+  "precursor": 7.0,
+  "confidence": "medium",
+  "description": "Compilation of many different crashes (news montage, ~10 separate incidents). Annotated the first: a white van turning left across an intersection hits an e-scooter rider at ~8.7 s; riders thrown onto the road. Later segments (e.g. ~24, ~32, ~40, ~48, ~56 s) are different crashes, not replays.",
+  "extra": []
+ },
+ "train_acc_video62.mp4": {
+  "case": "collision",
+  "start": 4.4,
+  "end": 7.0,
+  "precursor": 4.0,
+  "confidence": "high",
+  "description": "At an intersection a black sedan emerges from behind a container truck and turns across the path of a straight-going dark car; T-bone impact at ~4.4 s sends both cars skidding left in a cloud of debris. Zoomed replay of the same crash from ~8.6 s (contact ~9.4 s).",
+  "extra": [
+   [
+    9.4,
+    11.5
+   ]
+  ]
+ },
+ "train_acc_videox15_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Elevated-road CCTV: a white box truck with a crushed cab is already stopped in the lane from the first frame, driver climbing out; traffic squeezes past. The impact happened before the clip starts.",
+  "extra": []
+ },
+ "train_acc_video44.mp4": {
+  "case": "collision",
+  "start": 1.4,
+  "end": 4.2,
+  "precursor": 0.8,
+  "confidence": "medium",
+  "description": "At a toll plaza a white SUV speeds in from the left and slams into another white car / the lane-divider island at ~1.4 s; one vehicle is launched and flips vertically near the toll booth. Replay of the same crash starts at ~4.3 s (already at the moment of impact).",
+  "extra": [
+   [
+    4.3,
+    8.2
+   ]
+  ]
+ },
+ "train_acc_video129.mp4": {
+  "case": "collision",
+  "start": 3.0,
+  "end": 5.0,
+  "precursor": 2.0,
+  "confidence": "high",
+  "description": "Street CCTV filmed off a monitor: a silver sedan swerves/turns across the road and an oncoming motorcyclist slams into its front at ~3.0 s; riders are thrown and debris scatters, car stops ~5 s.",
+  "extra": []
+ },
+ "train_acc_video47.mp4": {
+  "case": "collision",
+  "start": 8.5,
+  "end": 11.5,
+  "precursor": 8.0,
+  "confidence": "high",
+  "description": "Roadside CCTV: a red sedan braking hard (tyre smoke) rear-ends a scooter at ~8.5 s; the rider is launched over the car and the car skids on out of frame to the right. Rest of the clip (continuous timestamp) shows bystanders collecting scattered goods.",
+  "extra": []
+ },
+ "train_acc_video199.mp4": {
+  "case": "collision",
+  "start": 8.7,
+  "end": 13.5,
+  "precursor": 8.5,
+  "confidence": "high",
+  "description": "Rainy intersection: a black sedan races in from the bottom at high speed and T-bones a white car crossing the junction at ~8.7 s; the black car tumbles across the intersection and comes to rest overturned on the far-right island (~13.5 s), debris everywhere. Camera zooms out around 10.4 s; no replay.",
+  "extra": []
+ },
+ "train_acc_videox31_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "1.6 s expressway CCTV clip: a fallen blue shipping container already lies across the right lanes behind traffic cones, with a rescue truck parked ahead; the incident happened before the clip.",
+  "extra": []
+ },
+ "train_acc_videox17_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Expressway CCTV: a damaged pickup stopped against the right guardrail with police officers, a patrol car and cones already on scene from the first frame; traffic passes on the left. No impact in the clip.",
+  "extra": []
+ },
+ "train_acc_video31.mp4": {
+  "case": "collision",
+  "start": 2.4,
+  "end": 7.5,
+  "precursor": 2.0,
+  "confidence": "high",
+  "description": "Bridge CCTV (filmed off a screen): a white SUV veers left, smashes through the median fence at ~2.4 s, crosses into oncoming lanes, strikes a blue car (~3.2 s) and overturns; from 8 s the clip cuts to handheld footage of the wrecked vehicles with firefighters.",
+  "extra": []
+ },
+ "train_acc_video77.mp4": {
+  "case": "collision",
+  "start": 9.1,
+  "end": 11.0,
+  "precursor": 4.3,
+  "confidence": "medium",
+  "description": "Edited news clip (rainy intersection, Hengyang): an e-bike carrying two riders sets off against the red light (captions ~2-4 s) and is struck by a white SUV at ~9.1 s, riders fall. From ~12.9 s the same crash is shown from a second camera (left turn on red), contact ~21.3 s; frame 0 is a still teaser of that moment.",
+  "extra": [
+   [
+    21.3,
+    23.0
+   ]
+  ]
+ },
+ "train_acc_videox7_4.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Elevated expressway CCTV: an ambulance, a road-rescue flatbed and workers are already at a stopped vehicle by the left barrier from the first frame; traffic passes. The crash happened before the clip.",
+  "extra": []
+ },
+ "train_acc_video194.mp4": {
+  "case": "compilation",
+  "start": 1.3,
+  "end": 6.5,
+  "precursor": 0.0,
+  "confidence": "high",
+  "description": "Edited clip (Anqing): a white sedan turning across an intersection (circled from 0 s) is hit by a red dump truck at ~1.3 s; the truck tips over onto its side in a cloud of dust. From ~7.6 s a different dump truck at another intersection overturns while turning (~11 s) - a separate incident, not a replay.",
+  "extra": []
+ },
+ "train_acc_videox6_2.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night elevated-road PTZ camera: police with flashing lights are already on scene from the first frame; the camera zooms in (~4 s) on a truck lying on its side in the lanes. The crash happened before the clip.",
+  "extra": []
+ },
+ "train_acc_video171.mp4": {
+  "case": "collision",
+  "start": 7.0,
+  "end": 11.0,
+  "precursor": 6.2,
+  "confidence": "high",
+  "description": "Rural road CCTV: an oncoming dark car drifts to the right edge, strikes the roadside verge at ~7.0 s and flips, tumbling across the road and coming to rest on its roof (~11 s). Clip is partly zoomed in by editing.",
+  "extra": []
+ },
+ "train_acc_video80.mp4": {
+  "case": "collision",
+  "start": 3.3,
+  "end": 6.0,
+  "precursor": 2.5,
+  "confidence": "high",
+  "description": "Village street CCTV: a green farm tipper-tractor pulls out across the road and is struck by a red heavy truck at ~3.3 s; the tractor is shoved sideways into a person in a motorised wheelchair on the roadside, dust everywhere.",
+  "extra": []
+ },
+ "train_acc_video72.mp4": {
+  "case": "collision",
+  "start": 1.6,
+  "end": 6.0,
+  "precursor": 1.4,
+  "confidence": "medium",
+  "description": "Residential-street doorbell/CCTV view: a speeding dark car enters from the left, clips the white flatbed truck at ~1.6 s and rolls over along the street, narrowly missing a pedestrian, ending back on its wheels at the right (~6 s).",
+  "extra": []
+ },
+ "train_acc_video205.mp4": {
+  "case": "collision",
+  "start": 7.1,
+  "end": 9.0,
+  "precursor": 1.8,
+  "confidence": "medium",
+  "description": "Expressway exit, edited multi-camera clip: a black car that missed the exit cuts across lanes (~1-3 s); the following light truck brakes hard and swerves (tyre smoke from ~4.6 s) and overturns onto its side at ~7.1 s near the exit gore, sliding to rest by ~9 s. No contact between car and truck; single-vehicle rollover.",
+  "extra": []
+ },
+ "train_acc_video8.mp4": {
+  "case": "compilation",
+  "start": 3.9,
+  "end": 6.8,
+  "precursor": 2.0,
+  "confidence": "medium",
+  "description": "News compilation of single-vehicle barrier crashes on the Hangzhou Bay bridge. Annotated the first: at night a car drifts left and slams into the median crash-cushion water barrels at ~3.9 s (spray cloud), spinning to a stop. A second, separate crash (truck into the median barrels, ~9-12 s) follows, then daytime footage from ~16 s; not replays.",
+  "extra": []
+ },
+ "train_acc_video197.mp4": {
+  "case": "collision",
+  "start": 1.4,
+  "end": 2.35,
+  "precursor": 0.6,
+  "confidence": "medium",
+  "description": "A green dump truck makes a fast left turn at an intersection, passing a scooter, and tips over onto its side at ~1.4 s, falling toward riders waiting at the far kerb. Edited clip: close-up camera view ~2.4-5.3 s, then two replays of the rollover (tipping ~6.3 s and ~12.1 s).",
+  "extra": [
+   [
+    6.3,
+    7.5
+   ],
+   [
+    12.1,
+    13.2
+   ]
+  ]
+ },
+ "train_acc_video181.mp4": {
+  "case": "collision",
+  "start": 2.2,
+  "end": 6.4,
+  "precursor": 1.8,
+  "confidence": "medium",
+  "description": "Far side of a junction: a black sedan hits a white van turning across its path at ~2.2 s; the van is knocked toward the camera, hits the kerb (~3.6 s) and overturns onto its side next to a scooter rider who falls while fleeing; everything at rest by ~6.4 s. Meme stickers overlaid.",
+  "extra": []
+ },
+ "train_acc_video38.mp4": {
+  "case": "collision",
+  "start": 1.7,
+  "end": 2.6,
+  "precursor": 1.2,
+  "confidence": "low",
+  "description": "Very low-res (346x194) street CCTV: a white SUV makes a U-turn at the far crosswalk across the path of an e-scooter; the two meet at ~1.7 s and the rider wobbles/pushes off the car but stays upright and rides on. Possibly only a near-miss or a light touch.",
+  "extra": []
+ },
+ "train_acc_video101.mp4": {
+  "case": "collision",
+  "start": 1.0,
+  "end": 5.0,
+  "precursor": 0.5,
+  "confidence": "high",
+  "description": "Dongguan news clip: a white SUV crossing a plaza runs up the kerb/planter edge at ~1.0 s, launches onto the road, rolls over and ends on its side (~5 s). Rest of the clip shows police and bystanders righting the car, with an interview; a zoomed replay of the rollover plays ~16.5-22.5 s (kerb strike ~19.1 s).",
+  "extra": [
+   [
+    19.1,
+    22.5
+   ]
+  ]
+ },
+ "train_acc_video78.mp4": {
+  "case": "collision",
+  "start": 6.5,
+  "end": 7.3,
+  "precursor": 0.0,
+  "confidence": "high",
+  "description": "Rainy night, Changsha: a pedestrian in a white coat jaywalks diagonally across the road (circled, \"danger\" captions) and at ~6.5 s a dark SUV entering from the left edge strikes and throws them; clip ends at 7.3 s while the pedestrian is still falling.",
+  "extra": []
+ },
+ "train_acc_video81.mp4": {
+  "case": "collision",
+  "start": 2.6,
+  "end": 4.0,
+  "precursor": 0.0,
+  "confidence": "high",
+  "description": "Town street PTZ camera: a child in a yellow shirt runs across the road and is hit by a dark minivan at ~2.6 s, knocked down in front of it; the van stops ~4 s and the child lies in the road.",
+  "extra": []
+ },
+ "train_acc_video22.mp4": {
+  "case": "collision",
+  "start": 6.75,
+  "end": 8.0,
+  "precursor": 5.9,
+  "confidence": "low",
+  "description": "Night junction PTZ camera, heavy glare: a vehicle approaches with blinding headlights and a large dark truck body sweeps across close to the camera (6.1-6.75 s), occluding the impact; a white car emerges already tipping at ~6.8 s and slides on its roof with sparks, at rest by ~8 s. Frame 0 is a teaser of the overturned car.",
+  "extra": []
+ },
+ "train_acc_video115.mp4": {
+  "case": "collision",
+  "start": 0.4,
+  "end": 2.0,
+  "precursor": 0.0,
+  "confidence": "medium",
+  "description": "Wenzhou expressway (news clip): a red heavy truck strikes a dark SUV just ahead of it (~0.4 s, perspective makes exact contact hard to pin), pushing it sideways across the lanes into the gore-area cones where it stops ~2 s. A zoomed replay starting ~2.5 s shows the same crash (contact ~3.25 s).",
+  "extra": [
+   [
+    3.25,
+    7.1
+   ]
+  ]
+ },
+ "train_acc_video170.mp4": {
+  "case": "collision",
+  "start": 3.4,
+  "end": 7.0,
+  "precursor": 1.0,
+  "confidence": "high",
+  "description": "At an urban intersection a white van turning left fails to yield and collides head-on with a straight-going red sedan, which is pushed into a blue taxi. Replayed in slow motion and in a zoomed close-up.",
+  "extra": [
+   [
+    12.9,
+    17.5
+   ],
+   [
+    25.7,
+    31.0
+   ]
+  ]
+ },
+ "train_acc_videox19_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Highway gore area: a white SUV with a smashed front already sits against the crash barrier/guardrail with debris on the road and two people standing beside it; traffic passes normally throughout.",
+  "extra": []
+ },
+ "train_acc_videox12_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "medium",
+  "description": "Congested curved elevated expressway: a few stopped cars in the right lane are surrounded by traffic cones with a traffic officer and occupants standing by, i.e. the scene after a minor crash; no contact is shown.",
+  "extra": []
+ },
+ "train_acc_video112.mp4": {
+  "case": "compilation",
+  "start": 1.1,
+  "end": 4.8,
+  "precursor": 0.0,
+  "confidence": "low",
+  "description": "Compilation (\"Heavy road crashes\") of about ten different truck accidents from different cameras; timed is the first one: a turning red dump truck hits a white sedan at an intersection and overturns (segment ends ~4.8 s). Later segments (mixer truck overturning ~5-10 s, tanker on highway ~11 s, etc.) are different crashes, not replays.",
+  "extra": []
+ },
+ "train_acc_video119.mp4": {
+  "case": "collision",
+  "start": 3.6,
+  "end": 5.2,
+  "precursor": 1.0,
+  "confidence": "medium",
+  "description": "Highway: a silver sedan brakes and stops in the lane; a following red heavy truck brakes hard (tyre smoke), swerves left and sideswipes/rear-ends the car. Replayed twice in zoomed views.",
+  "extra": [
+   [
+    6.3,
+    7.3
+   ],
+   [
+    8.8,
+    11.6
+   ]
+  ]
+ },
+ "train_acc_video109.mp4": {
+  "case": "collision",
+  "start": 10.3,
+  "end": 12.0,
+  "precursor": 8.9,
+  "confidence": "medium",
+  "description": "Highway tunnel: clip opens with phone footage of the overturned car (0-4.6 s), then CCTV shows a dark car running over a tarp/debris lying in the lane (~8.9 s), losing control and hitting the right tunnel wall (~10.3 s), overturning in a cloud of smoke far from the camera.",
+  "extra": []
+ },
+ "train_acc_video198.mp4": {
+  "case": "collision",
+  "start": 8.8,
+  "end": 10.5,
+  "precursor": 2.2,
+  "confidence": "medium",
+  "description": "Expressway near an exit: a circled white car slows/stops in the lane before the exit, a queue of cars forms and several swerve left towards the exit gore; a large vehicle coming along the left edge strikes a white car that is cutting across, spinning it and scattering debris.",
+  "extra": []
+ },
+ "train_acc_videox14_2.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night, curved tunnel with lane-closed X signals: a truck already lies on its side across the lanes with police officers and a police car at the scene; a car approaches slowly behind.",
+  "extra": []
+ },
+ "train_acc_videox3_6.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night, foggy expressway: an overturned truck lies against the right guardrail with cones, road workers and police at the scene; other trucks pass in the left lanes without incident.",
+  "extra": []
+ },
+ "train_acc_videox3_8.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night, foggy expressway under a gantry: an overturned truck lies against the right guardrail with police cars and responders on scene; a box truck passes slowly beside the wreck without contact.",
+  "extra": []
+ },
+ "train_acc_video149.mp4": {
+  "case": "collision",
+  "start": 5.5,
+  "end": 17.5,
+  "precursor": 3.0,
+  "confidence": "medium",
+  "description": "Elevated expressway (phone-filmed monitor, with zoom-ins): a white box truck swerves and tips, slamming into a white car and a dark car; a red truck then pushes the dark car, which is flung over the parked purple SUV onto the barrier, a long chain-reaction crash.",
+  "extra": []
+ },
+ "train_acc_video89.mp4": {
+  "case": "collision",
+  "start": 3.8,
+  "end": 8.0,
+  "precursor": 1.0,
+  "confidence": "high",
+  "description": "Urban road (camera pans with the action): a woman on an electric scooter crosses the lanes past a truck and rides into the path of a white SUV, which hits her; she and the scooter slide along the road and she ends up lying on the ground.",
+  "extra": []
+ },
+ "train_acc_videox9_3.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night expressway: a truck lies on its side in the right lanes, a tow/rescue vehicle with flashing lights stands behind it, cones and many responders are on scene; traffic passes in the left lanes.",
+  "extra": []
+ },
+ "train_acc_video177.mp4": {
+  "case": "collision",
+  "start": 2.6,
+  "end": 6.3,
+  "precursor": 0.7,
+  "confidence": "high",
+  "description": "Wet expressway near an exit gore: a white SUV makes an illegal lane change across the path of a red cargo truck, which hits its rear side, swerves and overturns onto its side, spilling its load and nearly crushing the SUV.",
+  "extra": []
+ },
+ "train_acc_video43.mp4": {
+  "case": "collision",
+  "start": 3.6,
+  "end": 7.0,
+  "precursor": 3.2,
+  "confidence": "high",
+  "description": "Urban street (camera zooms out): a blue three-wheeler pulls out from the roadside across the path of a white pickup, which rams its side; the tricycle tips over and its rider falls onto the road.",
+  "extra": []
+ },
+ "train_acc_video201.mp4": {
+  "case": "collision",
+  "start": 8.5,
+  "end": 12.5,
+  "precursor": 7.0,
+  "confidence": "medium",
+  "description": "Edited multi-camera expressway clip: a slow white minivan (circled) weaves across lanes causing several trucks to brake hard and swerve (0-6.7 s, near misses); in the last camera a yellow container truck sideswipes the van, which is spun and dragged in a cloud of dust before stopping.",
+  "extra": []
+ },
+ "train_acc_video56.mp4": {
+  "case": "collision",
+  "start": 1.2,
+  "end": 6.0,
+  "precursor": 0.3,
+  "confidence": "high",
+  "description": "Night intersection: a dark SUV turning across the intersection is struck at speed by a red car coming from the left; the SUV rolls over and slides upside down towards the camera, the red car stops smoking on the crosswalk.",
+  "extra": []
+ },
+ "train_acc_video145.mp4": {
+  "case": "collision",
+  "start": 3.4,
+  "end": 6.0,
+  "precursor": 3.1,
+  "confidence": "high",
+  "description": "Urban intersection crosswalk: a white minivan driving through the crossing is hit from the left by a fast motorcycle carrying two riders, who are thrown over the van onto the road. Replayed twice from the same camera.",
+  "extra": [
+   [
+    16.15,
+    18.7
+   ],
+   [
+    23.2,
+    25.8
+   ]
+  ]
+ },
+ "train_acc_video50.mp4": {
+  "case": "collision",
+  "start": 3.8,
+  "end": 5.5,
+  "precursor": 1.0,
+  "confidence": "medium",
+  "description": "Urban expressway (news clip): a man walks across the lanes, a dark Mercedes brakes hard to avoid him and the following silver car, too close, rear-ends it. Replayed at ~9-13 s; later shots show the man running off past the stopped cars.",
+  "extra": [
+   [
+    10.0,
+    12.5
+   ]
+  ]
+ },
+ "train_acc_videox7_2.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Distant elevated expressway: an overturned vehicle lies in the lanes with an ambulance, tow trucks and responders in hi-vis on scene; traffic queues and squeezes past in the remaining lanes.",
+  "extra": []
+ },
+ "train_acc_video42.mp4": {
+  "case": "collision",
+  "start": 3.0,
+  "end": 5.0,
+  "precursor": 2.0,
+  "confidence": "medium",
+  "description": "Rainy street crosswalk next to roadworks: an e-bike rider in a white raincoat crossing the road collides with a scooter carrying two people; both fall, the scooter crashing into the red road barriers. Replayed once (6-9.6 s).",
+  "extra": [
+   [
+    7.5,
+    9.6
+   ]
+  ]
+ },
+ "train_acc_video161.mp4": {
+  "case": "compilation",
+  "start": 1.0,
+  "end": 2.8,
+  "precursor": 0.0,
+  "confidence": "low",
+  "description": "Compilation of about ten different tricycle accidents from various cameras (separated by title cards such as red-light running). Timed is the first: on a rainy rural road a white car collides head-on with a turning tricycle whose rider (holding an umbrella) is thrown onto the road; the segment ends ~3.2 s. Later segments are other crashes, not replays.",
+  "extra": []
+ },
+ "train_acc_video61.mp4": {
+  "case": "collision",
+  "start": 5.1,
+  "end": 8.2,
+  "precursor": 4.6,
+  "confidence": "high",
+  "description": "Urban street: an orange SUV veers off the road into the roadside railing (~5.1 s), mows down the fence along the sidewalk and strikes a pedestrian in a white shirt before stopping against the shop-front fence; the rest of the clip shows the aftermath.",
+  "extra": []
+ },
+ "train_acc_video165.mp4": {
+  "case": "collision",
+  "start": 7.1,
+  "end": 9.2,
+  "precursor": 5.6,
+  "confidence": "medium",
+  "description": "Wet intersection: a loaded three-wheeler turns left on a red arrow into the path of a straight-going tanker truck on green; the truck side-swipes it, the tricycle is dragged and tips over onto the road.",
+  "extra": []
+ },
+ "train_acc_video36.mp4": {
+  "case": "collision",
+  "start": 1.0,
+  "end": 3.0,
+  "precursor": 0.6,
+  "confidence": "low",
+  "description": "Very low-resolution (270x138) intersection clip: a white car coming from the right drives into the side of a blue container truck crossing the intersection, raising a cloud of dust/smoke under the trailer.",
+  "extra": []
+ },
+ "train_acc_video93.mp4": {
+  "case": "collision",
+  "start": 4.85,
+  "end": 6.75,
+  "precursor": 3.8,
+  "confidence": "medium",
+  "description": "Phone-filmed monitor of a city road: a white SUV pulls out from a median opening and cuts across a white sedan, which hits it, overturns and rolls onto its roof. The contact is replayed immediately (6.8-10 s).",
+  "extra": [
+   [
+    6.85,
+    10.0
+   ]
+  ]
+ },
+ "train_acc_videox33_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night, rainy elevated expressway with noise barriers: several cars from an earlier crash are stopped in the right lane with a police car and officers in hi-vis; a large covered truck and a bus pass by slowly without contact.",
+  "extra": []
+ },
+ "train_acc_video189.mp4": {
+  "case": "collision",
+  "start": 4.7,
+  "end": 6.5,
+  "precursor": 4.2,
+  "confidence": "high",
+  "description": "A dark SUV speeds straight through the intersection and hits an e-scooter rider crossing from the right; the rider and scooter are thrown and debris scatters. The same crash is replayed from two other cameras.",
+  "extra": [
+   [
+    7.5,
+    8.5
+   ],
+   [
+    9.7,
+    11.5
+   ]
+  ]
+ },
+ "train_acc_videox16_2.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Highway: a blue flatbed truck and a white car are already stopped against the left median after a crash, people stand beside them and a warning triangle is out while traffic queues behind.",
+  "extra": []
+ },
+ "train_acc_video143.mp4": {
+  "case": "collision",
+  "start": 7.6,
+  "end": 10.0,
+  "precursor": 6.2,
+  "confidence": "low",
+  "description": "Blurry phone recording of a monitor: a dark car beside a white truck on the far carriageway swerves left across the lanes, hits the left roadside and appears to tumble/overturn, raising a dust cloud.",
+  "extra": []
+ },
+ "train_acc_video57.mp4": {
+  "case": "collision",
+  "start": 2.7,
+  "end": 6.0,
+  "precursor": 2.3,
+  "confidence": "high",
+  "description": "At a dusk intersection a white SUV speeds in from the left and T-bones a red tanker truck crossing the junction; sparks and debris fly, the car spins away left and the tanker continues out of frame right.",
+  "extra": []
+ },
+ "train_acc_video3.mp4": {
+  "case": "collision",
+  "start": 3.3,
+  "end": 6.0,
+  "precursor": 2.8,
+  "confidence": "high",
+  "description": "Highway interchange: a white sedan that missed its exit slows/stops in the overtaking lane; a following dark car swerves, clips it and slams into the median barrier, overturning. The crash is replayed at ~21.8 s.",
+  "extra": [
+   [
+    21.8,
+    24.6
+   ]
+  ]
+ },
+ "train_acc_videox22_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Heavy rain on a highway: a damaged white car is already stopped at the right shoulder with its driver standing beside it under an umbrella and debris in the lane while traffic passes.",
+  "extra": []
+ },
+ "train_acc_video114.mp4": {
+  "case": "collision",
+  "start": 1.4,
+  "end": 3.0,
+  "precursor": 0.6,
+  "confidence": "high",
+  "description": "A black sedan loses control, skids across the road and slams into the bridgehead pier/pole on the right, rearing up on its side in a cloud of dust. A zoomed slow replay of the impact follows.",
+  "extra": [
+   [
+    6.0,
+    9.0
+   ]
+  ]
+ },
+ "train_acc_video90.mp4": {
+  "case": "collision",
+  "start": 7.4,
+  "end": 8.8,
+  "precursor": 5.2,
+  "confidence": "low",
+  "description": "Highway: a white SUV squeezes in front of a red cargo truck in the left lane; the truck brakes hard, skids and spins about 90 degrees, ending crosswise with its cab against the median guardrail (contact with the barrier/SUV is not clearly visible). The SUV briefly stops and drives off.",
+  "extra": []
+ },
+ "train_acc_video102.mp4": {
+  "case": "collision",
+  "start": 3.9,
+  "end": 6.0,
+  "precursor": 3.6,
+  "confidence": "high",
+  "description": "Town road: an oncoming white SUV crashes head-on into a black sedan; the SUV shoves the sedan backwards into a motorcyclist behind it and both cars end up at the left edge of the frame.",
+  "extra": []
+ },
+ "train_acc_video69.mp4": {
+  "case": "collision",
+  "start": 9.4,
+  "end": 11.4,
+  "precursor": 9.0,
+  "confidence": "high",
+  "description": "At a junction a black sedan travelling fast from the right slams into a scooter rider crossing in front of it; the scooter and rider are thrown across the crosswalk with debris scattering, the car continues out of frame.",
+  "extra": []
+ },
+ "train_acc_video168.mp4": {
+  "case": "collision",
+  "start": 4.3,
+  "end": 6.8,
+  "precursor": 3.4,
+  "confidence": "high",
+  "description": "On a curving village road a red-jacketed scooter rider heads straight into the path of an oncoming red truck and is struck head-on; the rider and scooter go under/in front of the truck, which stops with the wreck lying in the road.",
+  "extra": []
+ },
+ "train_acc_video54.mp4": {
+  "case": "collision",
+  "start": 8.3,
+  "end": 13.5,
+  "precursor": 7.5,
+  "confidence": "high",
+  "description": "Highway near an exit (second camera view after a cut at ~4.5 s): a flatbed truck carrying white boxes and a white SUV running side by side collide; the SUV is pushed into the right guardrail, bounces back into the truck and spins to a stop in the lanes.",
+  "extra": []
+ },
+ "train_acc_videox2_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Expressway before a toll plaza: a small box truck already lies on its side next to the right barrier with people standing nearby while trucks and cars slowly pass.",
+  "extra": []
+ },
+ "train_acc_videox3_10.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night highway accident scene: police officers attend people at the guardrail, a tow/rescue truck with flashing lights and a stopped vehicle are on the shoulder; passing trucks go by without incident.",
+  "extra": []
+ },
+ "train_acc_video12.mp4": {
+  "case": "collision",
+  "start": 1.7,
+  "end": 2.65,
+  "precursor": 1.3,
+  "confidence": "high",
+  "description": "Mirrored news clip of an intersection: a white sedan runs the red light and T-bones a small flatbed truck crossing from the right; the truck spins into a waiting white SUV and a motorcyclist. The first play is cut at ~2.7 s and the crash is replayed with a red-light caption.",
+  "extra": [
+   [
+    3.85,
+    6.5
+   ]
+  ]
+ },
+ "train_acc_video138.mp4": {
+  "case": "collision",
+  "start": 0.4,
+  "end": 3.5,
+  "precursor": 0.2,
+  "confidence": "medium",
+  "description": "Rainy night street: a car entering from the right edge veers into cars parked along the kerb, flips over and slides on its roof into the middle of the road; a passing taxi driver later helps the driver out.",
+  "extra": []
+ },
+ "train_acc_video140.mp4": {
+  "case": "collision",
+  "start": 7.3,
+  "end": 8.8,
+  "precursor": 7.0,
+  "confidence": "medium",
+  "description": "Hazy intersection: a dark sedan coming through the junction from the far side strikes a motorcyclist crossing on the left; the rider is carried on the hood and falls, the sedan stops over the fallen motorcycle.",
+  "extra": []
+ },
+ "train_acc_video9.mp4": {
+  "case": "collision",
+  "start": 4.5,
+  "end": 6.5,
+  "precursor": 3.4,
+  "confidence": "high",
+  "description": "Rural road: a green cargo tricycle turns left across the oncoming lane and is struck by an oncoming white Audi; the tricycle is shoved sideways and overturns, spilling its rider and load. A zoomed replay follows from ~7.85 s.",
+  "extra": [
+   [
+    7.85,
+    11.5
+   ]
+  ]
+ },
+ "train_acc_video18.mp4": {
+  "case": "collision",
+  "start": 2.9,
+  "end": 4.2,
+  "precursor": 1.4,
+  "confidence": "high",
+  "description": "Intersection: an e-bike rider runs the red light crossing from the left and rides into the side of a silver sedan going straight; the rider falls onto the crosswalk and the car stops beside the fallen e-bike.",
+  "extra": []
+ },
+ "train_acc_video182.mp4": {
+  "case": "collision",
+  "start": 7.4,
+  "end": 9.6,
+  "precursor": 6.6,
+  "confidence": "medium",
+  "description": "Town street: a white MPV drifts left across its lane, smashes through the roadside/median railing and rams a parked tricycle next to a yellow school bus, then stops. The crash is shown again from a closer second camera starting ~9.75 s.",
+  "extra": [
+   [
+    9.75,
+    11.8
+   ]
+  ]
+ },
+ "train_acc_videox10_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Night expressway (camera zooming out): a wrecked dark car sits against the damaged guardrail/crash barrier at a gore area with a tow truck, police car, cones and officers already on scene; traffic passes normally.",
+  "extra": []
+ },
+ "train_acc_video58.mp4": {
+  "case": "collision",
+  "start": 4.8,
+  "end": 5.8,
+  "precursor": 4.3,
+  "confidence": "low",
+  "description": "Foggy night intersection: a white car speeds in from the lower right past a turning car and crashes into something at the left roadside (poles/bollards), throwing up a large cloud; replayed at ~9.6 s, followed by phone footage of the car burning.",
+  "extra": [
+   [
+    9.85,
+    10.8
+   ]
+  ]
+ },
+ "train_acc_videox8_2.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Expressway: a small van already lies on its side against the left barrier with spilled cardboard boxes and people standing by, while trucks and cars pass it throughout the clip.",
+  "extra": []
+ },
+ "train_acc_videox20_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Rainy expressway: a white sedan with a smashed front is already stopped against the left guardrail and a worker in a hi-vis vest walks nearby with debris on the road; trucks pass by.",
+  "extra": []
+ },
+ "train_acc_video24.mp4": {
+  "case": "collision",
+  "start": 3.7,
+  "end": 5.8,
+  "precursor": 3.0,
+  "confidence": "high",
+  "description": "Two white cars side by side at an intersection: the SUV on the left turns/swerves right into the sedan, the two lock together, and the SUV is shoved to the left roadside while the sedan skids away in a cloud of dust. Replayed from a wider view starting ~6.4 s.",
+  "extra": [
+   [
+    7.4,
+    10.5
+   ]
+  ]
+ },
+ "train_acc_video45_1.mp4": {
+  "case": "collision",
+  "start": 0.6,
+  "end": 3.0,
+  "precursor": 0.4,
+  "confidence": "high",
+  "description": "Night intersection: a black Mercedes running the red light from the right T-bones a white box truck crossing the junction; the truck spins and overturns, spilling cargo. The crash is shown again from a wide second camera (~8.1 s), then aftermath views.",
+  "extra": [
+   [
+    8.1,
+    11.3
+   ]
+  ]
+ },
+ "train_acc_videox5_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Overhead PTZ camera at an expressway gore area: a car already lies overturned beside the crash barrels with debris around and a traffic officer walking nearby; the camera then pans/zooms around the pole.",
+  "extra": []
+ },
+ "train_acc_video94.mp4": {
+  "case": "collision",
+  "start": 0.64,
+  "end": 2.0,
+  "precursor": 0.4,
+  "confidence": "high",
+  "description": "A dark sedan entering from the left edge strikes a cyclist riding into the frame; the cyclist is thrown and the bike lands on the road while the car stops.",
+  "extra": []
+ },
+ "train_acc_video111.mp4": {
+  "case": "collision",
+  "start": 7.3,
+  "end": 11.0,
+  "precursor": 7.1,
+  "confidence": "medium",
+  "description": "On a highway a silver sedan catches up with a dark sedan and clips its left rear, then overturns and rolls across the median in a dust cloud, coming to rest upside down; the edited news clip repeats the crash many times in slow-motion close-ups and zoomed-out normal-speed replays.",
+  "extra": [
+   [
+    12.6,
+    14.5
+   ],
+   [
+    15.45,
+    17.5
+   ],
+   [
+    18.6,
+    20.4
+   ],
+   [
+    20.72,
+    27.0
+   ],
+   [
+    38.5,
+    39.8
+   ],
+   [
+    41.2,
+    42.8
+   ],
+   [
+    44.45,
+    46.2
+   ],
+   [
+    46.68,
+    53.0
+   ],
+   [
+    63.55,
+    73.5
+   ]
+  ]
+ },
+ "train_acc_video174.mp4": {
+  "case": "collision",
+  "start": 1.85,
+  "end": 3.5,
+  "precursor": 1.2,
+  "confidence": "high",
+  "description": "A dark sedan loses control on the highway, veers right and smashes into the roadside guardrail end in a cloud of dust; the clip then replays the impact in a zoomed-in view and shows the driver standing by the wrecked car.",
+  "extra": [
+   [
+    6.1,
+    7.8
+   ]
+  ]
+ },
+ "train_acc_videox3_9.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Foggy night highway: an overturned truck lies against the right guardrail under a gantry with police cars and flashing lights already on scene; traffic passes slowly and no new collision occurs.",
+  "extra": []
+ },
+ "train_acc_video87.mp4": {
+  "case": "collision",
+  "start": 1.65,
+  "end": 3.0,
+  "precursor": 1.2,
+  "confidence": "medium",
+  "description": "Night intersection: two electric scooters on crossing paths collide just beyond the crosswalk, riders and scooters slide across the road while a dark car following behind brakes and stops near them.",
+  "extra": []
+ },
+ "train_acc_video117.mp4": {
+  "case": "collision",
+  "start": 1.75,
+  "end": 3.9,
+  "precursor": 1.0,
+  "confidence": "medium",
+  "description": "A white SUV turning left strikes the side of a passing minivan; the van is pushed into the median curb and flips over, rolling along the road. After a cut at ~3.9 s the van hitting the curb and rolling is replayed.",
+  "extra": [
+   [
+    4.4,
+    7.5
+   ]
+  ]
+ },
+ "train_acc_video116.mp4": {
+  "case": "collision",
+  "start": 8.72,
+  "end": 10.3,
+  "precursor": 8.0,
+  "confidence": "high",
+  "description": "A motorcyclist crossing the road beyond the crosswalk is struck by a red car coming from the far side; rider and motorcycle are thrown and slide across the lanes. The impact is replayed at ~14 s.",
+  "extra": [
+   [
+    14.07,
+    15.7
+   ]
+  ]
+ },
+ "train_acc_video108.mp4": {
+  "case": "collision",
+  "start": 22.1,
+  "end": 27.5,
+  "precursor": 21.5,
+  "confidence": "high",
+  "description": "Rainy intersection: a white car crossing from the left is T-boned by a black car speeding straight through; the black car spins away and overturns at the far right corner amid spray and debris, while the white car is knocked into the far crosswalk.",
+  "extra": []
+ },
+ "train_acc_video28.mp4": {
+  "case": "collision",
+  "start": 8.5,
+  "end": 12.5,
+  "precursor": 7.0,
+  "confidence": "medium",
+  "description": "Edited highway clip following a white van (circled) that turns around/moves slowly among trucks: in the first two camera segments trucks brake hard and swerve past it (near misses), then in the third segment a yellow container truck runs into the van, spinning it, and skids to a stop in a cloud of dust.",
+  "extra": []
+ },
+ "train_acc_video7.mp4": {
+  "case": "collision",
+  "start": 0.6,
+  "end": 3.2,
+  "precursor": 0.2,
+  "confidence": "high",
+  "description": "A white box truck drifts left into the median guardrail on a curved highway; the cab separates from the cargo body and the wreck ends up across the lane. The crash is replayed at ~4.9 s, followed by aftermath footage of drivers rescuing the occupant.",
+  "extra": [
+   [
+    4.9,
+    7.3
+   ]
+  ]
+ },
+ "train_acc_video74.mp4": {
+  "case": "collision",
+  "start": 3.05,
+  "end": 5.0,
+  "precursor": 0.5,
+  "confidence": "high",
+  "description": "Night intersection: an electric bike carrying a passenger runs a red light (circled in the first camera view); in the second camera view from ~2.3 s a dark car crossing on green hits it, throwing both riders onto the road.",
+  "extra": []
+ },
+ "train_acc_video151.mp4": {
+  "case": "collision",
+  "start": 3.05,
+  "end": 7.2,
+  "precursor": 1.6,
+  "confidence": "medium",
+  "description": "A dark car drifts across the lanes toward the right median, hits the curb and planting strip, rides along it and overturns onto its roof, coming to rest in the lane. The very first frame (0.0 s) is a brief teaser still of the rollover.",
+  "extra": []
+ },
+ "train_acc_video147.mp4": {
+  "case": "collision",
+  "start": 3.28,
+  "end": 8.0,
+  "precursor": 3.0,
+  "confidence": "high",
+  "description": "At a junction on a tree-lined road a black sedan pulls out from the right side road into the path of a dark SUV; the SUV strikes it, rolls over, hits the roadside pole/trees and comes to rest on its roof; the rest of the clip is aftermath with passers-by.",
+  "extra": []
+ },
+ "train_acc_video176.mp4": {
+  "case": "collision",
+  "start": 1.42,
+  "end": 2.2,
+  "precursor": 0.9,
+  "confidence": "medium",
+  "description": "Edited news clip: after an aftermath teaser, a circled view shows a silver car turning left across the path of a gold sedan going straight; they collide front-to-side in the intersection. The rest shows soldiers securing the scene from other angles.",
+  "extra": []
+ },
+ "train_acc_video192.mp4": {
+  "case": "collision",
+  "start": 3.8,
+  "end": 5.4,
+  "precursor": 2.0,
+  "confidence": "medium",
+  "description": "A black SUV pulls out from roadside parking and cuts left into a white SUV, which is pushed into the median guardrail and overturns onto its side; the clip opens with a still of the overturned SUV and replays the crash from ~5.7 s.",
+  "extra": [
+   [
+    6.4,
+    9.8
+   ]
+  ]
+ },
+ "train_acc_video11.mp4": {
+  "case": "collision",
+  "start": 3.7,
+  "end": 5.0,
+  "precursor": 2.5,
+  "confidence": "high",
+  "description": "A white SUV cuts late across the lane toward the exit gore in front of a red box truck; the truck clips its rear, spinning it into the crash cushion/guardrail at the gore. A zoomed-in replay of the impact follows from ~6 s.",
+  "extra": [
+   [
+    8.05,
+    9.4
+   ]
+  ]
+ },
+ "train_acc_video125_1.mp4": {
+  "case": "collision",
+  "start": 13.1,
+  "end": 14.5,
+  "precursor": 12.4,
+  "confidence": "medium",
+  "description": "Rainy mountain highway, far carriageway: a box truck (circled/arrowed, small in frame) skids on the wet road after braking and slams into the central median guardrail/hedge; the clip starts with a title card and ends with a close-up photo of the damaged truck.",
+  "extra": []
+ },
+ "train_acc_video29.mp4": {
+  "case": "collision",
+  "start": 6.75,
+  "end": 9.0,
+  "precursor": 5.3,
+  "confidence": "medium",
+  "description": "Tunnel: a minivan suffers a tire blowout, swerves right then left and slams into the left tunnel wall, overturning several times; first seen far away from one camera (~6.75 s), then shown again from a closer second camera from ~11 s (wall impact ~13.55 s).",
+  "extra": [
+   [
+    13.55,
+    16.0
+   ]
+  ]
+ },
+ "train_acc_video187.mp4": {
+  "case": "collision",
+  "start": 5.45,
+  "end": 8.0,
+  "precursor": 3.5,
+  "confidence": "medium",
+  "description": "A red flatbed semi-truck cuts right across the gore area toward an exit and sideswipes a red car in the adjacent lane, dragging it along while crossing the chevrons before stopping at the exit; the same crash is shown again from a wide elevated camera (~13.2 s) and a closer framing of it (~22.7 s).",
+  "extra": [
+   [
+    13.2,
+    17.5
+   ],
+   [
+    22.7,
+    26.5
+   ]
+  ]
+ },
+ "train_acc_video15.mp4": {
+  "case": "collision",
+  "start": 0.75,
+  "end": 2.8,
+  "precursor": 0.3,
+  "confidence": "high",
+  "description": "A white light truck turning left at a barrier-gate junction strikes a scooter rider coming from the left; the rider is dragged/thrown to the ground behind the truck, which stops a moment later.",
+  "extra": []
+ },
+ "train_acc_video96.mp4": {
+  "case": "collision",
+  "start": 1.0,
+  "end": 2.4,
+  "precursor": 0.6,
+  "confidence": "medium",
+  "description": "Night street: a speeding car enters from the lower left, veers onto the sidewalk and ploughs into people/scooters at a roadside stall near the crosswalk, with sparks and debris; the scene then goes dark with a victim lying on the road.",
+  "extra": []
+ },
+ "train_acc_videox21_1.mp4": {
+  "case": "aftermath",
+  "start": null,
+  "end": null,
+  "precursor": null,
+  "confidence": "high",
+  "description": "Highway aftermath: an overturned dark car against the median guardrail and a white sedan with a crushed front, with people standing around and a police pickup behind; the camera zooms out and traffic passes slowly, no new collision.",
+  "extra": []
+ },
+ "train_acc_video105.mp4": {
+  "case": "collision",
+  "start": 5.35,
+  "end": 7.0,
+  "precursor": 3.8,
+  "confidence": "high",
+  "description": "Rainy city street: a silver BMW pulls out from roadside parking and makes a U-turn/left turn across the road into the path of an oncoming scooter rider, who hits the car front and falls to the ground.",
+  "extra": []
+ },
+ "train_acc_video175.mp4": {
+  "case": "collision",
+  "start": 9.4,
+  "end": 16.0,
+  "precursor": 8.0,
+  "confidence": "low",
+  "description": "Far carriageway of a highway (small, zooming camera): a red medium truck loses control after scraping the median (per captions), tilts onto two wheels, crosses the lanes and overturns onto its side in the emergency lane against the guardrail. A second camera from ~19.6 s shows the preceding lane change by a semi-trailer but the contact is too far to see.",
+  "extra": []
+ },
+ "train_acc_video106.mp4": {
+  "case": "collision",
+  "start": 2.55,
+  "end": 5.0,
+  "precursor": 1.4,
+  "confidence": "high",
+  "description": "A white SUV slows for a pedestrian crossing the road (circled) and the following black SUV rear-ends it, pushing it forward with debris; a pickup then swerves around the scene. The clip opens with a 0.1 s still of the impact.",
+  "extra": []
+ },
+ "train_acc_video40.mp4": {
+  "case": "collision",
+  "start": 6.03,
+  "end": 9.0,
+  "precursor": 5.93,
+  "confidence": "high",
+  "description": "A dark sedan entering from the right in the wrong lane hits a white SUV head-on, then a following red car rear-ends the SUV, sending debris and the sedan spinning; a zoomed-in replay of the chain crash follows from ~11 s.",
+  "extra": [
+   [
+    11.23,
+    15.6
+   ]
+  ]
+ },
+ "train_acc_video70.mp4": {
+  "case": "collision",
+  "start": 5.1,
+  "end": 7.0,
+  "precursor": 3.0,
+  "confidence": "high",
+  "description": "At an intersection a scooter rider (circled) crosses on the crosswalk from behind a stopped bus and is hit by a white hatchback going straight; the rider is thrown and the scooter slides across the junction.",
+  "extra": []
+ }
+}
