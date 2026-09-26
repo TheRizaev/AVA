@@ -1,0 +1,24 @@
+{
+  "note": "Corrections after a blind re-check (frames only, no detector output; official start/end conventions and dev/BRIEF.md) of windows where the rules and our first labels disagreed. Only medium/high-confidence verdicts are applied; low-confidence and unclear ones are listed with apply=false. Applied by scripts/apply_label_corrections.py.",
+  "corrections": [
+    {"video": "C3902.MP4", "op": "add", "segment": [272.3, 279.25, "jaywalking"], "confidence": "high", "apply": true,
+     "why": "A man leaves the lower edge of cw1 at 272.3 s, cuts diagonally over the junction asphalt to island_tri1, waits 2 s and continues to cw3 (279.25 s)."},
+    {"video": "C3902.MP4", "op": "add", "segment": [237.25, 240.75, "jaywalking"], "confidence": "medium", "apply": true,
+     "why": "A man steps off the tip of island_tri1 at 237.25 s and walks over the junction asphalt below cw1 until his feet reach the zebra at 240.75 s."},
+    {"video": "C3902.MP4", "op": "add", "segment": [63.25, 67.25, "jaywalking"], "confidence": "medium-high", "apply": true,
+     "why": "A man leaves cw3 at the island_tri1 tip at 63.25 s and cuts across the right-turn slip lane to the west end of cw1 (67.25 s)."},
+    {"video": "C3896.MP4", "op": "replace", "segment": [122.9, 133.75, "solid_line_crossing"],
+     "with": [[122.9, 126.0, "solid_line_crossing"], [130.25, 133.25, "solid_line_crossing"]], "confidence": "high", "apply": true,
+     "why": "Two separate lane changes of one SUV (lane 3 to 2 across the 26.0 divider, then lane 2 to 1 across the 23.3 divider), 4 s apart."},
+    {"video": "C3902.MP4", "op": "add", "segment": [211.25, 214.75, "solid_line_crossing"], "confidence": "medium", "apply": true,
+     "why": "A black coupe drifts from the median lane into lane 4 across the solid divider L3 before the stop line."},
+    {"video": "C3902.MP4", "op": "remove", "segment": [93.35, 94.15, "failure_to_yield"], "confidence": "high", "apply": true,
+     "why": "The only pedestrians near the car stand still in the refuge between island_tri2 and island_3 (dev/decisions.md: people standing on the refuge do not make a failure_to_yield)."},
+    {"video": "C3902.MP4", "op": "add", "segment": [184.0, 187.0, "failure_to_yield"], "confidence": "medium", "apply": true,
+     "why": "A black sedan rolls across cw2 while three men cross just in front of its bumper (185.0-185.75 s)."},
+    {"video": "C3897.MP4", "op": "add", "segment": [158.25, 160.25, "failure_to_yield"], "confidence": "low", "apply": false,
+     "why": "A Cobalt crosses cw2 while the last man of a group is on the far edge of the zebra; borderline."},
+    {"video": "C3902.MP4", "op": "add", "segment": [174.0, 175.45, "failure_to_yield"], "confidence": "unclear", "apply": false,
+     "why": "A sedan crosses cw2 while a pedestrian who just stepped on is about 5 m away; borderline."}
+  ]
+}

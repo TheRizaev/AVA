@@ -80,3 +80,30 @@ A box that already straddles a divider is no evidence that the vehicle was in th
 vehicles and boxes sliding onto a nearer car produced such "lane changes"). The rule needs a
 sample clear of the line by half a car (capped per lane, the median lane's centre is only ~0.8°
 from its divider); the event starts when the side reaches the line.
+The event ends when the rear wheels are over the line too: the box bottom-centre is the vehicle's
+front, and a vehicle changing lane is angled across the divider, so its rear crosses later - once it
+has driven about its own length further, or where it stops.
+
+## illegal_turn — end when the vehicle has driven through cw3
+The official end is "vehicle completes the turn". The exit heading differs by path (~153° through
+the slip lane, ~180° round island_3), so a heading threshold ended the junction-centre turns
+seconds early; the turn now ends when the vehicle leaves the side street's crossing (cw3).
+
+## congestion — a junction jam must be a jam of the main road
+Cross-street cars queued in front of cw2 while pedestrians have their phase are a yield queue of
+their own approach, not a jam; at least 3 of the ≥5 crawling vehicles in the junction must move
+with the main road.
+
+## stopped_vehicle — buses at the kerb are serving a stop
+A bus standing at the roadside kerb with traffic passing it is a scheduled dwell at the stop on
+the outbound road, not a stopped-vehicle incident (our annotators rejected every such case).
+
+## red_light — moving off on red+yellow is an early start, not red-light running
+Red+yellow lasts 3.0 s in every cycle and the queue front moves off with it (0.26-0.40 s before
+green in 3 of 14 green phases on the samples); crossings in the last 1.0 s before green are not
+reported.
+
+## Dev label corrections
+Windows where the rules and our first labels disagreed were re-checked blind (frames only, no
+detector output); medium/high-confidence verdicts are applied by `scripts/apply_label_corrections.py`
+from `label_corrections.json` (7 corrections; 2 low-confidence ones are listed but not applied).
