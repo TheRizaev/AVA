@@ -1,0 +1,6 @@
+# LF in the repository and on checkout: the harness machine runs Linux
+* text=auto eol=lf
+*.sh text eol=lf
+*.pt binary
+*.mp4 binary
+*.pdf binary

@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+samples/*.MP4
+samples/*.mp4
+work/
+*.egg-info/
+.ipynb_checkpoints/
+# experiment-only weights (the pipeline uses yolo26l.pt, yolo26s.pt, yoloe26l_hazards.pt)
+weights/mobileclip2_b.ts
+weights/yolo11*.pt
+weights/yolo26m.pt
+weights/yoloe-26l-seg.pt
+.pytest_cache/
+*.stackdump
+dev/annotation_journal.jsonl
