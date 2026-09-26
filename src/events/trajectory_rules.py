@@ -29,7 +29,9 @@ HALF_CAR_DEG = 0.75      # half a car width in lane-angle units on the approach
 SETTLE_SEC = 1.0
 LANE_CENTRE_TOL = 0.7      # deg from a lane-centre peak = driving in that lane
 MAX_LANE_CHANGE_SEC = 5.0
-IN_NEW_LANE_DEG = 1.0        # centre this far past the divider = all wheels in the new lane
+IN_NEW_LANE_DEG = 0.4        # box bottom-centre (the front) this far past the divider: front wheels over it
+REAR_LAG_PX = 100.0          # the rear wheels follow the front's path: over the line once the vehicle drove this far on
+STOPPED_SPEED = 15.0         # px/s; a vehicle that stops first has finished its manoeuvre where it stands
 MAX_LANE_CHANGE_EVENT_SEC = 6.0
 MIN_LANE_CHANGE_SPEED = 30.0
 
@@ -127,6 +129,18 @@ def illegal_u_turn(ctx: Context) -> list[Event]:
     return events
 
 
+def _rear_over(xy: np.ndarray, speed: np.ndarray, k: int) -> int:
+    """Index at which the rear wheels are over the line too, the front being over it at sample k.
+
+    The rear wheels run along the front's path, so they reach the front's
+    lateral position once the vehicle has driven REAR_LAG_PX further; a
+    vehicle that stops before that ends its manoeuvre where it stands.
+    """
+    driven = np.concatenate([[0.0], np.cumsum(np.hypot(*np.diff(xy[k:], axis=0).T))])
+    done = (driven >= REAR_LAG_PX) | (speed[k:] < STOPPED_SPEED)
+    return k + int(np.argmax(done)) if done.any() else len(xy) - 1
+
+
 def solid_line_crossing(ctx: Context) -> list[Event]:
     """A clean lane change across one of the solid dividers in front of the approach stop line.
 
@@ -136,7 +150,11 @@ def solid_line_crossing(ctx: Context) -> list[Event]:
     lane inside the divider's solid part, and then sit near the centre of the
     adjacent lane - a slow drift inside a lane or box noise in a queue does not
     count. Start: the vehicle's side reaches the line (centre within
-    HALF_CAR_DEG of it); end: fully in the new lane.
+    HALF_CAR_DEG of it); end: fully in the new lane, i.e. the rear wheels are
+    over too. The box bottom-centre is the vehicle's front, and a vehicle
+    changing lane is angled across it, so its rear crosses later - by the time
+    it takes to drive about its own length, which for a slow, steep move in a
+    queue is seconds (see _rear_over).
     """
     layout = load_layout()["solid_lines"]
     lines = sorted(layout["lines"], key=lambda ln: ln["angle"])
@@ -180,7 +198,9 @@ def solid_line_crossing(ctx: Context) -> list[Event]:
                 if (lane[settled_pre] == a).mean() < 0.9 or (lane[settled_post] == b).mean() < 0.9:
                     continue
                 s_i = next((k for k in range(p0, i + 1) if abs(rel[k]) < clr), i)   # the side reaches the line
-                e_i = next((k for k in range(i + 1, len(tr)) if abs(rel[k]) >= IN_NEW_LANE_DEG), p1)
+                past = rel * (b - a)                         # distance past the line towards the new lane
+                k_w = next((k for k in range(i + 1, len(tr)) if past[k] >= IN_NEW_LANE_DEG), None)
+                e_i = p1 if k_w is None else _rear_over(xy, speed, k_w)
                 e_i = min(e_i, int(np.searchsorted(tr.t, tr.t[s_i] + MAX_LANE_CHANGE_EVENT_SEC)))
                 e_i = min(e_i, len(tr) - 1)
                 events.append(Event(float(tr.t[s_i]), float(tr.t[e_i]), "solid_line_crossing", 1.0,
@@ -200,7 +220,11 @@ def illegal_turn(ctx: Context) -> list[Event]:
     On the sample videos 19 of 23 right turns start from the rightmost approach
     lane (separated by a solid divider); a right turn from any other lane cuts
     across it. Start: the heading leaves the approach direction; end: the
-    vehicle is heading down the side street (turn complete).
+    vehicle has driven through the side street's crossing (cw3) into the side
+    street (turn complete). The exit heading differs by path (~153 deg through
+    the slip lane, ~180 deg round island_3 along the frame bottom), so the
+    heading alone ends the junction-centre turns seconds early; the heading
+    criterion is only the fallback for a track lost before it leaves cw3.
     """
     approach = polygon("approach")
     events = []
@@ -227,5 +251,8 @@ def illegal_turn(ctx: Context) -> list[Event]:
         if start is None:
             continue
         end = next((i for i in range(start, len(tr)) if moving[i] and dev[i] > TURN_DONE_DEG), len(tr) - 1)
+        cw3_run = np.flatnonzero(on_cw3[start:]) + start
+        if len(cw3_run):     # first sample past the crossing (or the track's last one if it is lost on it)
+            end = next((i for i in range(int(cw3_run[0]), len(tr)) if not on_cw3[i]), len(tr) - 1)
         events.append(Event(float(tr.t[start]), float(tr.t[end]), "illegal_turn", 1.0, {"track": tr.tid}))
     return events
