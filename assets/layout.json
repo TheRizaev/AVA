@@ -1,0 +1,475 @@
+{
+ "comment": "Scene layout in reference-frame pixels (assets/reference.jpg, 1920x1080). Drawn on the median background of sample C3896 and checked against the vehicle / pedestrian occupancy maps of all samples.",
+ "polygons": {
+  "approach": [
+   [
+    60,
+    130
+   ],
+   [
+    113,
+    127
+   ],
+   [
+    931,
+    456
+   ],
+   [
+    288,
+    527
+   ],
+   [
+    250,
+    490
+   ],
+   [
+    170,
+    380
+   ],
+   [
+    100,
+    270
+   ],
+   [
+    60,
+    200
+   ]
+  ],
+  "outbound": [
+   [
+    113,
+    108
+   ],
+   [
+    700,
+    332
+   ],
+   [
+    1000,
+    432
+   ],
+   [
+    1186,
+    498
+   ],
+   [
+    1195,
+    505
+   ],
+   [
+    1830,
+    470
+   ],
+   [
+    1600,
+    410
+   ],
+   [
+    1360,
+    338
+   ],
+   [
+    1000,
+    255
+   ],
+   [
+    600,
+    160
+   ],
+   [
+    250,
+    72
+   ],
+   [
+    120,
+    72
+   ]
+  ],
+  "junction": [
+   [
+    290,
+    530
+   ],
+   [
+    935,
+    458
+   ],
+   [
+    1040,
+    500
+   ],
+   [
+    1190,
+    510
+   ],
+   [
+    1850,
+    470
+   ],
+   [
+    1920,
+    505
+   ],
+   [
+    1920,
+    1080
+   ],
+   [
+    0,
+    1080
+   ],
+   [
+    0,
+    845
+   ],
+   [
+    180,
+    765
+   ],
+   [
+    335,
+    655
+   ]
+  ],
+  "median": [
+   [
+    107,
+    105
+   ],
+   [
+    1186,
+    498
+   ],
+   [
+    1192,
+    520
+   ],
+   [
+    1150,
+    522
+   ],
+   [
+    1031,
+    499
+   ],
+   [
+    113,
+    128
+   ]
+  ],
+  "island_round": [
+   [
+    1178,
+    538
+   ],
+   [
+    1240,
+    530
+   ],
+   [
+    1305,
+    545
+   ],
+   [
+    1300,
+    572
+   ],
+   [
+    1185,
+    570
+   ]
+  ],
+  "island_tri1": [
+   [
+    498,
+    772
+   ],
+   [
+    628,
+    663
+   ],
+   [
+    752,
+    738
+   ],
+   [
+    748,
+    748
+   ],
+   [
+    505,
+    776
+   ]
+  ],
+  "island_tri2": [
+   [
+    112,
+    935
+   ],
+   [
+    336,
+    848
+   ],
+   [
+    420,
+    912
+   ],
+   [
+    415,
+    925
+   ],
+   [
+    120,
+    940
+   ]
+  ],
+  "island_3": [
+   [
+    673,
+    850
+   ],
+   [
+    850,
+    810
+   ],
+   [
+    952,
+    868
+   ],
+   [
+    936,
+    884
+   ],
+   [
+    720,
+    897
+   ]
+  ],
+  "cw1": [
+   [
+    325,
+    598
+   ],
+   [
+    1195,
+    522
+   ],
+   [
+    1215,
+    548
+   ],
+   [
+    350,
+    655
+   ]
+  ],
+  "cw2": [
+   [
+    1195,
+    505
+   ],
+   [
+    1830,
+    470
+   ],
+   [
+    1850,
+    492
+   ],
+   [
+    1210,
+    545
+   ]
+  ],
+  "cw3": [
+   [
+    170,
+    755
+   ],
+   [
+    345,
+    710
+   ],
+   [
+    590,
+    800
+   ],
+   [
+    745,
+    900
+   ],
+   [
+    850,
+    1000
+   ],
+   [
+    940,
+    1080
+   ],
+   [
+    600,
+    1080
+   ],
+   [
+    530,
+    1000
+   ],
+   [
+    420,
+    900
+   ],
+   [
+    270,
+    805
+   ]
+  ],
+  "stop_zone": [
+   [
+    288,
+    527
+   ],
+   [
+    931,
+    456
+   ],
+   [
+    1110,
+    520
+   ],
+   [
+    325,
+    598
+   ]
+  ],
+  "car_park_entrance": [
+   [
+    262,
+    58
+   ],
+   [
+    350,
+    58
+   ],
+   [
+    350,
+    108
+   ],
+   [
+    262,
+    108
+   ]
+  ],
+  "car_park_apron_east": [
+   [
+    1700,
+    438
+   ],
+   [
+    1858,
+    438
+   ],
+   [
+    1862,
+    498
+   ],
+   [
+    1805,
+    494
+   ],
+   [
+    1800,
+    479
+   ],
+   [
+    1760,
+    476
+   ],
+   [
+    1700,
+    467
+   ]
+  ]
+ },
+ "lines": {
+  "stop_line": [
+   [
+    288,
+    527
+   ],
+   [
+    931,
+    456
+   ]
+  ]
+ },
+ "signals": {
+  "comment": "Lamp centres in reference pixels. 'vehicle' is the 3-lamp head on the median tip (main-road phase); 'ped' is the pedestrian head on the gantry pole (cw3, in phase with the main road).",
+  "vehicle": {
+   "red": [
+    1157,
+    373
+   ],
+   "yellow": [
+    1156,
+    389
+   ],
+   "green": [
+    1155,
+    407
+   ]
+  },
+  "ped": {
+   "red": [
+    267,
+    495
+   ],
+   "green": [
+    267,
+    512
+   ]
+  },
+  "lamp_radius": 3
+ },
+ "road_vp": {
+  "comment": "Vanishing point of the main road's lane lines (LSD + least squares on the reference image). Lane lines are rays from it, so the angle of a ground point seen from here is a perspective-free lane coordinate.",
+  "xy": [
+   -709.4,
+   -186.3
+  ],
+  "lane_deg_outbound": 1.2,
+  "lane_deg_approach": 2.9,
+  "split_deg": 21.0
+ },
+ "solid_lines": {
+  "comment": "Solid lane dividers of the approach in front of the stop line. 'angle' = lane-angle (deg from road_vp) of the divider as seen by vehicle ground points (valley of the lane-angle histogram of all sample tracks; the painted line is ~0.3 deg lower because box bottom-centres sit off the car's centre). y_from/y_to = image-y extent of the part that is certainly solid (the last ~130 px before the stop line; further back the dash/solid transition could not be measured reliably). lane_centres = histogram peaks.",
+  "lines": [
+   {
+    "angle": 32.3,
+    "y_from": 383,
+    "y_to": 513
+   },
+   {
+    "angle": 28.8,
+    "y_from": 367,
+    "y_to": 497
+   },
+   {
+    "angle": 26.0,
+    "y_from": 352,
+    "y_to": 482
+   },
+   {
+    "angle": 23.3,
+    "y_from": 355,
+    "y_to": 468
+   }
+  ],
+  "lane_centres": [
+   22.5,
+   24.75,
+   27.4,
+   30.4,
+   34.3
+  ]
+ }
+}

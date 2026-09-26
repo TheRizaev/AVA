@@ -1,0 +1,68 @@
+{
+ "comment": "Median backgrounds of samples under different lighting, each with its homography to assets/reference.jpg (SIFT+RANSAC on clean median backgrounds, checked by edge overlays). A frame is matched against every bank image and the best one is composed with its H.",
+ "images": {
+  "C3896": {
+   "file": "bank/C3896.jpg",
+   "H_to_reference": [
+    [
+     1.0,
+     0.0,
+     -0.0
+    ],
+    [
+     -0.0,
+     1.0,
+     -0.0
+    ],
+    [
+     -0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "lighting": "noon"
+  },
+  "C3902": {
+   "file": "bank/C3902.jpg",
+   "H_to_reference": [
+    [
+     0.98049968,
+     -0.01067295,
+     60.97217585
+    ],
+    [
+     0.01517957,
+     0.98673494,
+     -36.82491643
+    ],
+    [
+     -4.83e-06,
+     1.49e-06,
+     1.0
+    ]
+   ],
+   "lighting": "evening sun"
+  },
+  "C3905": {
+   "file": "bank/C3905.jpg",
+   "H_to_reference": [
+    [
+     0.98706492,
+     -0.01794739,
+     15.76641823
+    ],
+    [
+     0.02183901,
+     0.98616539,
+     -23.03900201
+    ],
+    [
+     9.4e-07,
+     -1.83e-06,
+     1.0
+    ]
+   ],
+   "lighting": "dusk"
+  }
+ }
+}
