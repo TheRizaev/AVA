@@ -1,0 +1,344 @@
+{
+ "model_score": 0.8352197346600332,
+ "part_a": {
+  "score_a": 0.8352197346600332,
+  "classes": [
+   "congestion",
+   "failure_to_yield",
+   "illegal_turn",
+   "jaywalking",
+   "red_light",
+   "solid_line_crossing",
+   "stop_line",
+   "stopped_vehicle"
+  ],
+  "per_class": {
+   "congestion": {
+    "0.3": {
+     "tp": 4,
+     "fp": 1,
+     "fn": 0,
+     "precision": 0.8,
+     "recall": 1.0,
+     "f1": 0.888888888888889
+    },
+    "0.5": {
+     "tp": 4,
+     "fp": 1,
+     "fn": 0,
+     "precision": 0.8,
+     "recall": 1.0,
+     "f1": 0.888888888888889
+    },
+    "0.7": {
+     "tp": 4,
+     "fp": 1,
+     "fn": 0,
+     "precision": 0.8,
+     "recall": 1.0,
+     "f1": 0.888888888888889
+    },
+    "f1_mean": 0.888888888888889
+   },
+   "failure_to_yield": {
+    "0.3": {
+     "tp": 23,
+     "fp": 13,
+     "fn": 8,
+     "precision": 0.6388888888888888,
+     "recall": 0.7419354838709677,
+     "f1": 0.6865671641791045
+    },
+    "0.5": {
+     "tp": 17,
+     "fp": 19,
+     "fn": 14,
+     "precision": 0.4722222222222222,
+     "recall": 0.5483870967741935,
+     "f1": 0.5074626865671641
+    },
+    "0.7": {
+     "tp": 14,
+     "fp": 22,
+     "fn": 17,
+     "precision": 0.3888888888888889,
+     "recall": 0.45161290322580644,
+     "f1": 0.417910447761194
+    },
+    "f1_mean": 0.5373134328358208
+   },
+   "illegal_turn": {
+    "0.3": {
+     "tp": 5,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "0.5": {
+     "tp": 5,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "0.7": {
+     "tp": 3,
+     "fp": 2,
+     "fn": 2,
+     "precision": 0.6,
+     "recall": 0.6,
+     "f1": 0.6
+    },
+    "f1_mean": 0.8666666666666667
+   },
+   "jaywalking": {
+    "0.3": {
+     "tp": 17,
+     "fp": 4,
+     "fn": 2,
+     "precision": 0.8095238095238095,
+     "recall": 0.8947368421052632,
+     "f1": 0.8500000000000001
+    },
+    "0.5": {
+     "tp": 17,
+     "fp": 4,
+     "fn": 2,
+     "precision": 0.8095238095238095,
+     "recall": 0.8947368421052632,
+     "f1": 0.8500000000000001
+    },
+    "0.7": {
+     "tp": 12,
+     "fp": 9,
+     "fn": 7,
+     "precision": 0.5714285714285714,
+     "recall": 0.631578947368421,
+     "f1": 0.6
+    },
+    "f1_mean": 0.7666666666666667
+   },
+   "red_light": {
+    "0.3": {
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "0.5": {
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "0.7": {
+     "tp": 1,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "f1_mean": 1.0
+   },
+   "solid_line_crossing": {
+    "0.3": {
+     "tp": 7,
+     "fp": 1,
+     "fn": 0,
+     "precision": 0.875,
+     "recall": 1.0,
+     "f1": 0.9333333333333333
+    },
+    "0.5": {
+     "tp": 4,
+     "fp": 4,
+     "fn": 3,
+     "precision": 0.5,
+     "recall": 0.5714285714285714,
+     "f1": 0.5333333333333333
+    },
+    "0.7": {
+     "tp": 3,
+     "fp": 5,
+     "fn": 4,
+     "precision": 0.375,
+     "recall": 0.42857142857142855,
+     "f1": 0.39999999999999997
+    },
+    "f1_mean": 0.6222222222222222
+   },
+   "stop_line": {
+    "0.3": {
+     "tp": 5,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "0.5": {
+     "tp": 5,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "0.7": {
+     "tp": 5,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "f1_mean": 1.0
+   },
+   "stopped_vehicle": {
+    "0.3": {
+     "tp": 4,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "0.5": {
+     "tp": 4,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "0.7": {
+     "tp": 4,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "f1": 1.0
+    },
+    "f1_mean": 1.0
+   }
+  },
+  "micro": {
+   "0.3": {
+    "tp": 66,
+    "fp": 19,
+    "fn": 10,
+    "precision": 0.7764705882352941,
+    "recall": 0.868421052631579,
+    "f1": 0.8198757763975155
+   },
+   "0.5": {
+    "tp": 57,
+    "fp": 28,
+    "fn": 19,
+    "precision": 0.6705882352941176,
+    "recall": 0.75,
+    "f1": 0.7080745341614908
+   },
+   "0.7": {
+    "tp": 46,
+    "fp": 39,
+    "fn": 30,
+    "precision": 0.5411764705882353,
+    "recall": 0.6052631578947368,
+    "f1": 0.5714285714285714
+   }
+  },
+  "class_agnostic": {
+   "0.3": {
+    "tp": 66,
+    "fp": 19,
+    "fn": 10,
+    "precision": 0.7764705882352941,
+    "recall": 0.868421052631579,
+    "f1": 0.8198757763975155
+   },
+   "0.5": {
+    "tp": 57,
+    "fp": 28,
+    "fn": 19,
+    "precision": 0.6705882352941176,
+    "recall": 0.75,
+    "f1": 0.7080745341614908
+   },
+   "0.7": {
+    "tp": 46,
+    "fp": 39,
+    "fn": 30,
+    "precision": 0.5411764705882353,
+    "recall": 0.6052631578947368,
+    "f1": 0.5714285714285714
+   }
+  },
+  "per_video": [
+   {
+    "video": "C3896.MP4",
+    "gt": 23,
+    "pred": 25,
+    "congestion": "3/0/0",
+    "failure_to_yield": "8/2/1",
+    "illegal_turn": "3/0/0",
+    "jaywalking": "3/1/0",
+    "red_light": "1/0/0",
+    "solid_line_crossing": "1/0/0",
+    "stop_line": "2/0/0",
+    "stopped_vehicle": "1/0/0"
+   },
+   {
+    "video": "C3897.MP4",
+    "gt": 24,
+    "pred": 25,
+    "congestion": "0/1/0",
+    "failure_to_yield": "3/7/8",
+    "illegal_turn": "1/0/0",
+    "jaywalking": "7/1/0",
+    "red_light": "0/0/0",
+    "solid_line_crossing": "2/1/1",
+    "stop_line": "1/0/0",
+    "stopped_vehicle": "1/0/0"
+   },
+   {
+    "video": "C3902.MP4",
+    "gt": 16,
+    "pred": 22,
+    "congestion": "0/0/0",
+    "failure_to_yield": "4/7/3",
+    "illegal_turn": "1/0/0",
+    "jaywalking": "4/2/1",
+    "red_light": "0/0/0",
+    "solid_line_crossing": "0/2/1",
+    "stop_line": "1/0/0",
+    "stopped_vehicle": "1/0/0"
+   },
+   {
+    "video": "C3905.MP4",
+    "gt": 13,
+    "pred": 13,
+    "congestion": "1/0/0",
+    "failure_to_yield": "2/3/2",
+    "illegal_turn": "0/0/0",
+    "jaywalking": "3/0/1",
+    "red_light": "0/0/0",
+    "solid_line_crossing": "1/1/1",
+    "stop_line": "1/0/0",
+    "stopped_vehicle": "1/0/0"
+   }
+  ]
+ },
+ "part_b": null,
+ "missing_videos": [],
+ "extra_videos": [],
+ "team": "unnamed-team"
+}

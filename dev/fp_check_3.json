@@ -1,0 +1,29 @@
+[
+ {
+  "key": "fpcheck:C3896:illegal_turn@49.62",
+  "is_real": true,
+  "label": "illegal_turn",
+  "start": 49.5,
+  "end": 55.0,
+  "confidence": "high",
+  "reasoning": "Black SUV (plate T622NC) waited in lane 2 (next to the curb right-turn lane, between the solid lane-1/2 divider and the lane-2/3 line), drove straight into the jammed junction, and at 49.5 s pulled out of the straight-through queue, swung left across the right-turning traffic and crossed cw3 into the lower-left side street at ~54.25-55.0 s. A right turn from lane 2."
+ },
+ {
+  "key": "fpcheck:C3896:illegal_turn@107.77",
+  "is_real": true,
+  "label": "illegal_turn",
+  "start": 107.75,
+  "end": 111.75,
+  "confidence": "high",
+  "reasoning": "Second white Cobalt (plate ~779) in lane 2 (the solid lane-1 divider runs between it and the legally turning Cobalt ~324 in the curb lane); crossed the stop line in lane 2, turned down-left from ~107.75 s across the right-turn lane's path, heading along the side street by ~111.75 s."
+ },
+ {
+  "key": "fpcheck:C3897:illegal_turn@175.94",
+  "is_real": true,
+  "label": "illegal_turn",
+  "start": 175.75,
+  "end": 183.0,
+  "confidence": "high",
+  "reasoning": "Grey Lacetti/Gentra (plate ~227) in lane 3 of five (two lanes from the curb right-turn lane), crossed the stop line in lane 3 at ~176 s while steering right, waited in the stop zone, then crossed the lane-2 and lane-1 paths to cw3 (~182.5-183.0 s) into the lower-left side street."
+ }
+]
