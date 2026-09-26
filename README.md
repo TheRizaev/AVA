@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/banner.jpg" alt="AVA: traffic events and accident risk from one fixed CCTV camera. Dev Score A 0.835, Part B 0.47 on held-out real CCTV crashes, 12 event classes, 1.5x the video length on one GPU." width="100%"></p>
+
 # AVA — WIUT Hackathon 2026, CV track
 
 Traffic-event detection (Part A) and causal accident anticipation (Part B) for the fixed
@@ -25,10 +27,10 @@ Runtime of the official harness on the sample videos (RTX 2060 Super, i5-12400F,
 
 | video | duration | Part A | total (A + B) | × duration |
 |---|---|---|---|---|
-| C3896 | 340 s | 174 s | 492 s | 1.45 |
-| C3897 | 318 s | 152 s | 448 s | 1.41 |
-| C3902 | 318 s | 154 s | 454 s | 1.43 |
-| C3905 | 128 s | 61 s | 182 s | 1.43 |
+| C3896 | 340 s | 187 s | 512 s | 1.50 |
+| C3897 | 318 s | 182 s | 485 s | 1.53 |
+| C3902 | 318 s | 163 s | 481 s | 1.51 |
+| C3905 | 128 s | 63 s | 187 s | 1.46 |
 
 The budget is 3× the duration; about 0.6× of Part B is the harness itself decoding every 4K
 10-bit frame with OpenCV. `predictions_samples.json` is the output of exactly this run.
@@ -106,15 +108,20 @@ hence AP) so that the evidence level giving ~0.2 false alarms per minute on the 
 becomes the 0.5 alarm threshold. An alarm counts only if it starts before the contact, so a second,
 unsmoothed branch raises the score to 0.75 at once when two vehicles closing at ≥300 px/s will touch
 within 0.4 s (in two consecutive analysed frames); it adds no false alarm on the sample videos and
-doubles the crashes alarmed in time on real footage (below). On top of the cues, a small learned
-network (`src/risk_model.py`) reads 13 scale-free per-frame features (the cues, time to contact of
-any fast-closing pair, proximity, closing speed, yaw rate, acceleration and speed in box widths,
-numbers of moving vehicles and people) with their max over the last 1 s and 3 s and deviation from
-the 3-s mean, and outputs the probability that a crash follows within 5 s; the reported score is the
-larger of the calibrated cue evidence and the calibrated network probability. It was trained on 200
-real CCTV crashes we timed plus ordinary traffic, and its alarm point is the lowest that raises no
-false alarm on held-out sample videos (`dev/external/risk_model_cv.md`). Part B never reads the video
-file and never uses Part A output.
+doubles the crashes alarmed in time on real footage (below). This hand-made estimate is the
+fallback; the output comes from a learned layer on top of it (`src/risk_model.py`). Per analysed
+frame it computes 20 scale-free features: the cues and the imminent-contact flag; time to contact
+and minimum gap of vehicle pairs under constant velocity and under constant acceleration; proximity
+and time to contact between pedestrians or two-wheelers and moving cars; proximity, closing speed,
+yaw rate, acceleration, hard deceleration and sideways acceleration in box widths; speed; numbers of
+moving vehicles and people. Five small networks read them with their max over the last 1 s and 3 s
+and their deviation from the 3-s mean; five causal temporal convolutions (dilations 1–16, 63 analysed
+frames ≈ 6 s) read their recent history directly. The averaged probability that a crash follows
+within 5 s is smoothed (fast attack, slow release) and calibrated so that the lowest level raising
+no false alarm on held-out sample videos becomes 0.5; once an alarm starts, a new one cannot start
+for 10 s (repeat alarms on one incident). It was trained on 200 real CCTV crashes we timed plus
+ordinary traffic (`dev/external/risk_model_cv.md`). Part B never reads the video file and never
+uses Part A output.
 On footage from another camera (no registration ever succeeds) the layout is not used: every road
 user counts as on the road and "same lane" becomes a lateral-offset test. A track whose box jumps
 (id switch, cut) restarts its history, and "braking" of most fast vehicles in the same instant is
@@ -124,8 +131,9 @@ treated as a frozen frame, not as braking.
 
 * **Learned (pre-trained, not fine-tuned by us):** YOLO26-L / YOLO26-S detectors (COCO), YOLOE-26L
   open-vocabulary detector with MobileCLIP text embeddings (used offline to bake the prompts).
-* **Trained by us:** the Part B anticipation network (16 hidden units on 52 kinematic features,
-  trained on 200 timed third-party CCTV crashes + ordinary traffic; `scripts/train_risk_model.py`).
+* **Trained by us:** the Part B anticipation layer (5 networks with 16 hidden units on 80 context
+  features + 5 causal temporal convolutions on the 20 per-frame kinematic features, trained on 200
+  timed third-party CCTV crashes + ordinary traffic; `scripts/train_risk_model.py --stack 5`).
 * **Estimated from our own unlabeled sample videos:** flow field, lane positions, lighting bank,
   signal lamp positions, the Part B alarm calibration.
 * **Rule-based:** registration, signal-phase logic, all event detectors, segment post-processing.
@@ -139,7 +147,7 @@ treated as a frozen frame, not as braking.
 | MobileCLIP text encoder (offline, to bake the YOLOE prompts) | Apple / Ultralytics | see Ultralytics |
 | TAD benchmark (third-party CCTV accident clips; trains and validates the Part B network, not redistributed) | Xu et al., "TAD: A Large-Scale Benchmark for Traffic Accidents Detection From Video Surveillance", IEEE Access 13, 2025 ([repo](https://github.com/UnicomAI/UnicomBenchmark/tree/main/TADBench)) | released for research use, citation requested; no explicit licence |
 
-The detectors are used as released. One small model is trained by us: the Part B network
+The detectors are used as released. One small model is trained by us: the Part B layer
 (`scripts/train_risk_model.py`, `assets/risk_model.json`), on the TAD clips with our own crash
 timings (277 accident clips timed, `dev/external/tad_labels.json`) plus the four sample videos as
 ordinary traffic. TAD also validates the accident rule and set two timing constants of it
@@ -214,15 +222,16 @@ The sample videos contain no accident, so Part B and the accident rule were chec
 TAD benchmark (CCTV/surveillance clips, mostly Chinese highways and streets, many of them edited
 news clips with cuts, zooms and replays). TAD only labels whole clips, so we timed the first contact
 ourselves in all 277 accident clips (`dev/external/tad_labels.json`): 200 show the collision, 67 only
-its aftermath, 9 are compilations of several crashes (excluded). The first 36 crashes and 40
-accident-free clips were used for the checks below; all of them train the Part B network.
+its aftermath, 9 are compilations of several crashes (excluded). Part B is cross-validated on all
+200 crashes and 127 accident-free clips; the accident rule was checked on the first 36 crashes and
+40 accident-free clips.
 `python scripts/ext_cache.py <clips> && python scripts/eval_external.py --accident-rule`
 (the official `evaluate.py` on a causal replay of Part B, see `dev/external/tad_eval.json`):
 
-| | result on TAD (36 crashes, 40 normal clips) |
+| | result on TAD |
 |---|---|
-| Part B, Score_B (held-out clips, 5-fold, alarm point set on the target camera) | **0.36** with the learned network (AP 0.19, alarm F1 0.56, mTTA 2.7 s) — 0.12 with the hand-made cues alone, 0.02 before the imminent-contact branch |
-| accident rule, F1 @ tIoU 0.3 / 0.5 / 0.7 | **0.36 / 0.22 / 0.11** (before the crash-prompt branch: 0 / 0 / 0) |
+| Part B, Score_B (held-out clips, 5-fold, alarm point set on the target camera) | **0.47** with the learned layer (AP 0.34, alarm F1 0.70, mTTA 2.8 s) — 0.36 with our first single network, 0.12 with the hand-made cues alone, 0.02 before the imminent-contact branch |
+| accident rule, F1 @ tIoU 0.3 / 0.5 / 0.7 (36 crashes, 40 normal clips) | **0.36 / 0.22 / 0.11** (before the crash-prompt branch: 0 / 0 / 0) |
 
 What we learned:
 
@@ -237,7 +246,12 @@ What we learned:
   clips), a small network on the same kinematic features ranks the 5 s before a crash clearly above
   ordinary traffic (AP 0.22 on held-out clips vs ≈ 0 for any single feature) and, with the alarm
   point set on our own camera, raises Score_B on held-out TAD clips from 0.12 to 0.36 with alarms
-  ~2.7 s before contact (`dev/external/risk_model_cv.md`).
+  ~2.7 s before contact. Seven more features (constant-acceleration time to contact, pedestrians and
+  two-wheelers near moving cars, braking and swerving), temporal convolutions over the last ~6 s,
+  an ensemble, reporting the learned score alone and a 10-s pause between alarms raise it to 0.47
+  (`dev/external/risk_model_cv.md`). Caveat: TAD clips are cut around the crash (contact a median
+  3.8 s after the first frame), so part of any learned gain comes from the clip start; with the
+  first ~6 s of every clip removed the layer scores 0.31 against 0.24 for the first network.
 * **Detection does transfer, from appearance.** The kinematic accident rule needs a vehicle to stop
   abruptly and stay stopped; on real footage the boxes of crashing vehicles are lost or switch ids,
   so it found none of the crashes. An open-vocabulary "crashed car" prompt on the YOLOE hazard pass
@@ -273,6 +287,7 @@ scripts/        EDA, dev tooling, asset builders, site data builder
 dev/            our labels of the sample videos + evaluation reports
 demo/           FastAPI live-demo server
 website/        static website (served by the demo server)
+docs/           README banner
 deploy/         Hugging Face Space cards: static site (`hf_space_static/`) and site + demo (`hf_space/`, Dockerfile, CPU requirements)
 ```
 

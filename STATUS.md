@@ -1,20 +1,22 @@
 # Work status
 
-## Final state (2026-09-26)
-- `predictions_samples.json`: official harness run on all four samples — 1.41–1.45× the video
-  duration (budget 3×), format VALID; determinism checked.
+## Final state (2026-09-27)
+- `predictions_samples.json`: official harness run on all four samples — 1.46–1.53× the video
+  duration (budget 3×), format VALID; Part A events identical to the previous run.
 - Dev score (official `evaluate.py`, all labelled classes, all four videos end to end,
   `scripts/export_metrics.py`): **Score A = 0.835** — red_light 1.00, stop_line 1.00, stopped_vehicle 1.00, congestion 0.89, illegal_turn 0.87, jaywalking 0.77, solid_line_crossing 0.62, failure_to_yield 0.54; micro F1@0.5 0.71. Part B not scorable on the samples (no accident in them); the
-  official Part B output raises one alarm in their 18.4 min.
+  official Part B output raises no alarm in their 18.4 min (max 0.44).
 - Reported classes: `src/config.py` `ENABLED_CLASSES` (illegal_u_turn and near_miss off, see
   `dev/decisions.md`).
-- Part B learned layer: a 16-unit network on 52 kinematic features, trained on the 200 crashes we
-  timed in the TAD benchmark + ordinary traffic (`scripts/train_risk_model.py`,
-  `assets/risk_model.json`); held-out Score_B on TAD 0.36 vs 0.12 with the cues alone, alarm point
-  set for zero false alarms on held-out sample videos (`dev/external/risk_model_cv.md`). The accident rule,
-  with the new "crashed car" prompt branch, reaches F1 0.36 / 0.22 / 0.11 at tIoU 0.3 / 0.5 / 0.7
-  (was 0) and stays silent on the sample traffic.
-- Website data, annotated videos and metrics regenerated from the final output.
+- Part B learned layer v2: 20 per-frame kinematic features, 5 MLPs + 5 causal TCNs, the learned
+  score alone, 10-s pause between alarm starts (`scripts/train_risk_model.py --stack 5`,
+  `assets/risk_model.json`); held-out Score_B on TAD 0.470 (first version 0.355, cues alone 0.122),
+  alarm point set for zero false alarms on held-out sample videos (`dev/external/risk_model_cv.md`).
+  Every component was re-run by an independent check on fresh seeds, and the code by a 3-lens review.
+- The accident rule, with the "crashed car" prompt branch, reaches F1 0.36 / 0.22 / 0.11 at
+  tIoU 0.3 / 0.5 / 0.7 on TAD and stays silent on the sample traffic.
+- Website: https://therizaev-ava.static.hf.space (static Space); demo server
+  https://therizaev-ava-demo.hf.space (Docker Space, CPU). Repository: https://github.com/TheRizaev/AVA.
 
 ## Changes of 2026-09-25
 - Dev labels completed (C3902 160–240 s annotated and verified; three illegal right turns found by
@@ -46,5 +48,4 @@
   checks `dev/fp_check_*.json`.
 
 ## Still needed from the team
-- A public GitHub repository (tag the submission commit) and hosting for the site + demo
-  (e.g. a Hugging Face Space running `uvicorn demo.app:app`); then fill `website/data/links.json`.
+- Tag the submission commit (`v1.0`) and submit the form (repository, tag, website).
