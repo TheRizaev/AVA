@@ -19,7 +19,7 @@ MIN_JAYWALK_SEC = 1.0
 RIDER_OVERLAP = 0.35      # fraction of a person box covered by a two-wheeler/car box -> rider/occupant
 MAX_PEDESTRIAN_BODY_SPEED = 2.5  # body heights per second; a runner is ~2, a scooter rider much more
 U_NEAR = 0.25             # pedestrian within this fraction of the crossing's length from the vehicle's crossing point
-U_CLEARED = 0.10          # ... and not already this far past it while walking away
+U_CLEARED = 0.10          # ... and not already this far past the stretch it still has to drive over, walking away
 WALKING_SPEED = 15.0      # px/s along the crossing
 VEHICLE_FOOT_DEPTH = 0.5  # lower half of the box = where the vehicle meets the road
 ZEBRA_TOLERANCE = 6       # px around the zebra that still counts as 'on it' (feet at the edge)
@@ -255,9 +255,11 @@ def failure_to_yield(ctx: Context) -> list[Event]:
     kerb), which is roughly metric and free of perspective: a pedestrian on the
     zebra's travel part (not waiting at its kerb ends), actually crossing (not
     standing still on it), within U_NEAR of the vehicle's crossing point
-    counts, unless they have already cleared the
-    vehicle's lane and are walking away from it. Start/end: the vehicle's
-    footprint enters / leaves the crossing.
+    counts, unless they have already cleared the vehicle's path - are more
+    than U_CLEARED outside the stretch of the crossing the vehicle still has
+    to drive over (from its current point to where it leaves the crossing) -
+    and are walking away from it. Start/end: the vehicle's footprint enters /
+    leaves the crossing.
     """
     peds = _pedestrians(ctx)
     events = []
@@ -293,14 +295,25 @@ def failure_to_yield(ctx: Context) -> list[Event]:
                     continue     # a moped pushed along the crossing by a pedestrian
                 if np.linalg.norm(v.xy[e] - v.xy[s]) < MIN_THROUGH_TRAVEL:
                     continue
+                # the vehicle's crossing point at every sample it is on the crossing, and where it leaves it
+                on_k = [k for k in range(s, e + 1) if inside[k].any()]
+                if not on_k:
+                    continue
+                u_at = {k: float(np.median((fp[k][inside[k]] - origin) @ axis / length)) for k in on_k}
+                u_exit = u_at[on_k[-1]]
                 conflict = False
-                for k in range(s, e + 1):
-                    if not inside[k].any():
-                        continue
-                    u_v = float(np.median((fp[k][inside[k]] - origin) @ axis / length))
+                for k in on_k:
+                    u_v = u_at[k]
                     now = np.abs(ped_t_all - v.t[k]) <= 0.06
-                    d = ped_u_all[now] - u_v
-                    walking_away = (np.abs(d) > U_CLEARED) & (np.sign(ped_du_all[now]) == np.sign(d)) &                         (np.abs(ped_du_all[now]) * length > WALKING_SPEED)
+                    u_p, du_p = ped_u_all[now], ped_du_all[now]
+                    d = u_p - u_v
+                    # cleared = more than U_CLEARED outside the stretch the vehicle still has to drive over (its
+                    # current point to its exit point) and walking away from it: a turner crossing at a shallow
+                    # angle (cw2) sweeps along the zebra and passes people walking the same way ahead of it
+                    lo, hi = min(u_v, u_exit), max(u_v, u_exit)
+                    beyond = np.maximum(u_p - hi, lo - u_p)
+                    walking_away = (beyond > U_CLEARED) & (np.sign(du_p) == np.sign(d)) & \
+                        (np.abs(du_p) * length > WALKING_SPEED)
                     if ((np.abs(d) < U_NEAR) & ~walking_away).any():
                         conflict = True
                         break

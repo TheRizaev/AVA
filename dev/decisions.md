@@ -29,8 +29,12 @@ cleared its lane, people far along the crossing, or people standing on the zebra
 positions along the crossing's own axis (0..1 kerb to kerb, roughly metric): a pedestrian within
 0.25 of the vehicle's crossing point, outside the 13 % kerb ends, who has moved at least 55 px
 along the crossing within ±3 s (actually crossing, not standing), and is not walking away after
-clearing the lane. Buses are excluded (their box covers far more than their path), and so are
-mopeds pushed on foot. Consecutive vehicles cutting through the same group are one segment
+clearing the lane. "Cleared" is judged against the stretch of the crossing the vehicle still has to
+drive over (its current point to the point where it leaves the crossing), not against its current
+point alone: turners from the right road cross cw2 at a shallow angle and sweep along the zebra, so
+they cut in front of people walking the same way ahead of them (C3897 298.1, C3902 12.0). A vehicle
+moving away from a pedestrian is still judged from its current point. Buses are excluded (their
+box covers far more than their path), and so are mopeds pushed on foot. Consecutive vehicles cutting through the same group are one segment
 (2 s merge gap), as the annotators merged them.
 
 ## jaywalking — about 1 m from the kerb, off the zebra
