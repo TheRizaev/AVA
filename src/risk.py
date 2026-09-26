@@ -33,7 +33,7 @@ import numpy as np
 
 from . import config
 from .detection import detect_batch, new_tracker
-from .risk_model import BASE_FEATURES, FeatureHistory, RiskModel, base_features
+from .risk_model import ALARM, ALARM_CAP, BASE_FEATURES, FeatureHistory, RiskModel, base_features
 from .scene import Registrar, load_layout, union_mask, warp_points
 from .tracks import KIND_BY_CLS
 
@@ -262,11 +262,15 @@ class OnlineRisk:
         calibrated cue evidence - or, with a legacy model file, the larger of it and the model's score - raised
         to IMMINENT_SCORE on imminent contact."""
         if self.model is not None and self.model.combine == "model":
-            return float(np.clip(self.model_score, 0.0, 1.0))
-        s = calibrate(self.score)
-        if self.model is not None:
-            s = max(s, self.model_score)
-        return float(np.clip(max(s, IMMINENT_SCORE) if self.imminent else s, 0.0, 1.0))
+            s = self.model_score
+        else:
+            s = calibrate(self.score)
+            if self.model is not None:
+                s = max(s, self.model_score)
+            if self.imminent:
+                s = max(s, IMMINENT_SCORE)
+        # the harness rounds scores to 4 decimals: keep sub-threshold scores clear of 0.5
+        return float(np.clip(s if s >= ALARM else min(s, ALARM_CAP), 0.0, 1.0))
 
     # -- cues -------------------------------------------------------------------
     def _majority_cls(self, tid: int) -> int:

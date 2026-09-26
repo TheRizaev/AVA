@@ -22,6 +22,7 @@ A legacy model file (one network, no "mlps" key) still loads and keeps its old b
 from __future__ import annotations
 
 import json
+import sys
 from collections import deque
 from pathlib import Path
 
@@ -237,8 +238,11 @@ class RiskModel:
         if not Path(path).exists():
             return None
         params = json.loads(Path(path).read_text())
-        if list(params.get("features", [])) != list(FEATURE_NAMES):
-            return None          # trained on another feature set
+        if list(params.get("features", [])) != list(FEATURE_NAMES):   # trained on another feature set
+            print(f"warning: {path} was trained on {len(params.get('features', []))} features, not the "
+                  f"{len(FEATURE_NAMES)} this code computes; Part B falls back to the hand-made cues "
+                  "(retrain with scripts/train_risk_model.py)", file=sys.stderr)
+            return None
         return cls(params)
 
     def prob(self, x: np.ndarray) -> float:

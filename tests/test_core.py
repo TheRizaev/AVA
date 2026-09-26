@@ -80,3 +80,23 @@ def test_risk_model_features_and_probability():
     p = model.prob(x)
     assert 0.0 <= p <= 1.0
     assert model.calibrated(0.8) == 0.5 and model.calibrated(0.2) < model.calibrated(0.9)
+
+
+def test_shipped_risk_model_loads_and_scores_stay_off_the_threshold():
+    """The committed model file matches the features this code computes (a mismatch would silently
+    fall back to the hand-made cues), and sub-threshold scores stay clear of 0.5 after the
+    harness rounds them to 4 decimals."""
+    from src.risk import OnlineRisk
+    from src.risk_model import ALARM, RiskModel
+    model = RiskModel.load()
+    assert model is not None and model.combine == "model" and len(model.tcns) == 5
+    online = OnlineRisk(30.0)
+    rng = np.random.default_rng(1)
+    for i in range(300):
+        t = i / 10
+        boxes = [[100 + 40 * t + 30 * k, 400 + 50 * k, 180 + 40 * t + 30 * k, 450 + 50 * k, k, 0.9, 2] for k in range(4)]  # cars
+        tracks = np.array(boxes) + rng.normal(0, 1.0, (4, 7)) * [1, 1, 1, 1, 0, 0, 0]
+        online.observe(t, tracks, np.eye(3), False)
+        s = online.report()
+        assert 0.0 <= s <= 1.0 and not (ALARM - 1e-4 <= s < ALARM)
+
