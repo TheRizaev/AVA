@@ -252,6 +252,11 @@ What we learned:
   (`dev/external/risk_model_cv.md`). Caveat: TAD clips are cut around the crash (contact a median
   3.8 s after the first frame), so part of any learned gain comes from the clip start; with the
   first ~6 s of every clip removed the layer scores 0.31 against 0.24 for the first network.
+* **More crash data did not help.** Adding SO-TAD (540 clips) or ACCIDENT (429 crash clips) to
+  training only, with the same held-out TAD evaluation, lowered Score_B to 0.39 and 0.30–0.35. In
+  SO-TAD the crash clips show emptier streets than its normal clips (the model learns scene density);
+  ACCIDENT has crash clips only (the camera type becomes a crash cue). The shipped model is trained
+  on TAD alone; these two datasets are not used.
 * **Detection does transfer, from appearance.** The kinematic accident rule needs a vehicle to stop
   abruptly and stay stopped; on real footage the boxes of crashing vehicles are lost or switch ids,
   so it found none of the crashes. An open-vocabulary "crashed car" prompt on the YOLOE hazard pass
