@@ -39,6 +39,7 @@ from src.detection import detect_batch, load_model
 from src.events import build_context, detect
 from src.render import Renderer
 from src.risk import risk_curve_from_analysis
+from src.risk_model import ALARM_CAP
 from src.signals import SignalTimeline
 from src.video import probe
 
@@ -50,6 +51,7 @@ MAX_BYTES = 400 * 1024 * 1024
 DEMO_WEIGHTS = config.WEIGHTS_DIR / "yolo26s.pt"
 DEMO_FPS = config.SAMPLE_FPS   # the rules are tuned for this sampling (track splitting, speeds)
 DEMO_IMGSZ = 960
+RISK_WARMUP_SEC = 2.0          # no history yet: the demo raises no alarm in the first 2 s (submission unaffected)
 KEEP_JOBS = 20
 
 app = FastAPI(title="WIUT traffic events demo")
@@ -122,6 +124,7 @@ def _run(job_id: str) -> None:
         events = detect(ctx, config.ENABLED_CLASSES)   # the same classes the submission reports
         job.update(stage="computing accident risk", progress=0.82)
         t, score = risk_curve_from_analysis(va)
+        score = np.where(t < RISK_WARMUP_SEC, np.minimum(score, ALARM_CAP), score)
         risk = [[round(float(a), 2), round(float(b), 3)] for a, b in zip(t, score)]
         job.update(stage="rendering annotated video", progress=0.84)
         out = job["dir"] / "annotated.mp4"

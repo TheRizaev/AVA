@@ -93,9 +93,10 @@ export function renderDemo(root) {
     dropzone, fileInfo,
     h('div', { class: 'demo-actions' }, btnAnalyse, btnCancel, btnClear),
     h('details', { class: 'demo-notes' }, h('summary', null, 'Formats, processing & limitations'), h('ul', { class: 'limits' },
-      h('li', null, 'Formats: .mp4 or .mov (H.264 works best). Length up to 150 s, size up to 400 MB.'),
+      h('li', null, 'Formats: .mp4 or .mov (H.264 works best). Length up to 150 s, size up to 400 MB. Original 4K files of our camera take about 18 MB per second: trim them to about 20 s or export to 1080p.'),
       h('li', null, 'Runs on 2 CPU cores with the small detector (YOLO26-S, 960 px, 10 fps): expect roughly 3× the clip length for 1080p footage (about 8 minutes for 150 s) and up to 6× for 4K originals, plus waiting time if other jobs are queued.'),
       h('li', null, 'Footage from our calibrated camera gets every layout-based class; accident, road-obstacle and fire/smoke need the open-vocabulary hazard pass, which the CPU demo skips. Other footage gets tracking and the accident-risk curve only.'),
+      h('li', null, 'The risk model needs about 2 s of history: during the first 2 s of an upload the curve is shown but no alarm is raised.'),
       h('li', null, 'The server keeps only the last 20 jobs; older uploads are deleted automatically.'))));
 
   // ---------- status card
