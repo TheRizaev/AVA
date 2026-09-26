@@ -1,0 +1,44 @@
+{
+  "team_name": "AVA",
+  "university": "Tashkent Branch of Lomonosov Moscow State University",
+  "members": [
+    {
+      "name": "Goldengorin Vitaliy Borisovich",
+      "role": "Mathematical Modelling & Statistical Analysis",
+      "is_captain": true,
+      "github": "https://github.com/vbgoldengorin",
+      "contributions": [
+        "Team lead: the plan, the task split and the submission package.",
+        "Evaluation design: the dev-set protocol (blind sweep, independent re-check, third check of detector candidates) and which classes to report under macro F1.",
+        "Part B risk model: conflict cues (time to collision of footprints, same-lane closing, pedestrian conflict, hard braking), the smoothing and the calibration to a false-alarm budget; validation on real CCTV crashes we timed in the TAD benchmark.",
+        "Ablations and error analysis: detector, input size and frame rate against Score A and runtime; class confusion."
+      ],
+      "resume": "media/resume/Goldengorin_Vitaliy_CV.pdf"
+    },
+    {
+      "name": "Rizaev Amirkhan Shavkatovich",
+      "role": "ML Engineer & Data Analyst",
+      "github": "https://github.com/TheRizaev",
+      "contributions": [
+        "Detection and tracking pipeline: YOLO26 + ByteTrack, decoding only the reference frames of the 4K 10-bit stream, batching and the time budget.",
+        "EDA of the sample videos: lighting, object counts, motion and flow fields, lane positions, traffic signal cycle.",
+        "Open-vocabulary hazard and crash detector (YOLOE with baked text prompts) and its validation on public accident footage.",
+        "This website and the live demo (FastAPI server, Hugging Face Space)."
+      ],
+      "resume": "media/resume/Rizaev_Amirkhan_Resume.pdf",
+      "website": "https://therizaev.com"
+    },
+    {
+      "name": "Gayratov Amirkhon Sherzodovich",
+      "role": "Computer Vision Engineer",
+      "github": "https://github.com/AmirGairatov",
+      "contributions": [
+        "Scene geometry: registration of every clip to a reference frame (SIFT + RANSAC against a lighting bank), the hand-drawn layout and the vanishing-point lane coordinate.",
+        "Traffic-signal phase reader from the lamps of the vehicle signal head.",
+        "Event rules: red-light, stop-line, jaywalking, failure to yield, solid-line crossing, illegal turn, stopped vehicle, congestion.",
+        "Annotated renders of every sample video (boxes, trajectories, event timeline, risk curve)."
+      ],
+      "resume": "media/resume/Gairatov_Amirkhon_Resume.pdf"
+    }
+  ]
+}

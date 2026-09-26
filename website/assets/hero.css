@@ -1,0 +1,492 @@
+/* ==========================================================================
+   junction/watch · cinematic hero
+   Full-bleed footage annotated by our own pipeline, a CCTV HUD, a lock-on reticle
+   on the vehicle the pipeline flagged, an event log with live evidence crops and
+   the causal accident-risk trace, all synced to the clip by hero.js.
+   Scoped to .hc and loaded after editorial.css. Scrims use the page background
+   (--hc-rgb), so the footage melts into asphalt (dark) or paper (light).
+   ========================================================================== */
+
+.hc {
+  /* light (paper) defaults */
+  --hc-rgb: 243 241 233;
+  --hc-ink: #1d221b;
+  --hc-ink-2: #353b32;
+  --hc-dim: #575d52;
+  --hc-line2: #545a50;
+  --hc-em: #a93615;
+  --hc-glass: rgb(250 249 245 / .88);
+  --hc-glass-line: rgba(40, 48, 35, .2);
+  --hc-bar-bg: #faf9f5;
+  --hc-media-bg: #d8d5ca;
+  --hc-tint: 0;
+  --hc-lines: .03;
+  --hc-vig: 0;
+  --hc-halo: .7;
+  --hc-plate: .62;
+  --hc-paint: #ff7a45;           /* road paint: marks drawn over the footage itself */
+  --hc-paint-ink: #1c120c;
+  --hc-rec: #e5484d;
+  --hc-lamp: #2fbf64;
+  --hc-spark: #c2410c;
+  --hc-bar-h: 0px;     /* no stats bar under the footage: the video fills the first screen */
+  position: relative;
+  padding: 0;
+  background: var(--bg);
+  isolation: isolate;
+}
+:root[data-theme="dark"] .hc {
+  --hc-rgb: 23 28 24;
+  --hc-ink: #f2f1e8;
+  --hc-ink-2: #cdd3c6;
+  --hc-dim: #a6afa0;
+  --hc-line2: #a9b2a3;
+  --hc-em: #eea27b;
+  --hc-glass: rgb(20 25 21 / .74);
+  --hc-glass-line: rgba(224, 234, 213, .18);
+  --hc-bar-bg: #1c221d;
+  --hc-media-bg: #0f130f;
+  --hc-tint: .2;
+  --hc-lines: .09;
+  --hc-vig: .42;
+  --hc-halo: .55;
+  --hc-plate: .5;
+  --hc-spark: #ff9b73;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .hc {
+    --hc-rgb: 23 28 24;
+    --hc-ink: #f2f1e8;
+    --hc-ink-2: #cdd3c6;
+    --hc-dim: #a6afa0;
+    --hc-line2: #a9b2a3;
+    --hc-em: #eea27b;
+    --hc-glass: rgb(20 25 21 / .74);
+    --hc-glass-line: rgba(224, 234, 213, .18);
+    --hc-bar-bg: #1c221d;
+    --hc-media-bg: #0f130f;
+    --hc-tint: .2;
+    --hc-lines: .09;
+    --hc-vig: .42;
+    --hc-halo: .55;
+    --hc-plate: .5;
+    --hc-spark: #ff9b73;
+  }
+}
+
+/* ---------- stage: footage + scrims + effects ---------- */
+.hc-stage {
+  position: relative;
+  display: flex;
+  min-height: max(560px, calc(100vh - var(--header-h) - var(--hc-bar-h)));
+  overflow: hidden;
+}
+@supports (height: 100svh) {
+  .hc-stage { min-height: max(560px, calc(100svh - var(--header-h) - var(--hc-bar-h))); }
+}
+.hc-media, .hc-shade, .hc-fx { position: absolute; inset: 0; pointer-events: none; }
+.hc-media { z-index: 0; overflow: hidden; background: var(--hc-media-bg); }
+.hc-video, .hc-still {
+  position: absolute; inset: 0; display: block;
+  width: 100%; height: 100%; max-width: none;
+  object-fit: cover; object-position: 50% 85%;
+}
+/* the raw camera frame the pipeline "reads" into the annotated footage on first play */
+.hc-still { z-index: 1; }
+.hc-shade { /* the footage stays bright: only a narrow band under the header (the bottom fade is .hc-stage::after) */
+  z-index: 1;
+  background: linear-gradient(180deg, rgb(var(--hc-rgb) / .82) 0, rgb(var(--hc-rgb) / .5) 56px, rgb(var(--hc-rgb) / .18) 104px, rgb(var(--hc-rgb) / 0) 150px);
+}
+.hc-hud { text-shadow: 0 0 10px rgb(var(--hc-rgb) / .95), 0 0 3px rgb(var(--hc-rgb) / .9); }
+:root[data-theme="light"] .hc h1.hero-statement {
+  text-shadow: 0 0 30px rgb(var(--hc-rgb) / .95), 0 0 12px rgb(var(--hc-rgb) / .9), 0 0 3px rgb(var(--hc-rgb) / .9);
+}
+.hc-shade::after { /* faint CCTV scan lines */
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(180deg, rgb(0 0 0 / var(--hc-lines)) 0 1px, transparent 1px 3px);
+}
+.hc-fx { z-index: 2; overflow: hidden; }
+.hc-fx-top { z-index: 4; } /* the reticle rides above the copy layer; hero.js keeps it off the copy */
+
+/* the footage melts into the page below (asphalt or paper): no hard edge between hero and results */
+.hc-stage::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; pointer-events: none;
+  height: clamp(170px, 28vh, 320px);
+  background: linear-gradient(180deg,
+    rgb(var(--hc-rgb) / 0) 0%, rgb(var(--hc-rgb) / .35) 30%, rgb(var(--hc-rgb) / .72) 58%,
+    rgb(var(--hc-rgb) / .93) 82%, rgb(var(--hc-rgb)) 100%);
+}
+.hc-fx-top { /* the reticle fades out with the footage */
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 calc(100% - clamp(170px, 28vh, 320px)), rgb(0 0 0 / 0) calc(100% - 40px));
+  mask-image: linear-gradient(180deg, #000 0, #000 calc(100% - clamp(170px, 28vh, 320px)), rgb(0 0 0 / 0) calc(100% - 40px));
+}
+
+/* viewfinder corners */
+.hc-corners { position: absolute; inset: 16px; }
+.hc-corners i { position: absolute; width: 22px; height: 22px; border: 0 solid var(--hc-paint); }
+.hc-corners i:nth-child(1) { top: 0; left: 0; border-top-width: 2px; border-left-width: 2px; }
+.hc-corners i:nth-child(2) { top: 0; right: 0; border-top-width: 2px; border-right-width: 2px; }
+.hc-corners i:nth-child(3) { bottom: 0; left: 0; border-bottom-width: 2px; border-left-width: 2px; }
+.hc-corners i:nth-child(4) { bottom: 0; right: 0; border-bottom-width: 2px; border-right-width: 2px; }
+.hc-corners i:nth-child(n+3) { display: none; } /* the frame has no bottom edge: it runs into the page */
+
+/* read line: sweeps left to right once while the raw frame gives way to the annotated one */
+.hc-read { position: absolute; top: 0; bottom: 0; left: 0; width: 100%; transform: translateX(-100%); opacity: 0; }
+.hc-read::before { /* the freshly read band just behind the line */
+  content: ''; position: absolute; top: 0; bottom: 0; right: 0; width: min(260px, 30%);
+  background: linear-gradient(90deg, rgb(255 122 69 / 0), rgb(255 122 69 / .16));
+}
+.hc-read::after {
+  content: ''; position: absolute; top: 0; bottom: 0; right: -1px; width: 2px;
+  background: #ffc2a6; box-shadow: 0 0 14px 3px rgb(255 122 69 / .75), 0 0 48px 10px rgb(255 122 69 / .3);
+}
+
+/* scan sweep at every loop start (driven by hero.js) */
+.hc-scan {
+  position: absolute; left: 0; right: 0; top: -120px; height: 120px; opacity: 0;
+  background: linear-gradient(180deg, rgb(255 122 69 / 0), rgb(255 122 69 / .07) 60%, rgb(255 122 69 / .3) 97%, #ffb08f 100%);
+  will-change: transform, opacity;
+}
+
+/* lock-on reticle around the vehicle the pipeline flagged. hero.js moves each corner and
+   the tag with transforms only, and switches it off wherever it would touch the copy. */
+.hc-lock { position: absolute; left: 0; top: 0; width: 0; height: 0; opacity: 0; visibility: hidden; transition: opacity .3s, visibility 0s linear .3s; }
+.hc-lock.is-on { opacity: 1; visibility: visible; transition: opacity .2s; }
+.hc-lk { position: absolute; left: 0; top: 0; width: 18px; height: 18px; will-change: transform; }
+.hc-lk b {
+  position: absolute; inset: 0; border: 0 solid var(--hc-paint);
+  filter: drop-shadow(0 0 1px rgb(0 0 0 / .8));
+}
+.hc-lk:nth-child(1) b { border-top-width: 2px; border-left-width: 2px; --dx: -1; --dy: -1; }
+.hc-lk:nth-child(2) b { border-top-width: 2px; border-right-width: 2px; --dx: 1; --dy: -1; }
+.hc-lk:nth-child(3) b { border-bottom-width: 2px; border-left-width: 2px; --dx: -1; --dy: 1; }
+.hc-lk:nth-child(4) b { border-bottom-width: 2px; border-right-width: 2px; --dx: 1; --dy: 1; }
+.hc-lock.is-on .hc-lk b { animation: hc-lockon .6s cubic-bezier(.2, .8, .2, 1) both; }
+.hc-lock.is-on.is-relock .hc-lk b { animation-name: hc-lockon2; }
+.hc-lock.is-idle .hc-lk b { border-color: rgb(255 255 255 / .8); }
+.hc-lock-tag {
+  position: absolute; left: 0; top: 0; will-change: transform;
+  display: flex; flex-direction: column; gap: 4px; padding: 6px 10px 7px 9px; white-space: nowrap;
+  color: var(--hc-paint-ink); background: var(--hc-paint); border-left: 3px solid var(--hc-paint-ink);
+  box-shadow: 0 6px 18px -8px rgb(0 0 0 / .6);
+}
+.hc-lock-kick { font: 700 9px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; opacity: .78; }
+.hc-lock-label { font: 600 14px/1.05 var(--font); letter-spacing: -.01em; }
+.hc-lock-tag::after { /* leader from the tag down to the box */
+  content: ''; position: absolute; right: 8px; top: 100%; width: 2px; height: 10px; background: var(--hc-paint);
+}
+.hc-lock.is-side .hc-lock-tag::after { display: none; }
+.hc-lock.is-idle .hc-lock-tag { background: rgb(255 255 255 / .9); border-left-color: rgb(28 18 12 / .45); }
+.hc-lock.is-idle .hc-lock-tag::after { background: rgb(255 255 255 / .9); }
+@keyframes hc-lockon {
+  from { transform: translate(calc(var(--dx) * 22px), calc(var(--dy) * 22px)); opacity: 0; }
+  50% { opacity: 1; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes hc-lockon2 {
+  from { transform: translate(calc(var(--dx) * 22px), calc(var(--dy) * 22px)); opacity: 0; }
+  50% { opacity: 1; }
+  to { transform: none; opacity: 1; }
+}
+
+/* ---------- content layer ---------- */
+.hc-inner {
+  position: relative; z-index: 3; width: 100%;
+  display: flex; flex-direction: column;
+  padding-top: 26px; padding-bottom: clamp(44px, 7vh, 76px);
+}
+
+/* HUD row */
+.hc-hud {
+  display: flex; align-items: center; gap: 24px; min-height: 20px;
+  font: 500 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase;
+  color: var(--hc-ink-2);
+}
+.hc-hud > span { display: inline-flex; align-items: center; gap: 9px; white-space: nowrap; }
+.hc-rec { color: var(--hc-ink); font-weight: 700; }
+.hc-rec i { width: 8px; height: 8px; border-radius: 50%; background: var(--hc-rec); box-shadow: 0 0 0 3px rgb(229 72 77 / .22); }
+.hc.is-paused .hc-rec i { background: var(--hc-dim); box-shadow: none; }
+.hc-tc { margin-left: auto; color: var(--hc-ink); font-size: 13px; letter-spacing: .1em; font-variant-numeric: tabular-nums; }
+.hc-sig i { width: 8px; height: 8px; border-radius: 50%; background: var(--hc-lamp); box-shadow: 0 0 8px rgb(47 191 100 / .8); }
+.hc-hud-live { display: none !important; }
+
+/* headline + summary (the owner's copy) */
+.hc-copy { position: relative; margin-top: auto; padding-top: 48px; max-width: 1060px; }
+.hc-copy::before { /* a soft plate of page colour, so the copy never depends on the car behind it */
+  content: ''; position: absolute; z-index: -1; left: -6%; right: -14%; top: 4%; bottom: -8%;
+  background: radial-gradient(ellipse 58% 56% at 50% 52%, rgb(var(--hc-rgb) / var(--hc-plate)) 0, rgb(var(--hc-rgb) / calc(var(--hc-plate) * .55)) 55%, rgb(var(--hc-rgb) / 0) 100%);
+  pointer-events: none;
+}
+.hc h1.hero-statement {
+  font-size: clamp(50px, min(7.3vw, 12vh), 116px); line-height: 1.02; letter-spacing: -.062em;
+  text-shadow: 0 0 42px rgb(var(--hc-rgb) / var(--hc-halo)), 0 0 14px rgb(var(--hc-rgb) / .55), 0 1px 2px rgb(var(--hc-rgb) / .5);
+}
+.hc .hero-statement .hero-line { color: var(--hc-ink); }
+.hc .hero-statement .hero-line + .hero-line { color: var(--hc-line2); margin-top: 4px; }
+.hc .hero-statement em { color: var(--hc-em); position: relative; display: inline-block; padding-right: .06em; }
+.hc .hero-statement em::after { /* a painted lane line under the signature words */
+  content: ''; position: absolute; left: .06em; right: .12em; bottom: -.02em; height: max(3px, .038em);
+  background: repeating-linear-gradient(90deg, currentColor 0 .5em, transparent .5em .8em);
+  opacity: .75;
+}
+.hc.is-playing .hero-statement em::after { animation: hc-lane 1.4s linear infinite; }
+@keyframes hc-lane { to { background-position: -.8em 0; } }
+
+.hc-summary {
+  display: grid; grid-template-columns: minmax(0, 210px) minmax(0, 450px); gap: 36px;
+  margin-top: clamp(26px, 4.6vh, 52px); align-items: start;
+}
+.hc-lede { margin: 0; padding-top: 3px; font-size: 15px; font-weight: 500; color: var(--hc-ink); }
+.hc-lede::before { content: ''; display: block; width: 28px; height: 2px; background: var(--hc-em); margin-bottom: 14px; }
+.hc-text { margin: 0 0 24px; font-size: 17px; line-height: 1.62; color: var(--hc-ink-2); text-shadow: 0 0 18px rgb(var(--hc-rgb) / .9), 0 0 6px rgb(var(--hc-rgb) / .7); }
+.hc-lede { text-shadow: 0 0 16px rgb(var(--hc-rgb) / .9), 0 0 5px rgb(var(--hc-rgb) / .7); }
+.hc .hero-actions { grid-column: 2; }
+.hc .hero-secondary { color: var(--hc-ink); border-color: currentColor; }
+.hc .hero-secondary:hover { color: var(--hc-em); }
+
+/* ---------- event log: risk trace, ongoing classes, discrete events ---------- */
+.hc-log {
+  position: absolute; top: 72px; right: var(--gutter); width: 324px;
+  display: grid; gap: 6px;
+  font: 500 11px/1 var(--mono); letter-spacing: .06em; color: var(--hc-ink);
+}
+.hc:not(.hc-js) .hc-log, .hc:not(.hc-js) .hc-lock { display: none; }
+.hc-panel, .hc-chip {
+  background: var(--hc-glass); border: 1px solid var(--hc-glass-line);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+.hc-log-head {
+  display: flex; justify-content: space-between; margin: 0; padding: 9px 12px 8px;
+  border-bottom: 1px solid var(--hc-glass-line);
+  color: var(--hc-dim); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
+}
+.hc-log-head span:first-child { color: var(--hc-ink); font-weight: 700; }
+
+.hc-risk { padding: 10px 12px 10px; border-bottom: 1px solid var(--hc-glass-line); }
+.hc-risk-head { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 10px; font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--hc-dim); }
+.hc-risk-val { font: 700 15px/1 var(--mono); letter-spacing: .02em; color: var(--hc-ink); font-variant-numeric: tabular-nums; }
+.hc-spark { position: relative; height: 34px; }
+.hc-spark svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.hc-spark-line { fill: none; stroke: var(--hc-spark); stroke-width: 1.6; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.hc-spark-area { fill: var(--hc-spark); opacity: .16; }
+.hc-spark-base { stroke: var(--hc-glass-line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.hc-alarm { stroke: var(--hc-rec); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; opacity: .85; }
+.hc-risk-foot { display: flex; justify-content: space-between; gap: 10px; margin: 8px 0 0; font-size: 8.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--hc-dim); white-space: nowrap; }
+.hc-alarm-note { display: inline-flex; align-items: center; gap: 6px; }
+.hc-alarm-note::before { content: ''; width: 14px; border-top: 1px dashed var(--hc-rec); }
+.hc-peak-note { opacity: 0; transition: opacity .3s; }
+.hc-peak-note.is-shown { opacity: 1; }
+.hc-peak-dot { position: absolute; width: 7px; height: 7px; margin: -4px 0 0 -4px; border: 1.5px solid var(--hc-spark); border-radius: 50%; background: var(--hc-bar-bg); opacity: 0; transition: opacity .3s; }
+.hc-peak-dot.is-shown { opacity: 1; }
+.hc-spark-head { position: absolute; inset: 0; will-change: transform; }
+.hc-spark-head::before { content: ''; position: absolute; left: 0; top: -3px; bottom: 0; width: 1px; background: var(--hc-ink); opacity: .35; }
+.hc-spark-dot { position: absolute; left: -3px; top: -3px; width: 6px; height: 6px; border-radius: 50%; background: var(--hc-spark); box-shadow: 0 0 0 3px rgb(255 122 69 / .25); will-change: transform; }
+
+.hc-ongoing { list-style: none; margin: 0; padding: 7px 12px 8px; display: grid; gap: 7px; }
+.hc-ongoing li { display: grid; grid-template-columns: 9px minmax(0, 1fr) auto auto; align-items: center; column-gap: 9px; margin: 0; }
+.hc-sw { width: 9px; height: 9px; background: var(--c); }
+.hc-oname { font: 600 12.5px/1.2 var(--font); letter-spacing: -.005em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hc-otime { color: var(--hc-dim); font-size: 9.5px; letter-spacing: .08em; font-variant-numeric: tabular-nums; }
+.hc-live { display: inline-flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--hc-ink); }
+.hc-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--hc-rec); }
+
+.hc-chips { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.hc-chip {
+  position: relative; overflow: hidden; margin: 0;
+  display: flex; align-items: stretch; gap: 11px;
+  padding: 8px 11px 9px 8px; border-left: 2px solid var(--c);
+  opacity: 0; transform: translateX(18px);
+  transition: opacity .35s, transform .5s cubic-bezier(.2, .8, .2, 1);
+}
+.hc-chip.is-on { opacity: 1; transform: none; }
+.hc-chip.is-live { animation: hc-flash 1.1s ease-out; }
+.hc-crop {
+  flex: none; position: relative; display: block; width: 88px; height: 55px; overflow: hidden;
+  background: var(--hc-media-bg); outline: 1px solid var(--c); outline-offset: -1px;
+}
+.hc-crop canvas { display: block; width: 100%; height: 100%; }
+.hc-crop::after { /* CCTV scan lines over the evidence crop */
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(180deg, rgb(0 0 0 / .14) 0 1px, transparent 1px 3px);
+}
+.hc-chip.is-nocrop { padding-left: 12px; }
+.hc-chip.is-nocrop .hc-crop { display: none; }
+.hc-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.hc-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.hc-kick { font-size: 9px; letter-spacing: .13em; text-transform: uppercase; color: var(--hc-dim); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hc-state { flex: none; display: inline-flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--hc-dim); }
+.hc-chip.is-live .hc-state { color: var(--hc-ink); }
+.hc-chip.is-live .hc-state::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--hc-rec); }
+.hc-chip.is-done .hc-state::before { content: '\2713'; color: var(--hc-lamp); letter-spacing: 0; }
+.hc-name { font: 600 15px/1.1 var(--font); letter-spacing: -.012em; color: var(--hc-ink); white-space: nowrap; overflow: hidden; }
+.hc-caret { display: none; width: .5em; height: 1em; margin-left: 2px; vertical-align: -2px; background: var(--c); }
+.hc-chip.is-typing .hc-caret { display: inline-block; }
+.hc-meta { margin-top: auto; color: var(--hc-dim); font-size: 9.5px; letter-spacing: .08em; font-variant-numeric: tabular-nums; }
+.hc-chip.is-done .hc-crop, .hc-chip.is-done .hc-name, .hc-chip.is-done .hc-kick { opacity: .72; }
+.hc-prog { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--c); transform-origin: 0 50%; transform: scaleX(0); }
+@keyframes hc-flash {
+  from { box-shadow: 0 0 0 1px var(--c), 0 0 32px -2px var(--c); }
+  to { box-shadow: 0 0 0 1px transparent, 0 0 32px -2px transparent; }
+}
+
+/* pause / play (WCAG 2.2.2) */
+.hc-toggle {
+  position: absolute; right: var(--gutter); bottom: 26px;
+  display: inline-flex; align-items: center; gap: 9px; height: 38px; padding: 0 15px 0 12px;
+  font: 700 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase;
+  color: var(--hc-ink); background: var(--hc-glass); border: 1px solid var(--hc-glass-line); border-radius: 2px;
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  cursor: pointer; transition: border-color .2s, color .2s;
+}
+.hc-toggle:hover { border-color: var(--hc-em); color: var(--hc-em); }
+.hc-toggle:focus-visible { outline: 2px solid var(--hc-em); outline-offset: 3px; border-radius: 2px; }
+.hc-toggle svg { width: 13px; height: 13px; fill: currentColor; }
+.hc-toggle .hc-i-play, .hc.is-paused .hc-toggle .hc-i-pause { display: none; }
+.hc.is-paused .hc-toggle .hc-i-play { display: inline; }
+
+/* ---------- stats bar along the bottom edge of the footage ---------- */
+.hc-bar { position: relative; overflow: hidden; background: var(--hc-bar-bg); border-bottom: 1px solid var(--border-strong); }
+.hc-track { position: relative; height: 3px; background: var(--border); }
+.hc-seg { position: absolute; top: 0; bottom: 0; left: 0; width: 0; background: var(--c); }
+.hc-seg.is-ongoing { opacity: .35; }
+.hc-fill { position: absolute; inset: 0; background: var(--hc-ink); opacity: .22; transform-origin: 0 50%; transform: scaleX(0); }
+.hc-head { position: absolute; top: 0; left: 0; width: 100%; height: 12px; transform: translateX(0); will-change: transform; }
+.hc-head::before { content: ''; position: absolute; left: -1px; top: 0; width: 2px; height: 100%; background: var(--hc-em); }
+
+.hc-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0 auto; counter-reset: hcstat; }
+.hc-stat {
+  display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 9px;
+  padding: 20px 28px 22px; border-left: 1px solid var(--border);
+}
+.hc-stat:first-child { border-left: 0; padding-left: 0; }
+.hc-stat dt { font: 10px/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.hc-stat dt::before { counter-increment: hcstat; content: '0' counter(hcstat) ' / '; color: var(--accent); }
+.hc-stat dd {
+  margin: 0; font-size: clamp(28px, 2.7vw, 42px); font-weight: 500; line-height: 1;
+  letter-spacing: -.045em; color: var(--text); font-variant-numeric: tabular-nums;
+}
+.hc-stat dd small { font-size: .5em; font-weight: 500; letter-spacing: 0; color: var(--muted); }
+
+/* ---------- entrance (only when motion is welcome) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .hc-media { animation: hc-fade .7s ease-out both; }
+  /* without hero.js the raw frame simply fades away; hero.js replaces this with the read sweep */
+  .hc-still { animation: hc-fade-out .8s 2.8s ease-in both; }
+  .hc-js .hc-still { animation: none; }
+  .hc-js.is-reading .hc-still { animation: hc-wipe 1.15s cubic-bezier(.5, 0, .3, 1) both; }
+  .hc-js.is-reading .hc-read { animation: hc-readline 1.15s cubic-bezier(.5, 0, .3, 1) both; }
+  .hc-js.is-intro .hc-log, .hc-js.is-intro .hc-lock { opacity: 0; }
+  .hc-log { transition: opacity .6s .15s; }
+  .hc-corners i { animation: hc-in .9s .25s cubic-bezier(.2, .8, .2, 1) both; }
+  .hc-corners i:nth-child(1) { --dx: -14px; --dy: -14px; }
+  .hc-corners i:nth-child(2) { --dx: 14px; --dy: -14px; }
+  .hc-corners i:nth-child(3) { --dx: -14px; --dy: 14px; }
+  .hc-corners i:nth-child(4) { --dx: 14px; --dy: 14px; }
+  .hc-hud { animation: hc-fade .8s .35s ease-out both; }
+  .hc-summary { animation: hc-rise .85s .3s cubic-bezier(.2, .7, .2, 1) both; }
+  .hc-toggle { animation: hc-fade .6s 1s ease-out both; }
+  .hc-track { animation: hc-grow 1.2s .2s cubic-bezier(.6, 0, .2, 1) both; transform-origin: 0 50%; }
+  .hc.is-playing .hc-rec i { animation: hc-blink 1.2s steps(1) infinite; }
+  @keyframes hc-in { from { opacity: 0; transform: translate(var(--dx), var(--dy)); } to { opacity: 1; transform: none; } }
+  @keyframes hc-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes hc-fade-out { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
+  @keyframes hc-wipe { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 0 100%); } }
+  @keyframes hc-readline { 0% { transform: translateX(-100%); opacity: 1; } 88% { opacity: 1; } 100% { transform: translateX(0); opacity: 0; } }
+  @keyframes hc-rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  @keyframes hc-grow { from { transform: scaleX(0); } to { transform: none; } }
+  @keyframes hc-blink { 50% { opacity: .15; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hc-still, .hc-read { display: none; }
+}
+.hc.is-read .hc-still, .hc.is-failed .hc-still { display: none; }
+
+/* ---------- medium widths: keep the copy column compact ---------- */
+@media (max-width: 1360px) {
+  .hc-summary { grid-template-columns: minmax(0, 170px) minmax(0, 390px); gap: 30px; }
+  .hc-text { font-size: 16px; }
+}
+@media (max-width: 1100px) {
+  .hc-log { width: 290px; }
+  .hc-crop { width: 76px; height: 48px; }
+  .hc-summary { grid-template-columns: minmax(0, 150px) minmax(0, 360px); gap: 26px; }
+  .hc-cam { display: none !important; }
+}
+
+/* ---------- phones and portrait tablets: footage band on top, copy below ---------- */
+@media (max-width: 760px), (max-width: 1024px) and (max-aspect-ratio: 5/6) {
+  .hc { --hc-band: clamp(300px, 52vh, 480px); --hc-bar-h: 0px; }
+  @supports (height: 100svh) { .hc { --hc-band: clamp(300px, 52svh, 480px); } }
+  .hc-stage { display: block; min-height: 0; }
+  .hc-stage::after { display: none; } /* the band has its own fade (.hc-shade) */
+  .hc-fx-top { -webkit-mask-image: none; mask-image: none; }
+  .hc-media, .hc-shade, .hc-fx { bottom: auto; height: var(--hc-band); }
+  .hc-video, .hc-still { object-position: 58% 100%; }
+  .hc-shade, :root[data-theme="light"] .hc-shade {
+    background:
+      linear-gradient(180deg, rgb(var(--hc-rgb) / .8) 0, rgb(var(--hc-rgb) / .25) 70px, rgb(var(--hc-rgb) / 0) 120px),
+      linear-gradient(0deg, rgb(var(--hc-rgb)) 0, rgb(var(--hc-rgb) / .9) 11%, rgb(var(--hc-rgb) / .35) 28%, rgb(var(--hc-rgb) / 0) 44%),
+      radial-gradient(130% 110% at 50% 40%, rgb(0 0 0 / 0) 55%, rgb(0 0 0 / var(--hc-vig)) 100%),
+      rgb(var(--hc-rgb) / var(--hc-tint));
+  }
+  .hc-corners { inset: 10px; }
+  .hc-corners i:nth-child(n+3) { display: none; }
+  .hc-lock { /* fade the reticle out where the band melts into the page */
+    -webkit-mask-image: linear-gradient(180deg, #000 0, #000 calc(var(--hc-band) - 118px), rgb(0 0 0 / 0) calc(var(--hc-band) - 64px));
+    mask-image: linear-gradient(180deg, #000 0, #000 calc(var(--hc-band) - 118px), rgb(0 0 0 / 0) calc(var(--hc-band) - 64px));
+    width: 100%; height: var(--hc-band);
+  }
+  .hc-lock-label { font-size: 12.5px; }
+  .hc-lock-tag { padding: 5px 8px 6px 7px; gap: 3px; }
+  .hc-lock-kick { font-size: 8px; }
+  .hc-copy::before { display: none; }
+  .hc-inner { padding-top: 16px; padding-bottom: 38px; }
+  .hc-hud { gap: 14px; font-size: 10px; padding-right: 96px; }
+  .hc-tc { margin-left: 0; font-size: 11.5px; }
+  .hc-sig { display: none !important; }
+  .hc-hud-live { display: inline-flex !important; color: var(--hc-ink); }
+  .hc-hud-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--c, var(--hc-rec)); box-shadow: 0 0 0 2px rgb(229 72 77 / .2); }
+  .hc-toggle { top: 10px; bottom: auto; height: 32px; padding: 0 11px 0 10px; font-size: 10px; }
+  /* the log collapses to the latest event, with a small count of what was logged before it */
+  .hc-log { top: 50px; width: min(252px, calc(100% - 2 * var(--gutter))); gap: 0; }
+  .hc-panel { display: none; }
+  .hc-chips { display: block; }
+  .hc-chip { display: none; padding: 6px 9px 7px 6px; gap: 9px; }
+  .hc-chip.is-latest { display: flex; }
+  .hc-body { gap: 5px; justify-content: center; }
+  .hc-crop { width: 60px; height: 38px; }
+  .hc-name { font-size: 13px; }
+  .hc-kick, .hc-state { font-size: 8px; }
+  .hc-meta { display: none; }
+  .hc-copy { padding-top: calc(var(--hc-band) - 86px); max-width: 640px; }
+  .hc h1.hero-statement { font-size: clamp(41px, 11.2vw, 76px); line-height: 1.08; }
+  .hc .hero-statement em { display: inline-block; }
+  .hc-summary { grid-template-columns: 1fr; gap: 16px; margin-top: 26px; }
+  .hc .hero-actions { grid-column: 1; }
+  .hc-lede::before { margin-bottom: 12px; }
+  .hc-text { font-size: 15px; margin-bottom: 20px; }
+  .hc-stats { grid-template-columns: 1fr 1fr; }
+  .hc-stat, .hc-stat:first-child { padding: 18px 0 18px 18px; border-left: 1px solid var(--border); }
+  .hc-stat:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .hc-stat:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+  .hc-stat dt { font-size: 9px; }
+  .hc-stat dd { font-size: 32px; }
+}
+/* short landscape screens: the stage hugs its content, and the log keeps only its events */
+@media (min-width: 761px) and (max-height: 520px) {
+  .hc-stage { min-height: 0; }
+  .hc-copy { padding-top: 40px; }
+  .hc-panel { display: none; }
+  .hc-log { top: 60px; }
+  .hc-chips { display: block; }
+  .hc-chip { display: none; }
+  .hc-chip.is-latest { display: flex; }
+}
+@media (max-width: 420px) {
+  .hc-hud { gap: 12px; }
+  .hc-cam { display: none !important; }
+  .hc .hero-actions { gap: 16px; }
+}
+@media (max-width: 379px) {
+  .hc-hud-live { display: none !important; }
+}

@@ -1,0 +1,24 @@
+{
+  "repo": {
+    "label": "Source code",
+    "url": "https://github.com/TheRizaev/AVA",
+    "note": "Pipeline, rules, training scripts, demo server and this website."
+  },
+  "weights": {
+    "label": "Model weights",
+    "url": "https://github.com/TheRizaev/AVA/tree/main/weights",
+    "note": "yolo26l.pt (submission detector), yolo26s.pt (demo), yoloe26l_hazards.pt (YOLOE-26L with our hazard prompts baked in); weights/download.sh restores them."
+  },
+  "predictions": {
+    "label": "predictions_samples.json",
+    "url": "https://github.com/TheRizaev/AVA/blob/main/predictions_samples.json",
+    "note": "Our output for the four sample videos in the official evaluate.py format (events and per-frame risk)."
+  },
+  "extra": [
+    {
+      "label": "Live demo server",
+      "url": "https://therizaev-ava-demo.hf.space",
+      "note": "Hugging Face Space running the demo API (CPU). It sleeps after two days without visitors and wakes in 2–3 minutes."
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+ "score_a": 0.8352,
+ "score_b": null,
+ "model_score": 0.8352,
+ "per_class": {
+  "congestion": {
+   "0.3": 0.889,
+   "0.5": 0.889,
+   "0.7": 0.889,
+   "f1_mean": 0.889,
+   "tp_fp_fn_05": [
+    4,
+    1,
+    0
+   ]
+  },
+  "failure_to_yield": {
+   "0.3": 0.687,
+   "0.5": 0.507,
+   "0.7": 0.418,
+   "f1_mean": 0.537,
+   "tp_fp_fn_05": [
+    17,
+    19,
+    14
+   ]
+  },
+  "illegal_turn": {
+   "0.3": 1.0,
+   "0.5": 1.0,
+   "0.7": 0.6,
+   "f1_mean": 0.867,
+   "tp_fp_fn_05": [
+    5,
+    0,
+    0
+   ]
+  },
+  "jaywalking": {
+   "0.3": 0.85,
+   "0.5": 0.85,
+   "0.7": 0.6,
+   "f1_mean": 0.767,
+   "tp_fp_fn_05": [
+    17,
+    4,
+    2
+   ]
+  },
+  "red_light": {
+   "0.3": 1.0,
+   "0.5": 1.0,
+   "0.7": 1.0,
+   "f1_mean": 1.0,
+   "tp_fp_fn_05": [
+    1,
+    0,
+    0
+   ]
+  },
+  "solid_line_crossing": {
+   "0.3": 0.933,
+   "0.5": 0.533,
+   "0.7": 0.4,
+   "f1_mean": 0.622,
+   "tp_fp_fn_05": [
+    4,
+    4,
+    3
+   ]
+  },
+  "stop_line": {
+   "0.3": 1.0,
+   "0.5": 1.0,
+   "0.7": 1.0,
+   "f1_mean": 1.0,
+   "tp_fp_fn_05": [
+    5,
+    0,
+    0
+   ]
+  },
+  "stopped_vehicle": {
+   "0.3": 1.0,
+   "0.5": 1.0,
+   "0.7": 1.0,
+   "f1_mean": 1.0,
+   "tp_fp_fn_05": [
+    4,
+    0,
+    0
+   ]
+  }
+ },
+ "micro": {
+  "0.3": 0.82,
+  "0.5": 0.708,
+  "0.7": 0.571
+ },
+ "class_agnostic": {
+  "0.3": 0.82,
+  "0.5": 0.708,
+  "0.7": 0.571
+ },
+ "note": "Part B is not scored: the sample videos contain no accident.",
+ "dataset": "Our own labels of the 4 sample videos (18.4 min, 76 events): a blind sweep in 64-80 s windows plus a per-video pass for long events, every event independently re-checked, and detector candidates the first pass missed re-checked by a third annotator (see dev/README.md)."
+}
