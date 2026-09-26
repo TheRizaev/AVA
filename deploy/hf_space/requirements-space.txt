@@ -1,0 +1,13 @@
+# CPU-only build of the demo server (the Space has no GPU); same versions as ../../requirements.txt
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.6.0+cpu
+torchvision==0.21.0+cpu
+ultralytics==8.4.161
+opencv-python-headless==5.0.0.93
+av==17.1.0
+numpy==2.2.6
+scipy==1.15.3
+lap==0.5.13
+fastapi==0.141.1
+uvicorn==0.53.0
+python-multipart==0.0.32
