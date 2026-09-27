@@ -1,10 +1,10 @@
 # Work status
 
 ## Final state (2026-09-27)
-- `predictions_samples.json`: official harness run on all four samples — 1.46–1.53× the video
-  duration (budget 3×), format VALID; Part A events identical to the previous run.
+- `predictions_samples.json`: official harness run on all four samples — 1.43–1.48× the video
+  duration (budget 3×), format VALID; Part B output identical to the previous run (deterministic).
 - Dev score (official `evaluate.py`, all labelled classes, all four videos end to end,
-  `scripts/export_metrics.py`): **Score A = 0.835** — red_light 1.00, stop_line 1.00, stopped_vehicle 1.00, congestion 0.89, illegal_turn 0.87, jaywalking 0.77, solid_line_crossing 0.62, failure_to_yield 0.54; micro F1@0.5 0.71. Part B not scorable on the samples (no accident in them); the
+  `scripts/export_metrics.py`): **Score A = 0.9015** — red_light 1.00, stop_line 1.00, stopped_vehicle 1.00, congestion 1.00, illegal_turn 1.00, solid_line_crossing 0.86, jaywalking 0.76, failure_to_yield 0.59; micro F1@0.5 0.77 (0.88 with the first 76 labels). Part B not scorable on the samples (no accident in them); the
   official Part B output raises no alarm in their 18.4 min (max 0.44).
 - Reported classes: `src/config.py` `ENABLED_CLASSES` (illegal_u_turn and near_miss off, see
   `dev/decisions.md`).
@@ -38,12 +38,21 @@
   island hops), stopped_vehicle (roadside-kerb distance, car-park apron), solid_line_crossing
   (old-lane evidence clear of the line); the failure_to_yield change was reverted after the check.
 
+## Changes of 2026-09-27
+- Score A 0.835 -> 0.9015: second error-analysis round with a leave-one-video-out check for any
+  threshold and an independent reviewer per change (illegal_turn and solid_line_crossing end
+  conventions, congestion of the main road only, buses at a stop, early starts on red+yellow,
+  failure_to_yield against the vehicle's remaining path; 3 proposals rejected as dev fits), plus 7
+  blind label corrections (`dev/label_corrections.json`). The same code scores 0.88 on the first labels.
+- Part B v2 shipped (above); more crash data (SO-TAD, ACCIDENT) tried and rejected.
+- Demo: 2-s risk warm-up (no alarm before the model has history), 4K size hint.
+
 ## Changes of 2026-09-26
 - Part B learned anticipation layer (above); all 277 TAD accident clips timed (`dev/external/tad_labels.json`).
 - Ablations + class confusion on the website; team roster with contributions; Space deployment files.
 
 ## Dev labels
-- `dev/labels.json` (76 events on 18.4 min) = the verified sweep events merged with
+- `dev/labels.json` (81 events on 18.4 min) = the verified sweep events merged with
   `scripts/collect_labels.py` (the raw annotation log stays out of the repository) + detector-candidate
   checks `dev/fp_check_*.json`.
 

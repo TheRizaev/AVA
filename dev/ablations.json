@@ -1,72 +1,72 @@
 {
- "note": "Part A analysis pass re-run on the four sample videos with one setting changed; same rules, official evaluate.py against our dev labels (76 events). Runtime is the analysis pass only (decode + detection + tracking + hazards), RTX 2060 Super + i5-12400F.",
+ "note": "Part A analysis pass re-run on the four sample videos with one setting changed; same rules, official evaluate.py against our dev labels (81 events). Runtime is the analysis pass only (decode + detection + tracking + hazards), RTX 2060 Super + i5-12400F.",
  "variants": [
   {
    "key": "baseline",
-   "label": "YOLO26-L \u00b7 1280 px \u00b7 10 fps (submitted)",
-   "score_a": 0.8352,
-   "micro_f1_05": 0.708,
+   "label": "YOLO26-L · 1280 px · 10 fps (submitted)",
+   "score_a": 0.9015,
+   "micro_f1_05": 0.766,
    "per_class": {
-    "congestion": 0.889,
-    "failure_to_yield": 0.537,
-    "illegal_turn": 0.867,
-    "jaywalking": 0.767,
+    "congestion": 1.0,
+    "failure_to_yield": 0.589,
+    "illegal_turn": 1.0,
+    "jaywalking": 0.76,
     "red_light": 1.0,
-    "solid_line_crossing": 0.622,
+    "solid_line_crossing": 0.863,
     "stop_line": 1.0,
     "stopped_vehicle": 1.0
    },
    "analysis_x_realtime": 0.483,
-   "n_events": 85
+   "n_events": 86
   },
   {
    "key": "yolo26m",
-   "label": "YOLO26-M \u00b7 1280 px \u00b7 10 fps",
-   "score_a": 0.7878,
-   "micro_f1_05": 0.671,
+   "label": "YOLO26-M · 1280 px · 10 fps",
+   "score_a": 0.8413,
+   "micro_f1_05": 0.731,
    "per_class": {
-    "congestion": 0.6,
-    "failure_to_yield": 0.503,
-    "illegal_turn": 0.867,
-    "jaywalking": 0.75,
+    "congestion": 0.667,
+    "failure_to_yield": 0.557,
+    "illegal_turn": 1.0,
+    "jaywalking": 0.729,
     "red_light": 1.0,
-    "solid_line_crossing": 0.583,
+    "solid_line_crossing": 0.778,
     "stop_line": 1.0,
     "stopped_vehicle": 1.0
    },
    "analysis_x_realtime": 0.436,
-   "n_events": 85
+   "n_events": 86
   },
   {
    "key": "yolo26s",
-   "label": "YOLO26-S \u00b7 1280 px \u00b7 10 fps",
-   "score_a": 0.748,
-   "micro_f1_05": 0.634,
+   "label": "YOLO26-S · 1280 px · 10 fps",
+   "score_a": 0.8072,
+   "micro_f1_05": 0.695,
    "per_class": {
-    "congestion": 0.667,
-    "failure_to_yield": 0.544,
-    "illegal_turn": 0.867,
-    "jaywalking": 0.65,
+    "congestion": 0.741,
+    "failure_to_yield": 0.597,
+    "illegal_turn": 1.0,
+    "jaywalking": 0.651,
     "red_light": 1.0,
-    "solid_line_crossing": 0.533,
+    "solid_line_crossing": 0.745,
     "stop_line": 0.909,
     "stopped_vehicle": 0.815
    },
    "analysis_x_realtime": 0.433,
-   "n_events": 85
+   "n_events": 86
   },
   {
    "key": "yolo11l",
-   "label": "YOLO11-L \u00b7 1280 px \u00b7 10 fps",
-   "score_a": 0.8016,
-   "micro_f1_05": 0.679,
+   "label": "YOLO11-L · 1280 px · 10 fps",
+   "score_a": 0.8655,
+   "micro_f1_05": 0.743,
    "per_class": {
-    "congestion": 0.8,
-    "failure_to_yield": 0.513,
-    "illegal_turn": 0.867,
-    "jaywalking": 0.752,
+    "congestion": 0.889,
+    "failure_to_yield": 0.556,
+    "illegal_turn": 1.0,
+    "jaywalking": 0.746,
     "red_light": 1.0,
-    "solid_line_crossing": 0.481,
+    "solid_line_crossing": 0.733,
     "stop_line": 1.0,
     "stopped_vehicle": 1.0
    },
@@ -75,39 +75,39 @@
   },
   {
    "key": "imgsz960",
-   "label": "YOLO26-L \u00b7 960 px \u00b7 10 fps",
-   "score_a": 0.7653,
-   "micro_f1_05": 0.642,
+   "label": "YOLO26-L · 960 px · 10 fps",
+   "score_a": 0.839,
+   "micro_f1_05": 0.714,
    "per_class": {
-    "congestion": 0.889,
-    "failure_to_yield": 0.495,
-    "illegal_turn": 0.733,
-    "jaywalking": 0.714,
+    "congestion": 1.0,
+    "failure_to_yield": 0.559,
+    "illegal_turn": 0.933,
+    "jaywalking": 0.696,
     "red_light": 1.0,
-    "solid_line_crossing": 0.476,
+    "solid_line_crossing": 0.708,
     "stop_line": 1.0,
     "stopped_vehicle": 0.815
    },
    "analysis_x_realtime": 0.428,
-   "n_events": 86
+   "n_events": 87
   },
   {
    "key": "fps5",
-   "label": "YOLO26-L \u00b7 1280 px \u00b7 5 fps",
-   "score_a": 0.775,
-   "micro_f1_05": 0.662,
+   "label": "YOLO26-L · 1280 px · 5 fps",
+   "score_a": 0.8188,
+   "micro_f1_05": 0.708,
    "per_class": {
-    "congestion": 0.667,
-    "failure_to_yield": 0.462,
-    "illegal_turn": 0.815,
-    "jaywalking": 0.769,
+    "congestion": 0.733,
+    "failure_to_yield": 0.473,
+    "illegal_turn": 0.889,
+    "jaywalking": 0.762,
     "red_light": 1.0,
-    "solid_line_crossing": 0.578,
+    "solid_line_crossing": 0.784,
     "stop_line": 0.909,
     "stopped_vehicle": 1.0
    },
    "analysis_x_realtime": 0.423,
-   "n_events": 81
+   "n_events": 80
   }
  ]
 }

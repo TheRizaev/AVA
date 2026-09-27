@@ -1,4 +1,4 @@
-<p align="center"><img src="docs/banner.jpg" alt="AVA: traffic events and accident risk from one fixed CCTV camera. Dev Score A 0.835, Part B 0.47 on held-out real CCTV crashes, 12 event classes, 1.5x the video length on one GPU." width="100%"></p>
+<p align="center"><img src="docs/banner.jpg" alt="AVA: traffic events and accident risk from one fixed CCTV camera. Dev Score A 0.90, Part B 0.47 on held-out real CCTV crashes, 12 event classes, 1.5x the video length on one GPU." width="100%"></p>
 
 # AVA — WIUT Hackathon 2026, CV track
 
@@ -27,10 +27,10 @@ Runtime of the official harness on the sample videos (RTX 2060 Super, i5-12400F,
 
 | video | duration | Part A | total (A + B) | × duration |
 |---|---|---|---|---|
-| C3896 | 340 s | 187 s | 512 s | 1.50 |
-| C3897 | 318 s | 182 s | 485 s | 1.53 |
-| C3902 | 318 s | 163 s | 481 s | 1.51 |
-| C3905 | 128 s | 63 s | 187 s | 1.46 |
+| C3896 | 340 s | 177 s | 505 s | 1.48 |
+| C3897 | 318 s | 153 s | 455 s | 1.43 |
+| C3902 | 318 s | 155 s | 460 s | 1.45 |
+| C3905 | 128 s | 61 s | 183 s | 1.44 |
 
 The budget is 3× the duration; about 0.6× of Part B is the harness itself decoding every 4K
 10-bit frame with OpenCV. `predictions_samples.json` is the output of exactly this run.
@@ -165,16 +165,25 @@ occurs in the labels counts, as in the official Score A.
 | red_light | 1.00 | 1.00 | 1.00 | **1.00** | 1/0/0 |
 | stop_line | 1.00 | 1.00 | 1.00 | **1.00** | 5/0/0 |
 | stopped_vehicle | 1.00 | 1.00 | 1.00 | **1.00** | 4/0/0 |
-| congestion | 0.89 | 0.89 | 0.89 | **0.89** | 4/1/0 |
-| illegal_turn | 1.00 | 1.00 | 0.60 | **0.87** | 5/0/0 |
-| jaywalking | 0.85 | 0.85 | 0.60 | **0.77** | 17/4/2 |
-| solid_line_crossing | 0.93 | 0.53 | 0.40 | **0.62** | 4/4/3 |
-| failure_to_yield | 0.69 | 0.51 | 0.42 | **0.54** | 17/19/14 |
+| congestion | 1.00 | 1.00 | 1.00 | **1.00** | 4/0/0 |
+| illegal_turn | 1.00 | 1.00 | 1.00 | **1.00** | 5/0/0 |
+| solid_line_crossing | 0.94 | 0.94 | 0.71 | **0.86** | 8/0/1 |
+| jaywalking | 0.84 | 0.84 | 0.61 | **0.76** | 18/3/4 |
+| failure_to_yield | 0.75 | 0.55 | 0.46 | **0.59** | 19/19/12 |
 
-**Score A = 0.835** (micro F1@0.3/0.5/0.7 = 0.82/0.71/0.57). The sample videos contain no accident,
-so Part B cannot be scored on them; its alarm threshold is calibrated to at most ~0.2 false alarms
-per minute of ordinary traffic: the harness output above raises one alarm in the 18.4 min of sample
-traffic (C3896 at 70 s, peak 0.53; elsewhere the risk stays below 0.48). See also [Validation on real accident footage](#validation-on-real-accident-footage).
+**Score A = 0.90** (0.9015; micro F1@0.3/0.5/0.7 = 0.85/0.77/0.65). The sample videos contain no
+accident, so Part B cannot be scored on them; its alarm point is the lowest level that raises no
+false alarm on held-out sample videos, and the harness output above raises no alarm in the 18.4 min
+of sample traffic (the risk peaks at 0.41–0.44, in the first seconds of each video). See also
+[Validation on real accident footage](#validation-on-real-accident-footage).
+
+How it got there: 0.787 → 0.835 from one error analysis per weak class, then → 0.90 from a second
+round in which every change had to follow the official start/end convention or fix a logic bug, pass
+a leave-one-video-out check for any threshold, and survive an independent reviewer who re-ran it
+(illegal_turn and solid_line_crossing end conventions, congestion of the main road only, buses at a
+stop, early starts on red+yellow, failure_to_yield judged against the vehicle's remaining path;
+three proposals were rejected as fits to the dev set). With the first 76 labels the same code
+scores 0.88.
 
 Reported classes: red_light, stop_line, jaywalking, failure_to_yield, wrong_way, stopped_vehicle,
 solid_line_crossing, illegal_turn, congestion, road_obstacle, fire_smoke, accident. wrong_way,
@@ -183,9 +192,11 @@ them (so they cannot add a false class there). Detected but not reported:
 illegal_u_turn (frequent and not visibly prohibited) and near_miss (every candidate rejected on
 inspection) — see `dev/decisions.md`.
 
-The dev labels (`dev/labels.json`, 18.4 min, 76 events) were made with the protocol in
-`dev/README.md`: a blind sweep, an independent re-check of every event, and a third check of every
-detector event the labels did not contain (which added 14 events the first pass had missed).
+The dev labels (`dev/labels.json`, 18.4 min, 81 events) were made with the protocol in
+`dev/README.md`: a blind sweep, an independent re-check of every event, a third check of every
+detector event the labels did not contain (which added 14 events the first pass had missed), and a
+blind re-check (frames only, no detector output) of windows where rules and labels still disagreed
+(7 corrections, `dev/label_corrections.json`).
 
 ## Ablations
 
@@ -195,15 +206,15 @@ changed and scores the same rules with the official `evaluate.py` on our dev lab
 
 | variant | Score A | micro F1@0.5 | analysis time (× video) |
 |---|---|---|---|
-| YOLO26-L · 1280 px · 10 fps **(submitted)** | 0.835 | 0.71 | 0.48× |
-| YOLO26-M · 1280 px · 10 fps | 0.788 | 0.67 | 0.44× |
-| YOLO26-S · 1280 px · 10 fps | 0.748 | 0.63 | 0.43× |
-| YOLO11-L · 1280 px · 10 fps | 0.802 | 0.68 | 0.47× |
-| YOLO26-L · 960 px · 10 fps | 0.765 | 0.64 | 0.43× |
-| YOLO26-L · 1280 px · 5 fps | 0.775 | 0.66 | 0.42× |
+| YOLO26-L · 1280 px · 10 fps **(submitted)** | 0.901 | 0.77 | 0.48× |
+| YOLO26-M · 1280 px · 10 fps | 0.841 | 0.73 | 0.44× |
+| YOLO26-S · 1280 px · 10 fps | 0.807 | 0.69 | 0.43× |
+| YOLO11-L · 1280 px · 10 fps | 0.866 | 0.74 | 0.47× |
+| YOLO26-L · 960 px · 10 fps | 0.839 | 0.71 | 0.43× |
+| YOLO26-L · 1280 px · 5 fps | 0.819 | 0.71 | 0.42× |
 
 * The large detector at full input size and 10 fps is worth its cost: every cheaper setting loses
-  0.03–0.09 of Score A, mostly on the pedestrian classes and on lane changes, and saves little
+  0.04–0.09 of Score A, mostly on the pedestrian classes and on lane changes, and saves little
   time, because decoding the 4K 10-bit stream on the CPU dominates the analysis pass.
 * Halving the frame rate is the worst trade: tracks break and speeds get noisy.
 * The ablations exposed a real risk: with any of the cheaper settings, the old kinematic accident
@@ -212,9 +223,9 @@ changed and scores the same rules with the official `evaluate.py` on our dev lab
   0.70/0.66/0.68/0.62 for M/S/960 px/5 fps before the fix). The kinematic branch had found none of
   the 36 real crashes either, so it was dropped, and wrong_way now needs 2 s and 100 px; the
   submitted configuration is unchanged by both fixes.
-* Class confusion (`python scripts/confusion.py`, `dev/confusion.json`): of 66 labelled events matched
+* Class confusion (`python scripts/confusion.py`, `dev/confusion.json`): of 71 labelled events matched
   at tIoU ≥ 0.3 regardless of class, none gets the wrong class; the errors are misses (10) and false
-  alarms (19), most of them failure_to_yield.
+  alarms (15), most of them failure_to_yield.
 
 ## Validation on real accident footage
 

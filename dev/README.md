@@ -22,10 +22,14 @@ The annotation brief with the class conventions and scene facts is `BRIEF.md`.
 
 ## Coverage
 
-All four videos are labelled end to end (18.4 min, 76 events after merging). Of 127 first-pass
+All four videos are labelled end to end (18.4 min, 81 events after merging). Of 127 first-pass
 events 32 were rejected by the independent re-check, and 14 detector events that the first pass
 had missed (lane changes over the solid dividers, jaywalkers, three right turns from the wrong
-lane) were confirmed by the third check and added (`fp_check_*.json`).
+lane) were confirmed by the third check and added (`fp_check_*.json`). Windows where the rules and
+the labels still disagreed were re-checked blind (frames only, no detector output); the 7
+medium/high-confidence corrections (3 missed jaywalkers, a lane change split into its two lane
+changes, a missed lane change, one failure_to_yield removed under the refuge policy and one added)
+are in `label_corrections.json` and applied by `scripts/apply_label_corrections.py`.
 
 ## Caveats
 
