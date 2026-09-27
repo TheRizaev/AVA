@@ -5,7 +5,7 @@
    "events": [
     [
      0.07,
-     298.16,
+     296.86,
      "stopped_vehicle"
     ],
     [
@@ -20,7 +20,7 @@
     ],
     [
      49.62,
-     52.72,
+     54.82,
      "illegal_turn"
     ],
     [
@@ -55,12 +55,12 @@
     ],
     [
      107.77,
-     111.48,
+     111.88,
      "illegal_turn"
     ],
     [
      123.49,
-     129.5,
+     126.59,
      "solid_line_crossing"
     ],
     [
@@ -115,7 +115,7 @@
     ],
     [
      283.75,
-     286.25,
+     287.65,
      "illegal_turn"
     ],
     [
@@ -40971,7 +40971,7 @@
     ],
     [
      126.79,
-     128.39,
+     128.8,
      "solid_line_crossing"
     ],
     [
@@ -40981,7 +40981,7 @@
     ],
     [
      132.1,
-     133.4,
+     135.1,
      "solid_line_crossing"
     ],
     [
@@ -40996,7 +40996,7 @@
     ],
     [
      175.94,
-     182.85,
+     183.25,
      "illegal_turn"
     ],
     [
@@ -41015,11 +41015,6 @@
      "failure_to_yield"
     ],
     [
-     225.5,
-     237.5,
-     "congestion"
-    ],
-    [
      262.83,
      268.23,
      "jaywalking"
@@ -41031,7 +41026,7 @@
     ],
     [
      288.76,
-     291.36,
+     292.26,
      "solid_line_crossing"
     ],
     [
@@ -41043,6 +41038,11 @@
      291.36,
      300.87,
      "jaywalking"
+    ],
+    [
+     298.26,
+     299.07,
+     "failure_to_yield"
     ],
     [
      305.47,
@@ -79171,6 +79171,11 @@
      "stopped_vehicle"
     ],
     [
+     12.18,
+     12.88,
+     "failure_to_yield"
+    ],
+    [
      22.69,
      27.29,
      "failure_to_yield"
@@ -79197,7 +79202,7 @@
     ],
     [
      70.54,
-     73.64,
+     74.34,
      "solid_line_crossing"
     ],
     [
@@ -79237,7 +79242,7 @@
     ],
     [
      210.08,
-     214.28,
+     214.58,
      "solid_line_crossing"
     ],
     [
@@ -79267,7 +79272,7 @@
     ],
     [
      281.85,
-     288.55,
+     289.16,
      "illegal_turn"
     ],
     [
@@ -117408,12 +117413,12 @@
     ],
     [
      43.31,
-     47.91,
+     45.21,
      "solid_line_crossing"
     ],
     [
      51.52,
-     55.12,
+     53.72,
      "solid_line_crossing"
     ],
     [
@@ -132756,33 +132761,33 @@
    "duration": 340.34,
    "budget_sec": 1021.0,
    "errors": [],
-   "part_a_sec": 186.6,
-   "part_b_sec": 325.1,
-   "total_sec": 511.7
+   "part_a_sec": 176.9,
+   "part_b_sec": 328.0,
+   "total_sec": 504.9
   },
   "C3897.MP4": {
    "duration": 317.82,
    "budget_sec": 953.5,
    "errors": [],
-   "part_a_sec": 182.5,
-   "part_b_sec": 303.0,
-   "total_sec": 485.4
+   "part_a_sec": 153.1,
+   "part_b_sec": 301.8,
+   "total_sec": 454.9
   },
   "C3902.MP4": {
    "duration": 317.82,
    "budget_sec": 953.5,
    "errors": [],
-   "part_a_sec": 163.1,
-   "part_b_sec": 318.3,
-   "total_sec": 481.4
+   "part_a_sec": 155.1,
+   "part_b_sec": 305.1,
+   "total_sec": 460.2
   },
   "C3905.MP4": {
    "duration": 127.63,
    "budget_sec": 382.9,
    "errors": [],
-   "part_a_sec": 63.1,
-   "part_b_sec": 123.5,
-   "total_sec": 186.6
+   "part_a_sec": 61.4,
+   "part_b_sec": 122.1,
+   "total_sec": 183.4
   }
  }
 }
