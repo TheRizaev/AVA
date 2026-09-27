@@ -5,10 +5,10 @@
     "Reading the signal phase from the lamps of the vehicle head on the median tip, with per-lamp normalisation and sequence-aware handling of flashing green and bus occlusions. It gives a clean fixed-time cycle (75 s at noon, 80 s in the evening) and approach vehicles start crossing ~2 s after green: red_light and stop_line are decided on the real phase and score F1 1.0 / 1.0 on our dev labels.",
     "Measuring pedestrians and vehicles along each zebra's own axis (0..1 kerb to kerb) instead of in pixels makes failure_to_yield perspective-free: the same rule works on the far cw2 and the near cw3.",
     "Congestion as spillback: the junction interior packed with crawling vehicles (speed in box heights per second) finds the three gridlock episodes of C3896 and the evening jam of C3905 without calling every red-light queue a jam.",
-    "Treating our own labels as a hypothesis too. Every first-pass event was re-checked by a second annotator (32 of 127 rejected), and every detector event the labels did not contain was checked by a third: 14 were real events the first pass had missed (lane changes over the solid dividers, jaywalkers, three right turns from the wrong lane), which went into the labels.",
+    "Treating our own labels as a hypothesis too. Every first-pass event was re-checked in an independent second pass (32 of 127 rejected), and every detector event the labels did not contain was checked in a third pass: 14 were real events the first pass had missed (lane changes over the solid dividers, jaywalkers, three right turns from the wrong lane), which went into the labels.",
     "Checking the accident rule on real crashes. The sample videos contain none, so we timed 36 collisions in public CCTV footage (TAD benchmark). The kinematic rule (abrupt stop next to another road user) found none of them: boxes of crashing vehicles are lost or switch ids. An open-vocabulary 'crashed car' prompt on the hazard pass finds about half, right after contact, and never fires on our 18 minutes of ordinary traffic; the accident rule went from F1 0 to 0.36 / 0.22 / 0.11 at tIoU 0.3 / 0.5 / 0.7 on that footage.",
     "Error analysis per class, then an adversarial check of every fix. For each weak class an investigator looked at the frames of every error and proposed only principled fixes that raise the class on all four videos: re-linking a pedestrian's track across an occlusion, interpolating the ground point of people whose feet are hidden, measuring 'kerbside' to the roadside kerb instead of the median, and requiring the old lane to be seen clear of the line. A second reviewer tried to break each fix; one (failure_to_yield) was reverted. Dev Score A went from 0.787 to 0.835. A second round, where every change had to follow the official start/end convention or fix a logic bug, pass a leave-one-video-out check and survive an independent reviewer who re-ran it, took it to 0.90 (end of a turn = through the side-street crossing, end of a lane change = rear wheels over the line, congestion of the main road only, failure_to_yield against the vehicle's remaining path); three proposals were rejected as fits to our labels.",
-    "Ablations as a safety check, not only a speed/accuracy table. Re-running the samples with a smaller detector, a smaller input or half the frame rate showed that two rules for classes absent from the samples (a kinematic 'abrupt stop' accident test and a 1-s wrong-way test) fire on ordinary traffic as soon as tracks get noisier. A class the test set does not contain costs a whole class of macro F1, so the kinematic accident branch (which had also found none of 36 real crashes) was dropped and wrong-way needs 2 s; the cheaper settings then score 0.75-0.80 instead of 0.62-0.70, and the submitted one is unchanged at 0.835.",
+    "Ablations as a safety check, not only a speed/accuracy table. Re-running the samples with a smaller detector, a smaller input or half the frame rate showed that two rules for classes absent from the samples (a kinematic 'abrupt stop' accident test and a 1-s wrong-way test) fire on ordinary traffic as soon as tracks get noisier. A class the test set does not contain costs a whole class of macro F1, so the kinematic accident branch (which had also found none of 36 real crashes) was dropped and wrong-way needs 2 s; with today's rules the cheaper settings score 0.81-0.87 and the submitted one 0.90.",
     "Learning to anticipate from other cameras' crashes. Hand-made conflict cues alone barely anticipate real crashes (Score B 0.12 on third-party CCTV footage). We timed the first contact in all 277 accident clips of the TAD benchmark and trained a learned layer on scale-free kinematic features, with our own sample videos as ordinary traffic and the alarm point set so they raise no false alarm. A first 16-unit network reached Score B 0.36 on held-out clips. Seven more features (time to contact under constant acceleration, pedestrians and two-wheelers near moving cars, braking and swerving), causal temporal convolutions over the last ~6 s, a 5 + 5 ensemble, reporting the learned score alone and a 10-s pause between alarms took it to 0.47: AP 0.34, alarm F1 0.70, alarms ~2.8 s before contact. Each step was re-run by an independent check on fresh seeds before it was kept."
   ],
   "did_not": [
@@ -41,7 +41,7 @@
     },
     {
       "title": "Crossed on green, cleared the junction on red",
-      "text": "A vehicle that crossed the stop line on green, stood past it because the junction was blocked, and drove on when the signal was already red: one annotator called it red_light, others 'clearing the junction'. We follow the definition (the front crosses the stop line on red), so it is a miss against our own labels.",
+      "text": "A vehicle that crossed the stop line on green, stood past it because the junction was blocked, and drove on when the signal was already red: one labelling pass called it red_light, the others 'clearing the junction'. We follow the definition (the front crosses the stop line on red), so it is a miss against our own labels.",
       "video": "C3897",
       "t": 138
     },
@@ -52,8 +52,8 @@
       "t": 62
     },
     {
-      "title": "Gradual lane change the first annotator missed",
-      "text": "A black SUV drifts one lane towards the median over three seconds, across the solid part of the divider. The first-pass annotator sampling at 1 s did not see it; our detector did, and the independent check confirmed it.",
+      "title": "Gradual lane change the first pass missed",
+      "text": "A black SUV drifts one lane towards the median over three seconds, across the solid part of the divider. The first pass, sampling at 1 s, did not see it; our detector did, and the independent check confirmed it.",
       "video": "C3896",
       "t": 123
     },
@@ -65,7 +65,7 @@
     },
     {
       "title": "Standing on the zebra is not crossing",
-      "text": "A pedestrian waited at the far kerb end of cw2 for ten seconds while a stream of cars turned through the crossing, and failure_to_yield fired for every car. The annotators do not count people waiting at a kerb end or a refuge. Fixed: a pedestrian counts only if they moved at least ~55 px along the zebra within ±3 s. This removed 5 of 20 false alarms of the class.",
+      "text": "A pedestrian waited at the far kerb end of cw2 for ten seconds while a stream of cars turned through the crossing, and failure_to_yield fired for every car. Our labels do not count people waiting at a kerb end or a refuge. Fixed: a pedestrian counts only if they moved at least ~55 px along the zebra within ±3 s. This removed 5 of 20 false alarms of the class.",
       "video": "C3902",
       "t": 112
     }

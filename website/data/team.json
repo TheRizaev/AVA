@@ -10,7 +10,7 @@
       "contributions": [
         "Team lead: the plan, the task split and the submission package.",
         "Evaluation design: the dev-set protocol (blind sweep, independent re-check, third check of detector candidates) and which classes to report under macro F1.",
-        "Part B risk model: conflict cues (time to collision of footprints, same-lane closing, pedestrian conflict, hard braking), the smoothing and the calibration to a false-alarm budget; validation on real CCTV crashes we timed in the TAD benchmark.",
+        "Part B risk model: conflict cues (time to collision of footprints, same-lane closing, pedestrian conflict, hard braking), the smoothing and the calibration to a false-alarm budget; the learned anticipation layer (5 networks + 5 temporal convolutions) and its cross-validation; validation on real CCTV crashes we timed in the TAD benchmark.",
         "Ablations and error analysis: detector, input size and frame rate against Score A and runtime; class confusion."
       ],
       "resume": "media/resume/Goldengorin_Vitaliy_CV.pdf"

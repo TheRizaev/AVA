@@ -12,16 +12,27 @@ Traffic-event detection (Part A) and causal accident anticipation (Part B) for t
 ## Install and run
 
 ```bash
-pip install -r requirements.txt          # Python 3.10+, CUDA GPU recommended (T4-class is enough)
+pip install -r requirements.txt          # Python 3.10-3.13, CUDA GPU recommended (T4-class is enough)
 bash weights/download.sh                 # only if weights/ is missing files; needs internet once
 python run_submission.py --videos /data/test --out predictions.json
 python evaluate.py --pred predictions.json --validate-only
 ```
 
 All weights ship in `weights/` (`yolo26l.pt` 53 MB, `yoloe26l_hazards.pt` 79 MB; `yolo26s.pt`
-20 MB is only used by the demo). Nothing is downloaded at run time: `src/__init__.py` sets
-`YOLO_OFFLINE=1` and `YOLO_AUTOINSTALL=False` before Ultralytics is imported. `ffmpeg` is **not**
-required by the submission (decoding uses PyAV's bundled FFmpeg); only the website renderer uses it.
+20 MB is only used by the demo). All weights are local, so nothing is downloaded at run time;
+`src/__init__.py` also turns off Ultralytics' connectivity check and pip auto-install
+(`YOLO_OFFLINE=1`, `YOLO_AUTOINSTALL=False`). `ffmpeg` is **not** required by the submission
+(decoding uses PyAV's bundled FFmpeg); only the website renderer uses it. On Linux, OpenCV needs
+libGL and GLib (`apt-get install -y libgl1 libglib2.0-0`; present on most GPU machines), because
+Ultralytics pulls in the non-headless `opencv-python`. The sample videos go in `samples/`
+(not in the repository). Tested on Windows 11, Python 3.10.11, RTX 2060 Super (the full
+submission) and on Linux in Docker, python:3.10-slim (the CPU demo path).
+
+Tests (no video, detector or GPU needed; about 10 s): `pip install pytest && python -m pytest tests -q`.
+`tests/test_rules.py` runs the event rules on synthetic scenes (a car crossing on red, a car
+waiting past the stop line, a car against the approach flow, a pedestrian on the carriageway, on a
+zebra and on the median); `tests/test_core.py` covers segment merging, the signal-phase logic,
+registration, the Part B features and the shipped risk model.
 
 Runtime of the official harness on the sample videos (RTX 2060 Super, i5-12400F, 6 cores):
 
@@ -68,9 +79,11 @@ implausible fit keeps the previous one. All rules work in reference coordinates.
 
 **Learned scene statistics** (`scripts/build_scene_maps.py`, `assets/flow.npz`): the dominant
 motion direction of vehicles in every 16-px cell, from all sample tracks (used for wrong-way
-driving), and the lane positions: the main road's lane lines are rays from its vanishing point,
-so the angle of a ground point seen from that point is a perspective-free lane coordinate; the
-valleys of its histogram over all sample tracks give the dividers as vehicles see them.
+driving). **Lane coordinate** (`assets/layout.json`): the main road's lane lines are rays from its
+vanishing point, so the angle of a ground point seen from that point is a perspective-free lane
+coordinate. The vanishing point was fitted once on the reference frame (line segments + least
+squares) and the dividers taken from the valleys of the lane-angle histogram of all sample tracks;
+these one-off measurements are stored in `layout.json` together with the hand-drawn polygons.
 
 **Traffic signal** (`src/signals.py`). The approach only shows us the backs of its signals; the
 visible 3-lamp head on the median tip carries the main-road phase (verified: approach vehicles
@@ -83,11 +96,13 @@ road confirms green in unreadable stretches. Cycle ≈ 75 s: red 36 s, green 36 
 
 | class | rule |
 |---|---|
-| red_light | an approach vehicle's front (box bottom) crosses the stop line while the phase is red (0.5 s grace at both ends), then enters the junction; ends when it leaves the junction/frame |
+| red_light | an approach vehicle's front (box bottom) crosses the stop line while the phase is red (not in the first 0.5 s of red, nor in the last 1.0 s before green: moving off on red+yellow is an early start), then enters the junction; ends when it leaves the junction/frame |
 | stop_line | an approach vehicle stops past the stop line (not beyond cw1) during red; ends at green |
 | jaywalking | a pedestrian (riders / occupants removed by box overlap) on the carriageway more than 0.6 body heights (≥12 px) from the kerb and more than 0.15 body heights (≥10 px) from any zebra, for ≥1 s; boxes whose feet are hidden behind someone in front get an interpolated ground point, track fragments split by an occlusion are re-linked, and the event is extended back/forward to the kerb crossing (also across a short walk over an island tip); groups within 6 s are one event |
 | failure_to_yield | a vehicle's footprint drives through a crossing while a pedestrian who is actually crossing (moved ≥55 px along the zebra within ±3 s, not standing at a refuge or kerb end) is on it within a quarter of the crossing's length of the vehicle's path |
 | wrong_way | a moving vehicle heading against a strongly one-way cell of the learned flow field for ≥2 s and ≥100 px |
+| illegal_turn | a right turn into the lower-left side street from a lane left of the right-turn lane (lane coordinate); start = the heading leaves the approach direction, end = the vehicle has driven through the side street's crossing (cw3) |
+| congestion | per 0.5 s: most approach vehicles over at least 4 lanes crawling (< 0.35 box heights/s) and still jammed well into green, or the junction interior packed with ≥5 crawling vehicles, ≥3 of them moving with the main road; ≥10 s long |
 | illegal_u_turn | approach → around the median tip → outbound (origin/destination on the layout) |
 | solid_line_crossing | the lane coordinate crosses a solid divider before the stop line: seen clear of the line in the old lane (not already straddling it), then settled in the new lane; start = the side reaches the line, end = fully in the new lane |
 | stopped_vehicle | stationary ≥10 s next to the roadside kerb (not next to the median or an island, where turners wait; the car-park apron by cw2 is off the road) while traffic keeps passing it; pieces of one vehicle linked across id switches; not a signal queue |
@@ -144,8 +159,12 @@ treated as a frozen frame, not as braking.
 |---|---|---|
 | YOLO26-L, YOLO26-S, YOLOE-26L weights | Ultralytics | AGPL-3.0 |
 | COCO (training data of the above, not used directly) | cocodataset.org | CC BY 4.0 (annotations) |
-| MobileCLIP text encoder (offline, to bake the YOLOE prompts) | Apple / Ultralytics | see Ultralytics |
+| MobileCLIP2-B text encoder (used once offline, to bake the YOLOE prompts; not shipped) | Apple ml-mobileclip, downloaded by Ultralytics | Apple's licence for the MobileCLIP weights |
+| YOLO11-L, YOLO26-M (ablations only) | Ultralytics | AGPL-3.0 |
+| The organisers' four sample videos (dev labels, EDA, Part B negatives; not redistributed) | WIUT Hackathon 2026 | task data |
 | TAD benchmark (third-party CCTV accident clips; trains and validates the Part B network, not redistributed) | Xu et al., "TAD: A Large-Scale Benchmark for Traffic Accidents Detection From Video Surveillance", IEEE Access 13, 2025 ([repo](https://github.com/UnicomAI/UnicomBenchmark/tree/main/TADBench)) | released for research use, citation requested; no explicit licence |
+| SO-TAD (training experiment only; not in the shipped model) | Chen et al., Neurocomputing 618, 2025 ([data](https://huggingface.co/datasets/cccccxy/so-tad)) | no explicit licence; citation requested |
+| ACCIDENT (training experiment only; not in the shipped model) | Picek et al., 2026 ([Kaggle](https://www.kaggle.com/datasets/picekl/accident)) | CC BY-NC-SA 4.0 |
 
 The detectors are used as released. One small model is trained by us: the Part B layer
 (`scripts/train_risk_model.py`, `assets/risk_model.json`), on the TAD clips with our own crash
@@ -179,11 +198,11 @@ of sample traffic (the risk peaks at 0.41–0.44, in the first seconds of each v
 
 How it got there: 0.787 → 0.835 from one error analysis per weak class, then → 0.90 from a second
 round in which every change had to follow the official start/end convention or fix a logic bug, pass
-a leave-one-video-out check for any threshold, and survive an independent reviewer who re-ran it
+a leave-one-video-out check for any threshold, and survive an independent re-run by a second check
 (illegal_turn and solid_line_crossing end conventions, congestion of the main road only, buses at a
 stop, early starts on red+yellow, failure_to_yield judged against the vehicle's remaining path;
 three proposals were rejected as fits to the dev set). With the first 76 labels the same code
-scores 0.88.
+scores 0.89 (0.8877).
 
 Reported classes: red_light, stop_line, jaywalking, failure_to_yield, wrong_way, stopped_vehicle,
 solid_line_crossing, illegal_turn, congestion, road_obstacle, fire_smoke, accident. wrong_way,
@@ -214,8 +233,9 @@ changed and scores the same rules with the official `evaluate.py` on our dev lab
 | YOLO26-L · 1280 px · 5 fps | 0.819 | 0.71 | 0.42× |
 
 * The large detector at full input size and 10 fps is worth its cost: every cheaper setting loses
-  0.04–0.09 of Score A, mostly on the pedestrian classes and on lane changes, and saves little
-  time, because decoding the 4K 10-bit stream on the CPU dominates the analysis pass.
+  0.04–0.09 of Score A, spread over congestion, lane changes, stopped vehicles and the pedestrian
+  classes, and saves little time, because decoding the 4K 10-bit stream on the CPU dominates the
+  analysis pass.
 * Halving the frame rate is the worst trade: tracks break and speeds get noisy.
 * The ablations exposed a real risk: with any of the cheaper settings, the old kinematic accident
   branch (an abrupt stop next to another road user) and a 1-s wrong-way test fired on ordinary
@@ -233,15 +253,17 @@ The sample videos contain no accident, so Part B and the accident rule were chec
 TAD benchmark (CCTV/surveillance clips, mostly Chinese highways and streets, many of them edited
 news clips with cuts, zooms and replays). TAD only labels whole clips, so we timed the first contact
 ourselves in all 277 accident clips (`dev/external/tad_labels.json`): 200 show the collision, 67 only
-its aftermath, 9 are compilations of several crashes (excluded). Part B is cross-validated on all
+its aftermath, 9 are compilations of several crashes (excluded) and 1 is unclear. Part B is cross-validated on all
 200 crashes and 127 accident-free clips; the accident rule was checked on the first 36 crashes and
 40 accident-free clips.
-`python scripts/ext_cache.py <clips> && python scripts/eval_external.py --accident-rule`
-(the official `evaluate.py` on a causal replay of Part B, see `dev/external/tad_eval.json`):
+Part B: `scripts/train_risk_model.py --cv --stack 5 --fa-target 0.0` (the official `evaluate.py`
+Part B metric on held-out clips, `dev/external/risk_model_cv.md`). Accident rule:
+`python scripts/eval_external.py --accident-rule` on the cached clips (`dev/external/tad_eval.json`
+holds an earlier run of the same script, the first cue-only estimator: Score_B 0.07 on 36 crashes):
 
 | | result on TAD |
 |---|---|
-| Part B, Score_B (held-out clips, 5-fold, alarm point set on the target camera) | **0.47** with the learned layer (AP 0.34, alarm F1 0.70, mTTA 2.8 s) — 0.36 with our first single network, 0.12 with the hand-made cues alone, 0.02 before the imminent-contact branch |
+| Part B, Score_B (held-out clips, 5-fold, alarm point set on the target camera) | **0.47** with the learned layer (AP 0.34, alarm F1 0.70, mTTA 2.8 s) — 0.355 with our first version (the max of one network and the cues), 0.12 with the hand-made cues alone, 0.02 before the imminent-contact branch |
 | accident rule, F1 @ tIoU 0.3 / 0.5 / 0.7 (36 crashes, 40 normal clips) | **0.36 / 0.22 / 0.11** (before the crash-prompt branch: 0 / 0 / 0) |
 
 What we learned:
@@ -292,17 +314,33 @@ python scripts/build_scene_maps.py --tracks work/tracks       # flow field, occu
 python scripts/make_hazard_weights.py                         # YOLOE hazard weights (internet once)
 ```
 
+The Part B model (`assets/risk_model.json`) needs the TAD clips (not redistributed, see the datasets
+table) and our crash timings `dev/external/tad_labels.json`:
+
+```bash
+python scripts/ext_cache.py <TAD accident dir> <TAD normal dir> --out work/ext_cache --skip-a
+python scripts/ext_cache.py samples --out work/ext_cache_samples --skip-a
+python scripts/train_risk_model.py --build                    # replay -> work/risk_dataset.npz
+python scripts/train_risk_model.py --cv --stack 5 --fa-target 0.0     # prints the alarm point
+python scripts/train_risk_model.py --fit --stack 5 --alarm-p <point>  # -> assets/risk_model.json
+```
+
 ## Repository layout
 
 ```
 solution.py, run_submission.py, evaluate.py, requirements.txt, predictions_samples.json
-src/            pipeline code (video, detection, scene, signals, tracks, events/, risk, hazards, render)
-assets/         reference frame, lighting bank, layout.json, flow.npz
+src/            pipeline: config, pipeline (models, seeds), video (decoding), detection (detector +
+                tracker), analysis (one decoding pass), scene (layout, registration), signals,
+                tracks, events/ (one module per rule family), hazards (YOLOE), risk + risk_model
+                (Part B), render (annotated videos)
+assets/         reference frame, lighting bank, layout.json, flow.npz, risk_model.json
 weights/        model weights + download.sh
-scripts/        EDA, dev tooling, asset builders, site data builder
-dev/            our labels of the sample videos + evaluation reports
+tests/          unit tests (python -m pytest tests -q)
+scripts/        asset builders, evaluation, EDA, website and demo tooling (see scripts/README.md)
+dev/            our labels of the sample videos, evaluation reports, decisions, changelog
+examples/       starter-kit examples of the prediction and ground-truth formats
 demo/           FastAPI live-demo server
-website/        static website (served by the demo server)
+website/        static website (also served by the demo server)
 docs/           README banner
 deploy/         Hugging Face Space cards: static site (`hf_space_static/`) and site + demo (`hf_space/`, Dockerfile, CPU requirements)
 ```
@@ -335,9 +373,12 @@ open-vocabulary hazard pass.
 
 **AVA** — Tashkent Branch of Lomonosov Moscow State University.
 
+The repository was assembled from a shared working copy and committed mostly from one account; the
+table lists who built each part.
+
 | member | role | built for this project |
 |---|---|---|
-| [Goldengorin Vitaliy Borisovich](https://github.com/vbgoldengorin) (captain) | Mathematical Modelling & Statistical Analysis | Team lead: the plan, the task split and the submission package.<br>Evaluation design: the dev-set protocol (blind sweep, independent re-check, third check of detector candidates) and which classes to report under macro F1.<br>Part B risk model: conflict cues (time to collision of footprints, same-lane closing, pedestrian conflict, hard braking), the smoothing and the calibration to a false-alarm budget; validation on real CCTV crashes we timed in the TAD benchmark.<br>Ablations and error analysis: detector, input size and frame rate against Score A and runtime; class confusion. |
+| [Goldengorin Vitaliy Borisovich](https://github.com/vbgoldengorin) (captain) | Mathematical Modelling & Statistical Analysis | Team lead: the plan, the task split and the submission package.<br>Evaluation design: the dev-set protocol (blind sweep, independent re-check, third check of detector candidates) and which classes to report under macro F1.<br>Part B risk model: conflict cues (time to collision of footprints, same-lane closing, pedestrian conflict, hard braking), the smoothing and the calibration to a false-alarm budget; the learned anticipation layer (5 networks + 5 temporal convolutions) and its cross-validation; validation on real CCTV crashes we timed in the TAD benchmark.<br>Ablations and error analysis: detector, input size and frame rate against Score A and runtime; class confusion. |
 | [Rizaev Amirkhan Shavkatovich](https://github.com/TheRizaev) | ML Engineer & Data Analyst | Detection and tracking pipeline: YOLO26 + ByteTrack, decoding only the reference frames of the 4K 10-bit stream, batching and the time budget.<br>EDA of the sample videos: lighting, object counts, motion and flow fields, lane positions, traffic signal cycle.<br>Open-vocabulary hazard and crash detector (YOLOE with baked text prompts) and its validation on public accident footage.<br>This website and the live demo (FastAPI server, Hugging Face Space). |
 | [Gayratov Amirkhon Sherzodovich](https://github.com/AmirGairatov) | Computer Vision Engineer | Scene geometry: registration of every clip to a reference frame (SIFT + RANSAC against a lighting bank), the hand-drawn layout and the vanishing-point lane coordinate.<br>Traffic-signal phase reader from the lamps of the vehicle signal head.<br>Event rules: red-light, stop-line, jaywalking, failure to yield, solid-line crossing, illegal turn, stopped vehicle, congestion.<br>Annotated renders of every sample video (boxes, trajectories, event timeline, risk curve). |
 

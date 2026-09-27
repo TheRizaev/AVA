@@ -1,39 +1,38 @@
-# Annotation brief — WIUT CV track dev set
+# Annotation protocol — dev set of the four sample videos
 
-You are labelling traffic events in sample videos from ONE fixed CCTV camera over a
-large signalised intersection in Tashkent. Labels become the ground truth we tune
-our detector on, so precision matters more than speed. Be honest: if you are not
-sure, say so in `confidence` / `description` rather than guessing.
-
-Run commands from the repository root.
-Python: `.venv\Scripts\python.exe` (in Bash: `.venv/Scripts/python.exe`).
+We label traffic events in the sample videos of one fixed CCTV camera over a large signalised
+intersection in Tashkent. The labels are the ground truth we tune and evaluate the rules on, so
+precision matters more than speed; an annotator who is not sure says so in the confidence field
+rather than guessing. How the passes were organised (blind sweep, independent re-check, check of
+detector candidates, blind re-check of disagreements) is in `README.md`.
 
 ## Tools
 
-```
-# contact sheet: 3x3 grid, one frame per `--step` seconds, timestamps burned in
-.venv/Scripts/python.exe scripts/annotate_tools.py sheet <VIDEO> <t0> <t1> [--step 1] [--cols 3]
-# zoomed region (crop is x1 y1 x2 y2 in 1920x1080 frame pixels), finer time steps
-.venv/Scripts/python.exe scripts/annotate_tools.py sheet <VIDEO> <t0> <t1> --step 0.25 --crop 200 350 1000 700
-# one big frame (optionally cropped)
-.venv/Scripts/python.exe scripts/annotate_tools.py frame <VIDEO> <t> [--crop x1 y1 x2 y2]
-```
-Each command prints the path of a JPEG; open it with the Read tool to see it.
-VIDEO is one of C3896 (340 s), C3897 (318 s), C3902 (318 s), C3905 (128 s).
-A 9-frame sheet at `--step 1` covers 9 s. Full-frame tiles are 640 px wide, so small
-things (pedestrians' feet, lane markings) need a `--crop` zoom to judge. Every
-uncropped tile has an enlarged inset (top-right) of the **vehicle signal head**:
-top lamp red, middle yellow, bottom green (in bright sun the lit lamp is dim — compare lamps).
+Frames come from the 1080p proxies of the videos (`scripts/annotate_tools.py`, run from the
+repository root):
 
-Reference pictures (open with Read):
-* `work/annot/layout_<VIDEO>.jpg` — scene layout drawn on that video's background:
-  orange `approach` = inbound carriageway (traffic comes TOWARD the camera, top-left -> bottom-right),
-  blue `outbound` = carriageway going AWAY (right -> top-left), grey `junction`,
-  green `cw1/cw2/cw3` = zebra crossings, magenta = pedestrian islands, white = median,
-  red `stop_zone` whose upper edge is the approach **stop line**, yellow circles = signal lamps.
-* `work/annot/flow_field.jpg` — normal direction of vehicle motion in every part of the scene.
+```
+# contact sheet: 3x3 grid, one frame per --step seconds, timestamps burned in
+python scripts/annotate_tools.py sheet <VIDEO> <t0> <t1> [--step 1] [--cols 3]
+# zoomed region (crop = x1 y1 x2 y2 in 1920x1080 frame pixels), finer time steps
+python scripts/annotate_tools.py sheet <VIDEO> <t0> <t1> --step 0.25 --crop 200 350 1000 700
+# one large frame, optionally cropped
+python scripts/annotate_tools.py frame <VIDEO> <t> [--crop x1 y1 x2 y2]
+```
+Each command writes a JPEG and prints its path. VIDEO is one of C3896 (340 s), C3897 (318 s),
+C3902 (318 s), C3905 (128 s). A 9-frame sheet at `--step 1` covers 9 s. Full-frame tiles are 640 px
+wide, so small things (pedestrians' feet, lane markings) need a `--crop` zoom. Every uncropped
+tile has an enlarged inset (top right) of the vehicle signal head: top lamp red, middle yellow,
+bottom green (in bright sun the lit lamp is dim — compare the lamps).
 
-## Scene facts (already established)
+Reference pictures: the scene layout drawn on each video's background (`scripts/draw_layout.py`):
+orange `approach` = inbound carriageway (traffic comes toward the camera, top left to bottom right),
+blue `outbound` = carriageway going away (right to top left), grey `junction`, green `cw1/cw2/cw3` =
+zebra crossings, magenta = pedestrian islands, white = median, red `stop_zone` whose upper edge is
+the approach stop line, yellow circles = signal lamps; and the flow field of normal vehicle motion
+(`scripts/build_scene_maps.py`).
+
+## Scene facts
 * Main road: divided carriageway from top-left. Approach traffic queues at the stop line
   (white line just above cw1) and then goes straight to the bottom-right, or turns right
   into the lower-left side street (through cw3), or left.
@@ -70,8 +69,8 @@ Pedestrians standing on a crossing, an island or the median are NOT jaywalking. 
 scooter riders are vehicles, not pedestrians. Passengers boarding a bus at the bus stop are not
 on the carriageway. A normal queue waiting at the red signal is NOT stopped_vehicle.
 
-## What to return
-For every event: label, start, end, confidence (high/medium/low), where (image region /
-lane / crossing), and a one-line description of what you saw (vehicle colour/type, direction).
-Also list "doubtful" things you looked at and rejected, with a reason — they help us judge
-false positives.
+## What each label records
+For every event: label, start, end, confidence (high / medium / low), where (image region / lane /
+crossing), and a one-line description of what was seen (vehicle colour and type, direction).
+Doubtful cases that were looked at and rejected are listed too, with the reason: they help judge
+false positives of the rules.

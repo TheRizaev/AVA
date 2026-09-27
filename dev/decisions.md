@@ -1,11 +1,11 @@
 # Judgement calls and the policy the detector follows
 
-Each item: what is ambiguous, what the dev annotators did, and what `src/` implements.
+Each item: what is ambiguous, what our dev labels did, and what `src/` implements.
 
 ## illegal_u_turn — disabled
 About ten clean U-turns (approach → around the median tip → outbound) happen in 18 minutes of
 footage. Nothing in view prohibits them (no sign or marking visible from the camera), and the
-annotators rejected them as *illegal* U-turns or rated them low. The detector exists
+labelling passes rejected them as *illegal* U-turns or rated them low. The detector exists
 (`trajectory_rules.illegal_u_turn`, origin/destination on the layout) but the class is not
 reported: predicting a class that the test set does not contain costs a whole class of macro-F1.
 The team confirmed (2026-09-25) that a U-turn at this junction is permitted, so it is not a violation.
@@ -22,7 +22,7 @@ do not drive on into the junction during red (then they are neither stop_line no
 they crossed the line on green).
 
 ## failure_to_yield — a crossing pedestrian in the vehicle's path, measured along the crossing
-The annotators count a pedestrian who is *on the zebra* (not waiting on the kerb at its end) and
+Our labels count a pedestrian who is *on the zebra* (not waiting on the kerb at its end) and
 close to where the vehicle crosses; they do not count people the vehicle passes behind after they
 cleared its lane, people far along the crossing, or people standing on the zebra for a long time
 (waiting at the refuge between the islands, standing at the kerb end of cw2). The rule measures
@@ -35,7 +35,7 @@ point alone: turners from the right road cross cw2 at a shallow angle and sweep 
 they cut in front of people walking the same way ahead of them (C3897 298.1, C3902 12.0). A vehicle
 moving away from a pedestrian is still judged from its current point. Buses are excluded (their
 box covers far more than their path), and so are mopeds pushed on foot. Consecutive vehicles cutting through the same group are one segment
-(2 s merge gap), as the annotators merged them.
+(2 s merge gap), as our labels merge them.
 
 ## jaywalking — about 1 m from the kerb, off the zebra
 Not jaywalking: people within ~1 m of the kerb (loading a parked car, boarding at the bus stop),
@@ -100,7 +100,7 @@ with the main road.
 
 ## stopped_vehicle — buses at the kerb are serving a stop
 A bus standing at the roadside kerb with traffic passing it is a scheduled dwell at the stop on
-the outbound road, not a stopped-vehicle incident (our annotators rejected every such case).
+the outbound road, not a stopped-vehicle incident (our labels rejected every such case).
 
 ## red_light — moving off on red+yellow is an early start, not red-light running
 Red+yellow lasts 3.0 s in every cycle and the queue front moves off with it (0.26-0.40 s before

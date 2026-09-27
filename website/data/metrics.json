@@ -103,5 +103,5 @@
   "0.7": 0.647
  },
  "note": "Part B is not scored: the sample videos contain no accident.",
- "dataset": "Our own labels of the 4 sample videos (18.4 min, 81 events): a blind sweep in 64-80 s windows plus a per-video pass for long events, every event independently re-checked, and detector candidates the first pass missed re-checked by a third annotator (see dev/README.md)."
+ "dataset": "Our own labels of the 4 sample videos (18.4 min, 81 events): a blind sweep in 64-80 s windows plus a per-video pass for long events, every event re-checked in an independent pass, detector candidates the first pass missed checked in a third pass, and remaining disagreements re-checked blind (see dev/README.md)."
 }

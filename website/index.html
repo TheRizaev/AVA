@@ -224,11 +224,11 @@
           </li>
           <li>
             <h4>Learned anticipation</h4>
-            <p>A small network (16 hidden units) reads 13 scale-free kinematic features per frame (the cues, time to contact of fast-closing pairs, proximity, closing speed, yaw rate, acceleration) with their last 1–3 s of history and outputs the probability of a crash within 5 s. Trained on 200 real CCTV crashes we timed plus ordinary traffic; on held-out clips it lifts Score B from 0.12 to 0.36 with alarms ~2.7 s before contact. The score is the larger of the two.</p>
+            <p>20 scale-free kinematic features per frame (the cues, time to contact under constant velocity and constant acceleration, pedestrians and two-wheelers near moving cars, proximity, closing speed, braking, swerving, speed, counts) feed five small networks (with their last 1–3 s of history) and five causal temporal convolutions (the last ~6 s). Their averaged probability of a crash within 5 s is the output. Trained on 200 real CCTV crashes we timed plus ordinary traffic; on held-out clips Score B is 0.47 (0.12 with the cues alone), with alarms ~2.8 s before contact.</p>
           </li>
           <li>
             <h4>Calibrate</h4>
-            <p>A monotone mapping sends the evidence level that gives about 0.2 false alarms per minute on the sample videos to 0.5, the official alarm threshold. A second, unsmoothed branch raises the alarm at once when two vehicles are about to touch (≤0.4 s, closing fast): on 36 real CCTV crashes (TAD benchmark) it doubles the crashes alarmed before contact without new false alarms on our videos; earlier anticipation from other cameras stays weak (see the report).</p>
+            <p>A monotone mapping sends the lowest probability that raises no false alarm on held-out sample videos to 0.5, the official alarm threshold; once an alarm starts, a new one cannot start for 10 s. On the 18.4 min of sample traffic the output raises no alarm. The hand-made cue score, with its immediate alarm when two vehicles are about to touch, is the fallback when no model file is present.</p>
           </li>
         </ol>
       </div>
@@ -271,11 +271,12 @@
                 <tr><td>MobileCLIP text encoder</td><td>Offline only, to bake the YOLOE text prompts; not run at inference</td><td>see model card</td></tr>
                 <tr><td>ByteTrack, OpenCV SIFT</td><td>Tracking, registration</td><td>MIT / Apache-2.0</td></tr>
                 <tr><td>COCO</td><td>Only training data, through the pre-trained weights</td><td>CC BY 4.0 (annotations)</td></tr>
-                <tr><td>TAD benchmark (Xu et al., IEEE Access 2025)</td><td>Validation only: 60 real CCTV accident clips (our own crash timings) + 40 normal clips; sets two timing constants of the crash-prompt branch</td><td>research use, citation requested</td></tr>
+                <tr><td>TAD benchmark (Xu et al., IEEE Access 2025)</td><td>Trains and validates the Part B network (200 crashes with our own timings + 127 normal clips); validates the accident rule and sets two of its timing constants</td><td>research use, citation requested</td></tr>
+                <tr><td>SO-TAD, ACCIDENT</td><td>Tried as extra Part B training data; lowered the score, not used</td><td>no licence stated / CC BY-NC-SA 4.0</td></tr>
               </tbody>
             </table>
           </div>
-          <p class="note">No other training data and no fine-tuning. The four sample clips were used only to draw the layout, learn the flow field and lane positions, tune rule thresholds and calibrate the risk score.</p>
+          <p class="note">The detectors are used as released, with no fine-tuning; the one model we trained is the Part B layer, on TAD. The four sample clips were used to draw the layout, learn the flow field and lane positions, tune rule thresholds and set the Part B alarm point.</p>
         </article>
       </div>
 

@@ -103,7 +103,7 @@ function renderConfusion(root, conf) {
     h('div', { class: 'table-scroll' }, h('table', { class: 'data-table confusion' }, h('thead', null, head), h('tbody', null, ...body, fa))),
     h('p', { class: 'note' }, `${fmtInt(matched)} labelled events are matched, ${fmtInt(cross)} of them with the wrong class: the rules do not confuse classes. `
       + `The errors are events missed (${missed}) and false alarms (${falseAlarms}), most of them failure_to_yield, whose boundary between `
-      + '"drove through while a pedestrian was on the crossing" and "passed behind a pedestrian who had cleared the lane" is also where our two annotators disagreed most.')));
+      + '"drove through while a pedestrian was on the crossing" and "passed behind a pedestrian who had cleared the lane" is also where our two labelling passes disagreed most.')));
 }
 
 export function renderAnalysis(root, { ablations, confusion }) {

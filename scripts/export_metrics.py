@@ -55,8 +55,8 @@ def main() -> None:
                  if b is None else ""),
         "dataset": (f"Our own labels of the 4 sample videos ({minutes:.1f} min, {n_events} events): "
                     "a blind sweep in 64-80 s windows plus a per-video pass for long events, every event "
-                    "independently re-checked, and detector candidates the first pass missed re-checked "
-                    "by a third annotator (see dev/README.md)."),
+                    "re-checked in an independent pass, detector candidates the first pass missed checked in "
+                    "a third pass, and remaining disagreements re-checked blind (see dev/README.md)."),
     }
     Path(args.site).write_text(json.dumps(metrics, indent=1))
     evaluate.print_report(rep)
