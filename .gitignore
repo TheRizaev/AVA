@@ -14,4 +14,3 @@ weights/yoloe-26l-seg.pt
 .pytest_cache/
 *.stackdump
 dev/annotation_journal.jsonl
-.claude/
