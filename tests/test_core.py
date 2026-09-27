@@ -90,7 +90,7 @@ def test_shipped_risk_model_loads_and_scores_stay_off_the_threshold():
     from src.risk_model import ALARM, RiskModel
     model = RiskModel.load()
     assert model is not None and model.combine == "model" and len(model.tcns) == 5
-    online = OnlineRisk(30.0)
+    online = OnlineRisk()
     rng = np.random.default_rng(1)
     for i in range(300):
         t = i / 10
