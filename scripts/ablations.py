@@ -40,7 +40,7 @@ def run(variant: dict, samples: Path) -> None:
     folder.mkdir(parents=True, exist_ok=True)
     model = load_model(config.WEIGHTS_DIR / variant["weights"])
     hazards = HazardDetector()
-    for p in sorted(samples.glob("*.MP4")):
+    for p in sorted(p for p in samples.iterdir() if p.suffix.lower() == ".mp4"):
         dst = folder / f"{p.stem}.npz"
         if dst.exists():
             continue

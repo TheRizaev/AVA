@@ -23,8 +23,6 @@ CLASSES: list[str] = [
     "solid_line_crossing", "stop_line", "congestion", "road_obstacle", "fire_smoke",
 ]
 
-RISK_HORIZON_SEC = 5.0
-
 
 def detect_events(video_path: str) -> list[list]:
     """Part A — traffic event detection for one .mp4."""

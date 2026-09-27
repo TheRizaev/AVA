@@ -19,7 +19,7 @@ from src.risk import OnlineRisk  # noqa: E402
 
 
 def replay(va: VideoAnalysis) -> dict[str, np.ndarray]:
-    online = OnlineRisk(va.meta.fps)
+    online = OnlineRisk()
     table = va.tracks
     frames = np.unique(table[:, 0])
     order = np.argsort(table[:, 0], kind="stable")

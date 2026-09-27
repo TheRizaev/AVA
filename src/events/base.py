@@ -7,9 +7,8 @@ from functools import cached_property
 import cv2
 import numpy as np
 
-from .. import config
 from ..analysis import VideoAnalysis
-from ..scene import load_layout, polygon, union_mask
+from ..scene import load_layout, union_mask
 from ..signals import SignalTimeline
 from ..tracks import Track
 

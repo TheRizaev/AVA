@@ -57,7 +57,7 @@ def replay(path: Path):
     """Causal replay of cached tracker rows: (t, features, baseline score) per analysed frame."""
     risk._MODEL_CACHE[:] = [None]                       # features and baseline only
     d = np.load(path)
-    online = risk.OnlineRisk(float(d["fps"]))
+    online = risk.OnlineRisk()
     rows = d["rows"][np.argsort(d["rows"][:, 0], kind="stable")]
     a = np.searchsorted(rows[:, 0], np.arange(len(d["t"])))
     b = np.searchsorted(rows[:, 0], np.arange(len(d["t"])), side="right")
@@ -484,7 +484,7 @@ def fit(args) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--labels", default=str(ROOT / "work" / "ext_annot" / "labels.json"))
+    ap.add_argument("--labels", default=str(ROOT / "dev" / "external" / "tad_labels.json"))
     ap.add_argument("--caches", nargs="+", default=[str(ROOT / "work" / "ext_cache"), str(ROOT / "work" / "ext_cache_samples")])
     ap.add_argument("--dataset", default=str(ROOT / "work" / "risk_dataset.npz"))
     ap.add_argument("--build", action="store_true")

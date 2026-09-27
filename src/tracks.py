@@ -63,7 +63,7 @@ class Track:
     def smoothed_xy(self, window_sec: float = 0.5) -> np.ndarray:
         if len(self) < 3:
             return self.xy
-        dt = np.median(np.diff(self.t)) if len(self.t) > 1 else 0.1
+        dt = np.median(np.diff(self.t))
         k = max(1, int(round(window_sec / max(dt, 1e-3))))
         return uniform_filter1d(self.xy, size=k, axis=0, mode="nearest")
 

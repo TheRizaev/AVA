@@ -1,9 +1,11 @@
-"""Trajectory-shape rules: wrong_way and illegal_u_turn.
+"""Trajectory-shape rules of vehicles.
 
-wrong_way compares each vehicle's heading with the scene's normal flow field,
-learned from all tracks of the sample videos (assets/flow.npz, see
-scripts/build_scene_maps.py): a vehicle moving against a strongly one-way cell
-for long enough is driving against traffic.
+* wrong_way - on the approach or outbound carriageway, moving against a strongly one-way cell of the
+  scene's normal flow field (assets/flow.npz, learned from the sample tracks by
+  scripts/build_scene_maps.py) for MIN_WRONG_SEC and MIN_WRONG_DIST px.
+* illegal_u_turn - from the approach, around the median tip, into the outbound carriageway.
+* solid_line_crossing - a clean lane change across a solid divider in front of the approach stop line.
+* illegal_turn - a right turn into the lower-left side street from a lane other than the right-turn lane.
 """
 from __future__ import annotations
 
@@ -111,7 +113,7 @@ def illegal_u_turn(ctx: Context) -> list[Event]:
         if not len(loop) or loop[:, 0].max() < U_TURN_MIN_X:
             continue            # never went around the median tip: an id switch at the far end
         v = tr.velocity(0.8)
-        moving = np.hypot(v[:, 0], v[:, 1]) > 40.0
+        moving = np.hypot(v[:, 0], v[:, 1]) > MIN_SPEED
         heading = np.degrees(np.arctan2(v[:, 1], v[:, 0]))
         h_in = FLOW_APPROACH_DEG
         h_out = FLOW_OUTBOUND_DEG
@@ -243,7 +245,7 @@ def illegal_turn(ctx: Context) -> list[Event]:
         if np.median(lane_angle(xy[before_line])) >= RIGHT_TURN_LANE_DEG - LANE_MARGIN_DEG:
             continue
         v = tr.velocity(0.8)
-        moving = np.hypot(v[:, 0], v[:, 1]) > 40.0
+        moving = np.hypot(v[:, 0], v[:, 1]) > MIN_SPEED
         heading = np.degrees(np.arctan2(v[:, 1], v[:, 0]))
         dev = np.abs((heading - FLOW_APPROACH_DEG + 180) % 360 - 180)
         last_on_line = int(np.flatnonzero(before_line)[-1])

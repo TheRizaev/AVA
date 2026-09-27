@@ -27,7 +27,7 @@ def main() -> None:
     out.mkdir(parents=True, exist_ok=True)
     model = load_model()
     src = Path(args.videos)
-    for p in [src] if src.is_file() else sorted(src.glob("*.MP4")):
+    for p in [src] if src.is_file() else sorted(p for p in src.iterdir() if p.suffix.lower() == ".mp4"):
         meta = probe(str(p))
         t0 = time.perf_counter()
         tracks = track_video(str(p), model)

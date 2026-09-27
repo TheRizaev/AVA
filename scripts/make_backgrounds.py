@@ -52,7 +52,7 @@ def main() -> None:
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     bgs = {}
-    for p in sorted(Path(args.videos).glob("*.MP4")):
+    for p in sorted(p for p in Path(args.videos).iterdir() if p.suffix.lower() == ".mp4"):
         bg = median_background(str(p))
         cv2.imwrite(str(out / f"{p.stem}.png"), bg)
         bgs[p.stem] = bg

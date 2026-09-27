@@ -1,25 +1,16 @@
 """Conflict rules: accident and near_miss.
 
 accident  - the open-vocabulary "crashed car" prompt of the hazard detector
-            firing at least MIN_CRASH_HITS times at one place within
-            CRASH_GAP s of each other (on the carriageway when the scene is
-            recognised). On third-party CCTV crashes it fires shortly after the
-            contact while the vehicles are still moving, and keeps firing on
-            the wreck. On the four sample videos (ordinary traffic) it peaks at
-            0.37 as a single hit (C3897, 227 s) and at 0.31/0.33 in two
-            consecutive samples at one place (C3902, 90-91 s), so CRASH_CONF must
-            stay above ~0.4; re-measure when the prompt, the hazard weights or
-            DET_IMGSZ change. The event is the CRASH_BEFORE + CRASH_AFTER s
-            around the first hit (timing fitted on 36 timed third-party crashes
-            of the TAD benchmark, scripts/eval_external.py).
-            A kinematic branch (an abrupt stop next to another road user) was
-            dropped: it found none of the 36 real crashes (their tracks break at
-            the impact) and fired on ordinary traffic as soon as the tracks got a
-            little noisier (smaller detector, 960 px input, 5 fps; scripts/ablations.py).
+            firing (>= CRASH_CONF) in at least MIN_CRASH_HITS samples at one
+            place, consecutive hits at most CRASH_GAP s apart (on the
+            carriageway when the scene is recognised). The event runs from
+            CRASH_BEFORE s before to CRASH_AFTER s after the first hit.
+            CRASH_CONF stays above the prompt's peak on the ordinary traffic of
+            the samples (0.37); re-measure it when the prompt, the hazard
+            weights or DET_IMGSZ change.
 near_miss - hard braking (>= NEAR_DROP of the speed lost within NEAR_WINDOW s)
-            while another road user is in the vehicle's path and close, with
-            no contact afterwards. Start = onset of braking, end = when the
-            two are clear of each other.
+            while another road user is in the vehicle's path and close.
+            Start = onset of braking, end = when the two are clear of each other.
 """
 from __future__ import annotations
 

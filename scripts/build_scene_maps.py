@@ -19,12 +19,10 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src import config  # noqa: E402
-from src.scene import warp_points  # noqa: E402
 from src.tracks import load_track_table, per_track  # noqa: E402
 
 CELL = 16
 N_BINS = 16
-DRIVEN_MIN_DENSITY = 0.02   # blurred vehicle ground-point hits per pixel
 
 
 def main() -> None:
@@ -65,11 +63,6 @@ def main() -> None:
                 hist[yi // CELL, xi // CELL, b] += 1
         print("accumulated", f.stem)
 
-    # where vehicles actually drive: dilated ground-point occupancy (the "driven" mask). Pedestrians
-    # inside it are on a live lane; sidewalks, the bus-stop edge and corners where people wait are not.
-    driven = cv2.GaussianBlur(veh_occ, (0, 0), 8) > DRIVEN_MIN_DENSITY
-    driven = cv2.dilate(driven.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (41, 41)))
-    cv2.imwrite(str(Path(args.out).parent / "driven.png"), driven * 255)
 
     # smooth spatially so sparse cells borrow from neighbours
     smooth = np.stack([cv2.GaussianBlur(hist[..., b], (0, 0), 1.0) for b in range(N_BINS)], axis=-1)

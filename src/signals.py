@@ -17,7 +17,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-import cv2
 import numpy as np
 from scipy.ndimage import median_filter
 
@@ -77,16 +76,6 @@ class SignalTimeline:
         out[ok] = self.state[idx[ok]]
         return out
 
-    def phase_start(self, t: float) -> float:
-        """Start time of the phase that is active at time t."""
-        i = int(np.searchsorted(self.t, t, side="right") - 1)
-        if i < 0:
-            return float(self.t[0]) if len(self.t) else 0.0
-        s = self.state[i]
-        while i > 0 and self.state[i - 1] == s:
-            i -= 1
-        return float(self.t[i])
-
 
 MIN_CONTRAST_YELLOW = 5.0  # the yellow lamp is faint in daylight but still separable
 
@@ -118,7 +107,7 @@ def classify(t: np.ndarray, raw: np.ndarray, fps: float) -> SignalTimeline:
     act, readable = normalise(raw)
     k = max(1, int(round(0.3 * fps)) | 1)
     act = median_filter(act, size=(k, 1), mode="nearest")
-    vr, vy, vg, pr, pg = (act[:, i] for i in range(len(LAMPS)))
+    vr, vy, vg, _, pg = (act[:, i] for i in range(len(LAMPS)))
     state = np.full(len(t), UNKNOWN)
     if readable[0] and readable[2]:
         y_on = (vy > 0.5) if readable[1] else np.zeros(len(t), bool)

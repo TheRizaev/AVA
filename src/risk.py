@@ -1,28 +1,27 @@
 """Part B: causal accident-risk estimator.
 
-The harness feeds every frame in order; we analyse every STRIDE-th one (a fixed
-stride keeps the output deterministic) with the same detector as Part A, an
-online ByteTrack, and periodic registration to the reference layout. The risk
-at time t uses only what has been observed up to t. Cues:
+RiskEstimator analyses the frames at a fixed stride (RISK_FPS) with the Part A detector, an online
+ByteTrack and periodic registration to the reference layout; the score at time t uses only frames up
+to t. Per analysed frame OnlineRisk turns the tracked road users into
 
-* crossing conflict - two moving vehicles on paths that differ by more than
-  CROSS_DEG whose footprints are predicted to overlap within the horizon;
-* rear-end conflict - a vehicle closing fast on another one in the same lane
-  (lane identity = angle of the ground point seen from the road's vanishing
-  point, which is perspective-free because lane lines are rays from it);
-* pedestrian conflict - a pedestrian on the carriageway (crossings included)
-  about to be reached by a moving vehicle;
-* hard braking - a sudden large speed drop of a fast vehicle.
+* hand-made cues, each in [0, 1]:
+  - crossing conflict: two moving vehicles whose headings differ by more than CROSS_DEG and whose
+    footprints are predicted to overlap within HORIZON;
+  - rear-end conflict: a vehicle closing fast on another one in the same lane (lane = angle of the
+    ground point seen from the road's vanishing point, which is perspective-free);
+  - pedestrian conflict: a pedestrian on the carriageway about to be reached by a moving vehicle;
+  - hard braking: a sudden large speed drop of a fast vehicle;
+* the 20 base features of risk_model.py (the cues plus scale-free kinematics), the input of the
+  learned layer there (RiskModel).
 
-On footage from another camera (no registration to the reference ever
-succeeds) the layout is meaningless: every road user counts as on the road and
-"same lane" becomes "within the two vehicles' widths of the follower's
-travel line".
+report() gives the output. With the shipped model file (assets/risk_model.json) it is the learned
+score after a 10-s alarm pause (the model's refractory). Without a usable model file it falls back
+to the cues alone: combined as independent evidence, smoothed (fast attack, slow release), mapped by
+calibrate() and raised to IMMINENT_SCORE on an imminent vehicle contact.
 
-Each cue maps to [0, 1]; they are combined as independent evidence and
-smoothed with a fast-attack / slow-release filter. Scales are calibrated on
-the sample videos (no accident in them) so that ordinary traffic stays low
-(scripts/tune_risk.py).
+On footage from another camera (registration to the reference never succeeds) the layout masks do
+not apply: every road user counts as on the road, and "same lane" means within the two vehicles'
+widths of the follower's travel line.
 """
 from __future__ import annotations
 
@@ -33,7 +32,7 @@ import numpy as np
 
 from . import config
 from .detection import detect_batch, new_tracker
-from .risk_model import ALARM, ALARM_CAP, BASE_FEATURES, FeatureHistory, RiskModel, base_features
+from .risk_model import ALARM, ALARM_CAP, BASE_FEATURES, V_PREV_LAG, FeatureHistory, RiskModel, base_features
 from .scene import Registrar, load_layout, union_mask, warp_points
 from .tracks import KIND_BY_CLS
 
@@ -60,7 +59,7 @@ JUMP_BOXES = 1.0
 FOOT_WIDTH = 0.7         # footprint half-width = FOOT_WIDTH * box width / 2
 FOOT_DEPTH = 0.35        # footprint half-depth = FOOT_DEPTH * box height / 2
 ATTACK, RELEASE = 0.6, 0.12
-# Imminent contact: two road users whose footprints will touch within IMMINENT_TTC s while closing at
+# Imminent contact: two vehicles whose footprints will touch within IMMINENT_TTC s while closing at
 # >= IMMINENT_MIN_REL px/s, seen in IMMINENT_FRAMES consecutive analysed frames. It bypasses the
 # smoothing (an alarm must start BEFORE the contact to count) and holds IMMINENT_SCORE for IMMINENT_HOLD s.
 IMMINENT_TTC = 0.4
@@ -68,7 +67,6 @@ IMMINENT_MIN_REL = 300.0
 IMMINENT_FRAMES = 2
 IMMINENT_HOLD = 1.0
 IMMINENT_SCORE = 0.75
-IMMINENT_PED = False   # vehicle-pedestrian near-contacts are everyday traffic at the crossings
 CLS_VOTES_KEEP = 30.0  # s: class votes of a track id unseen this long are forgotten (>> TRACK_BUFFER_SEC)
 # The smoothed evidence value that is mapped to the 0.5 alarm threshold. Chosen on the
 # sample videos (no accidents): ~0.2 false alarms per minute of ordinary traffic.
@@ -187,7 +185,7 @@ def _model() -> RiskModel | None:
 class OnlineRisk:
     """Causal risk from tracked road users; independent of how frames are obtained."""
 
-    def __init__(self, fps: float) -> None:
+    def __init__(self) -> None:
         self.tracker = new_tracker(RISK_FPS)
         self.hist: dict[int, _Hist] = {}
         self.registrar = Registrar(REGISTER_EVERY_SEC)
@@ -205,7 +203,6 @@ class OnlineRisk:
         self.features = None     # the model's input for the last frame
         self.model = _model()
         self.stream = self.model.stream() if self.model is not None else None   # per-video model state
-        self.model_p = 0.0       # smoothed model probability
         self.model_score = 0.0   # calibrated model score (after the alarm refractory)
         self.cls_votes: dict[int, dict[int, int]] = {}   # track id -> COCO class -> count (majority class)
         self.cls_seen: dict[int, float] = {}            # track id -> last time seen
@@ -249,7 +246,6 @@ class OnlineRisk:
         self.features = self.features_hist.push(t, self.base)
         if self.stream is not None:
             self.model_score = self.stream.step(t, self.base, self.features)
-            self.model_p = self.stream.p
         self.imm_run = self.imm_run + 1 if self.min_ttc <= IMMINENT_TTC else 0
         if self.imm_run >= IMMINENT_FRAMES:
             self.imm_until = t + IMMINENT_HOLD
@@ -257,10 +253,12 @@ class OnlineRisk:
         return self.score
 
     def report(self) -> float:
-        """The score the estimator outputs. With a trained model whose file says combine "model" (the
-        cross-validated choice): the model's calibrated score alone, after its alarm refractory. Otherwise the
-        calibrated cue evidence - or, with a legacy model file, the larger of it and the model's score - raised
-        to IMMINENT_SCORE on imminent contact."""
+        """The output score of the last analysed frame.
+
+        With a model file whose combine is "model" (the shipped one): the model's calibrated score after
+        its alarm refractory. Otherwise the calibrated cue score (with a legacy "max" model file, the larger
+        of it and the model's score), raised to IMMINENT_SCORE on an imminent contact. Scores below ALARM are
+        capped at ALARM_CAP."""
         if self.model is not None and self.model.combine == "model":
             s = self.model_score
         else:
@@ -315,9 +313,8 @@ class OnlineRisk:
                 vid = ids[veh]
                 cues["pair"] = (int(vid[pair[0]]), int(vid[pair[1]]))
         if veh.any() and ped.any():
-            cues["ped"], t3 = self._pedestrian(xy[veh], v[veh], half[veh], speed[veh], xy[ped], v[ped], half[ped])
-            if IMMINENT_PED:
-                self.min_ttc = min(self.min_ttc, t3)
+            # not part of min_ttc: vehicle-pedestrian near-contacts are everyday traffic at the crossings
+            cues["ped"] = self._pedestrian(xy[veh], v[veh], half[veh], speed[veh], xy[ped], v[ped], half[ped])
         drops = np.array(drops)
         braking = drops > BRAKE_DROP
         # one vehicle braking hard is a cue; (almost) all of them at once is a frozen frame or a cut
@@ -327,7 +324,7 @@ class OnlineRisk:
         users = veh | ped
         if users.any():
             widths = np.where(kinds == "person", 2 * half[:, 0], 2 * half[:, 0] / FOOT_WIDTH)
-            prev = [self.hist[i].velocity(ago=0.5) for i in ids]
+            prev = [self.hist[i].velocity(ago=V_PREV_LAG) for i in ids]
             v_prev = np.array([p if p is not None else np.full(2, np.nan) for p in prev])
             self.base = base_features(xy[users], v[users], half[users], np.maximum(widths[users], 1.0), kinds[users],
                                       cues, self.min_ttc, v_prev[users], overlap_time, cls=np.array(cls)[users])
@@ -387,10 +384,10 @@ class OnlineRisk:
         return best, pair, fast
 
     @staticmethod
-    def _pedestrian(vxy, vv, vhalf, vspeed, pxy, pv, phalf):
+    def _pedestrian(vxy, vv, vhalf, vspeed, pxy, pv, phalf) -> float:
         moving = vspeed > MOVING
         if not moving.any():
-            return 0.0, np.inf
+            return 0.0
         xy = np.concatenate([vxy[moving], pxy])
         v = np.concatenate([vv[moving], pv])
         half = np.concatenate([vhalf[moving], phalf])
@@ -398,10 +395,8 @@ class OnlineRisk:
         nv = int(moving.sum())
         cross = ttc[:nv, nv:]
         if not np.isfinite(cross).any():
-            return 0.0, np.inf
-        rel = np.linalg.norm(vv[moving][:, None, :] - pv[None, :, :], axis=2)
-        fast = float(np.where(rel >= IMMINENT_MIN_REL, cross, np.inf).min())
-        return PED_WEIGHT * float(np.exp(-cross.min() / PED_TTC_SCALE)), fast
+            return 0.0
+        return PED_WEIGHT * float(np.exp(-cross.min() / PED_TTC_SCALE))
 
     @staticmethod
     def _lookup(mask: np.ndarray, xy: np.ndarray) -> np.ndarray:
@@ -418,7 +413,7 @@ class RiskEstimator:
         self.model = shared_model()
         fps = float(meta.get("fps") or 25.0)
         self.stride = max(1, int(round(fps / RISK_FPS)))
-        self.online = OnlineRisk(fps)
+        self.online = OnlineRisk()
         self.i = 0
         self.score = 0.0
 
@@ -441,7 +436,7 @@ def risk_curve_from_analysis(va) -> tuple[np.ndarray, np.ndarray]:
     it (minus the detector, whose outputs are the cached tracks). Used by the demo
     and the website, where running the detector twice is too slow.
     """
-    online = OnlineRisk(va.meta.fps)
+    online = OnlineRisk()
     fit_so_far = np.maximum.accumulate(va.reg_ok.astype(bool)) if len(va.reg_ok) else np.zeros(1, bool)
     table = va.tracks
     if not len(table):

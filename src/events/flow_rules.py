@@ -23,9 +23,6 @@ PASSING_SHARE = 0.3      # traffic must pass it in at least this share of its st
 KERBSIDE_PX = 100.0      # a stopped vehicle stands next to the kerb (reference px from the roadside kerb)
 SEAM_CLOSE_PX = 9        # closes the few-px seams between adjacent layout polygons (a seam is not a kerb)
 ISLANDS_AND_MEDIAN = ("median", "island_round", "island_tri1", "island_tri2", "island_3")
-# A bus standing at the roadside kerb with traffic passing it is serving a stop (the OQ stop on the
-# outbound road): a scheduled dwell, not a stopped-vehicle incident (dev annotators rejected every one).
-EXCLUDE_BUSES = True
 
 
 @dataclass
@@ -39,7 +36,8 @@ class _Stay:
 def _stationary_pieces(ctx: Context) -> list[_Stay]:
     pieces = []
     for tr in ctx.kind("vehicle"):
-        if tr.duration < 2.0 or (EXCLUDE_BUSES and tr.cls == BUS):
+        # a bus at the kerb is serving the outbound stop: a scheduled dwell, not a stopped vehicle
+        if tr.duration < 2.0 or tr.cls == BUS:
             continue
         speed = tr.speed(1.0)
         still = fill_short_gaps(tr.t, speed < STOP_SPEED, 1.0)
@@ -100,9 +98,11 @@ def _kerbside_maps() -> tuple[np.ndarray, np.ndarray]:
     a turner in the middle of the junction, not a kerbside stop. The car-park apron at the east end
     of cw2 (layout polygon car_park_apron_east) is off the road: cars wait there at the barrier.
     """
-    apron = polygon("car_park_apron_east").mask()
-    carriageway = union_mask(["approach", "outbound", "junction"]) & ~union_mask(list(ISLANDS_AND_MEDIAN)) &         ~polygon("car_park_entrance").mask() & ~apron
-    road = (union_mask(["approach", "outbound", "junction"]) | union_mask(list(ISLANDS_AND_MEDIAN))) &         ~polygon("car_park_entrance").mask() & ~apron
+    lanes = union_mask(["approach", "outbound", "junction"])
+    islands = union_mask(list(ISLANDS_AND_MEDIAN))
+    car_park = polygon("car_park_entrance").mask() | polygon("car_park_apron_east").mask()
+    carriageway = lanes & ~islands & ~car_park
+    road = (lanes | islands) & ~car_park
     k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (SEAM_CLOSE_PX, SEAM_CLOSE_PX))
     road = cv2.morphologyEx(road.astype(np.uint8), cv2.MORPH_CLOSE, k)
     dist = cv2.distanceTransform(road, cv2.DIST_L2, 5)
@@ -147,7 +147,6 @@ CONGESTION_MIN_LANES = 4
 CONGESTION_MIN_SEC = 10.0
 CONGESTION_BODY_SPEED = 0.35   # crawling: below this many box heights per second
 CONGESTION_AFTER_GREEN = 10.0  # approach only: still jammed this long into green (not a signal queue)
-INCLUDE_SIGNAL_QUEUES = False
 
 
 def congestion(ctx: Context) -> list[Event]:
@@ -181,12 +180,12 @@ def congestion(ctx: Context) -> list[Event]:
             lane_sets[k].add(int(np.bincount(lane[m]).argmax()))
     jam = (n >= CONGESTION_MIN_VEHICLES) & (still >= CONGESTION_STILL_FRAC * np.maximum(n, 1)) & \
         (np.array([len(s) for s in lane_sets]) >= CONGESTION_MIN_LANES)
-    if not INCLUDE_SIGNAL_QUEUES:
-        green_for = np.zeros(len(grid))
-        state = ctx.signal.at(grid)
-        for k in range(1, len(grid)):
-            green_for[k] = green_for[k - 1] + 0.5 if state[k] == GREEN else 0.0
-        jam &= green_for >= CONGESTION_AFTER_GREEN
+    # a queue that discharges on green is a signal queue, not congestion
+    green_for = np.zeros(len(grid))
+    state = ctx.signal.at(grid)
+    for k in range(1, len(grid)):
+        green_for[k] = green_for[k - 1] + 0.5 if state[k] == GREEN else 0.0
+    jam &= green_for >= CONGESTION_AFTER_GREEN
     jam |= _junction_jam(ctx, grid)
     jam = fill_short_gaps(grid, jam, JUNCTION_JAM_GAP)
     return [Event(float(grid[s]), float(grid[e]) + 0.5, "congestion", 1.0, {})

@@ -1,7 +1,6 @@
 """Part A entry point: video path -> list of [start_sec, end_sec, label]."""
 from __future__ import annotations
 
-import os
 import random
 import time
 
@@ -25,7 +24,6 @@ def seed_everything(seed: int = config.SEED) -> None:
     torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.benchmark = False
     torch.backends.cudnn.deterministic = True
-    os.environ.setdefault("PYTHONHASHSEED", str(seed))
 
 
 def shared_model():

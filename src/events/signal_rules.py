@@ -71,7 +71,7 @@ def _entered_junction(ctx: Context, xy: np.ndarray, d: np.ndarray) -> np.ndarray
     return (d > PAST_LINE) & ~ctx.sample(_stop_area(), xy)
 
 
-def _exit_time(ctx: Context, tr, i0: int) -> float:
+def _exit_time(tr, i0: int) -> float:
     """First time after sample i0 at which the vehicle leaves the junction (or the track ends)."""
     junction = polygon("junction")
     inside = junction.contains(tr.xy[i0:])
@@ -111,7 +111,7 @@ def red_light(ctx: Context) -> list[Event]:
         # must actually proceed into the intersection (beyond cw1), not stop on the crossing
         if not _entered_junction(ctx, tr.xy[i + 1:], d[i + 1:]).any():
             continue
-        events.append(Event(tc, _exit_time(ctx, tr, i + 1), "red_light", 1.0,
+        events.append(Event(tc, _exit_time(tr, i + 1), "red_light", 1.0,
                             {"track": tr.tid, "red_since": round(tc - bounds[0], 1)}))
     return events
 

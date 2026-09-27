@@ -25,7 +25,7 @@ def main() -> None:
     model = load_model()
     hazards = HazardDetector()
     src = Path(args.videos)
-    for p in [src] if src.is_file() else sorted(src.glob("*.MP4")):
+    for p in [src] if src.is_file() else sorted(p for p in src.iterdir() if p.suffix.lower() == ".mp4"):
         t0 = time.perf_counter()
         va = analyze(str(p), model, hazards)
         dt = time.perf_counter() - t0

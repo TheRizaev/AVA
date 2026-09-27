@@ -1,6 +1,6 @@
 """Score Part B (and the accident rule) on third-party CCTV clips with our accident timings.
 
-    python scripts/eval_external.py --labels work/ext_annot/labels.json --cache work/ext_cache
+    python scripts/eval_external.py --labels dev/external/tad_labels.json --cache work/ext_cache
 
 labels.json: {"<clip>.mp4": {"case": "collision"|"aftermath"|"unclear"|"normal", "start": s, "end": e,
                              "extra": [[s2, e2], ...]}}   (extra: replays of the crash in edited clips)
@@ -25,7 +25,7 @@ from src import risk  # noqa: E402
 
 def replay(path: Path) -> list[list[float]]:
     d = np.load(path)
-    online = risk.OnlineRisk(float(d["fps"]))
+    online = risk.OnlineRisk()
     rows, t, H, fit = d["rows"], d["t"], d["H"], d["have_fit"]
     order = np.argsort(rows[:, 0], kind="stable")
     rows = rows[order]
@@ -61,7 +61,7 @@ def load_labels(path: Path, cache: Path) -> dict:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--labels", default="work/ext_annot/labels.json")
+    ap.add_argument("--labels", default="dev/external/tad_labels.json")
     ap.add_argument("--cache", default="work/ext_cache")
     ap.add_argument("--out", default="work/ext_eval.json")
     ap.add_argument("--accident-rule", action="store_true", help="also score the Part A accident rule")

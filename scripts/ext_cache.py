@@ -69,7 +69,7 @@ def main() -> None:
     out.mkdir(parents=True, exist_ok=True)
     model = shared_model()
     for d in args.dirs:
-        for p in sorted(Path(d).glob("*.mp4"))[k::n]:
+        for p in sorted(p for p in Path(d).iterdir() if p.suffix.lower() == ".mp4")[k::n]:
             t0 = time.perf_counter()
             if not args.skip_a and not (out / f"{p.stem}.npz").exists():
                 analyze(str(p), model, shared_hazard_detector()).save(out / f"{p.stem}.npz")

@@ -157,12 +157,16 @@ def _worker() -> None:
         traceback.print_exc()
     while True:
         job_id = work_q.get()
-        _run(job_id)
-        _prune()
+        try:   # the worker must outlive any failure, or every later upload stays queued forever
+            _run(job_id)
+            _prune()
+        except Exception:
+            traceback.print_exc()
 
 
 def _prune() -> None:
-    done = sorted((j for j in jobs.values() if j["status"] in ("done", "error")), key=lambda j: j["created"])
+    # snapshot: request threads add jobs while the worker prunes
+    done = sorted((j for j in list(jobs.values()) if j["status"] in ("done", "error")), key=lambda j: j["created"])
     for j in done[:-KEEP_JOBS]:
         shutil.rmtree(j["dir"], ignore_errors=True)
         jobs.pop(j["id"], None)
@@ -206,6 +210,7 @@ def job_status(job_id: str):
     job = jobs.get(job_id)
     if job is None:
         raise HTTPException(404, "unknown job")
+    job = dict(job)   # snapshot: the worker thread updates the job while it runs
     return JSONResponse({k: v for k, v in job.items() if k not in ("dir",)})
 
 

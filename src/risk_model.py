@@ -16,8 +16,8 @@ maps to the 0.5 alarm threshold, and a refractory period keeps one incident to o
 starts at ta, no new alarm may start before ta + refractory (the score is capped just below 0.5 there).
 Everything uses only the past.
 
-A legacy model file (one network, no "mlps" key) still loads and keeps its old behaviour
-(combine "max": the larger of the model and the hand-made cue score).
+A model file with a single network at top level (no "mlps" key) loads too. Without a "combine" key
+the estimator reports the larger of the model and the hand-made cue score (combine "max").
 """
 from __future__ import annotations
 
@@ -46,6 +46,7 @@ GAP_HORIZON = 2.0        # s: gap_acc looks this far ahead
 APPROACH_WIDTHS = 1.5    # approach_acc counts pairs predicted to come within this many mean widths
 ALARM, ALARM_CAP = 0.5, 0.499
 MERGE_GAP = 2.0          # s: alarm runs closer than this are one alarm for the metric (evaluate.MERGE_GAP)
+V_PREV_LAG = 0.5         # s: v_prev is each road user's velocity this long before the current one
 
 
 def base_features(xy, v, half, widths, kinds, cues, min_ttc, v_prev, overlap_time, cls=None) -> np.ndarray:
@@ -66,10 +67,10 @@ def base_features(xy, v, half, widths, kinds, cues, min_ttc, v_prev, overlap_tim
         if fast.any():
             a0 = np.arctan2(v_prev[fast, 1], v_prev[fast, 0])
             a1 = np.arctan2(v[fast, 1], v[fast, 0])
-            yaw = np.degrees(np.abs((a1 - a0 + np.pi) % (2 * np.pi) - np.pi)) / 0.5
+            yaw = np.degrees(np.abs((a1 - a0 + np.pi) % (2 * np.pi) - np.pi)) / V_PREV_LAG
             f["yaw"] = float(np.log1p(yaw.max() / 10.0))
         if ok.any():
-            acc = np.linalg.norm(v[ok] - v_prev[ok], axis=1) / 0.5 / widths[ok]
+            acc = np.linalg.norm(v[ok] - v_prev[ok], axis=1) / V_PREV_LAG / widths[ok]
             f["accel"] = float(np.log1p(acc.max()))
     idx = np.flatnonzero(veh & (np.linalg.norm(v, axis=1) > MOVING_BW * widths))
     if len(idx) >= 2:
@@ -91,7 +92,7 @@ def base_features(xy, v, half, widths, kinds, cues, min_ttc, v_prev, overlap_tim
 
 def _extra_features(f, xy, v, half, widths, kinds, v_prev, cls, overlap_time) -> None:
     """ttc_acc / gap_acc / approach_acc: pairs of moving vehicles predicted under constant acceleration
-    (acceleration = (v - v 0.5 s ago) / 0.5, clipped to max(|v|, width) per s; a braking vehicle stops
+    (acceleration = (v - v_prev) / V_PREV_LAG, clipped to max(|v|, width) per s; a braking vehicle stops
     instead of reversing): exp(-first footprint overlap time), exp(-min predicted gap in mean widths within
     GAP_HORIZON), log1p(current gap - min predicted gap) of pairs predicted within APPROACH_WIDTHS.
     vru_prox / vru_ttc: pedestrians, bicycles and motorcycles vs moving cars: exp(-min distance in car widths),
@@ -102,7 +103,7 @@ def _extra_features(f, xy, v, half, widths, kinds, v_prev, cls, overlap_time) ->
     speed = np.linalg.norm(v, axis=1)
     mov = ~person & (speed / widths > MOVING_BW)
     okv = np.isfinite(v_prev).all(1)
-    acc = np.where(okv[:, None], (v - np.nan_to_num(v_prev)) / 0.5, 0.0)
+    acc = np.where(okv[:, None], (v - np.nan_to_num(v_prev)) / V_PREV_LAG, 0.0)
     okp = mov & okv
     if okp.any():
         u = v[okp] / np.maximum(speed[okp], 1e-6)[:, None]
@@ -236,6 +237,8 @@ class RiskModel:
     @classmethod
     def load(cls, path: Path = MODEL_FILE) -> "RiskModel | None":
         if not Path(path).exists():
+            print(f"warning: {path} not found; Part B falls back to the hand-made cues "
+                  "(train it with scripts/train_risk_model.py)", file=sys.stderr)
             return None
         params = json.loads(Path(path).read_text())
         if list(params.get("features", [])) != list(FEATURE_NAMES):   # trained on another feature set
